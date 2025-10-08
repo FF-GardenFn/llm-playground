@@ -1,2 +1,0 @@
-adaptive_memory
-brt_core
