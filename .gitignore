@@ -78,3 +78,12 @@ Icon?
 
 
 .idea/
+
+# --- Local environment / runtime artifacts ---
+# Ignore accidentally committed local env/build artifacts
+bin/
+lib/
+include/
+share/
+pyvenv.cfg
+CACHEDIR.TAG
