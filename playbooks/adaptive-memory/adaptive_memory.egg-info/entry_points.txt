@@ -1,0 +1,2 @@
+[console_scripts]
+amem = adaptive_memory.cli.amem:cli

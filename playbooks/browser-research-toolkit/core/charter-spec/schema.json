@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Browser Research Charter",
+  "type": "object",
+  "properties": {
+    "task": { "type": "string" },
+    "created": { "type": "string", "format": "date-time" },
+    "risk_mode": { "type": "string", "enum": ["ask-before-acting", "always-allow-listed"] },
+    "allowed_domains": { "type": "array", "items": { "type": "string" } },
+    "forbidden_actions": { "type": "array", "items": { "type": "string" } },
+    "stop_conditions": { "type": "array", "items": { "type": "string" } },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "review_protocol": { "type": "string" },
+    "notes": { "type": "string" },
+    "memory": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "use_concept_index": { "type": "boolean", "default": true },
+        "persist": { "type": "boolean", "default": false }
+      },
+      "additionalProperties": false,
+      "default": { "enabled": true, "use_concept_index": true, "persist": false }
+    }
+  },
+  "required": ["task", "created", "risk_mode", "allowed_domains", "outputs"]
+}

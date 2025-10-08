@@ -1,0 +1,16 @@
+# Copy to config.yaml and edit token. Paths below point to orchestrators in this repo.
+token: "REPLACE_ME_WITH_A_LONG_RANDOM"
+playbooks:
+  chrome:
+    orchestrator_path: "/Users/hyperexploiter/PycharmProjects/MI/claude_in_browser/browser-research-toolkit/orchestrators/chrome-extension/orchestrator.py"
+    python: "python3"
+  mcp:
+    orchestrator_path: "/Users/hyperexploiter/PycharmProjects/MI/claude_in_browser/browser-research-toolkit/orchestrators/mcp-clients/runner.py"
+    python: "python3"
+
+security:
+  # All disabled by default; enable explicitly if desired
+  enable_pii_redaction: false
+  strict_domain_validation: false
+  max_utterance_len: 0   # 0 = no limit
+  rate_limit_per_minute: 0  # 0 = disabled

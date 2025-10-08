@@ -1,0 +1,11 @@
+{
+  "title": "Audit Stripe API migration",
+  "allowed_domains": [
+    "stripe.com/docs",
+    "github.com/stripe/*"
+  ],
+  "outputs_doc_title": "audit_stripe_api_migration — Charter & Synthesis",
+  "outputs_sheet_title": "audit_stripe_api_migration_table",
+  "risk_mode": "ask-before-acting",
+  "notes": "Focus on versioning, rate limits, auth changes, deprecations, migration timelines."
+}

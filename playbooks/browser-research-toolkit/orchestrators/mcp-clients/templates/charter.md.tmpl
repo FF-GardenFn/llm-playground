@@ -1,0 +1,25 @@
+# === BROWSER CELL CHARTER ===
+task: "{{ task_title }}"
+created: "{{ now_iso }}"
+risk_mode: "ask-before-acting"  # or "always-allow-listed"
+allowed_domains:
+  - example.com/*
+forbidden_actions:
+  - login
+  - financial_tx
+  - cookie_consent_beyond_reject
+stop_conditions:
+  - "permission stalled > 60s"
+  - "domain not in allowed_domains"
+outputs:
+  - doc: "{{ task_slug }} — Charter & Synthesis"
+  - sheet: "{{ task_slug }}_table"
+acceptance:
+  triage: "≥ 6 sources captured with URL + last-updated"
+  harvest: "structured rows complete; contradictions flagged"
+  synthesize: "Known/Unknown, ranked sources, 3 next actions with owners/dates"
+notes: |
+  (Add focus and constraints)
+
+## Doc Scaffold
+{{ doc_scaffold }}

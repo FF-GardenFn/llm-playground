@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Browser Cell Charter",
+  "type": "object",
+  "required": [
+    "task",
+    "risk_mode",
+    "allowed_domains",
+    "outputs"
+  ],
+  "properties": {
+    "task": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string"
+    },
+    "risk_mode": {
+      "enum": [
+        "ask-before-acting",
+        "always-allow-listed"
+      ]
+    },
+    "allowed_domains": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "acceptance": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

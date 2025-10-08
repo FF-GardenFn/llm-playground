@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Benchmark Log Entry",
+  "type": "object",
+  "properties": {
+    "timestamp": {"type": "string", "format": "date-time"},
+    "task_slug": {"type": "string"},
+    "phase": {"type": "string", "enum": ["init-group", "triage", "harvest", "synthesize", "report", "clean"]},
+    "metric": {"type": "string"},
+    "value": {"type": ["number", "integer", "string"]},
+    "notes": {"type": "string"}
+  },
+  "required": ["timestamp", "task_slug", "phase", "metric", "value"],
+  "additionalProperties": true
+}

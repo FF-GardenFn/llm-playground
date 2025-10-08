@@ -1,0 +1,8 @@
+{
+  "/init-cell": "Read the Charter visible in this tab. Restate goals, allowed_domains, risk_mode. Propose triage\u2192harvest\u2192synthesize plan. Ask to proceed.",
+  "/triage": "Open up to 6 high-signal sources within allowed_domains in this group. Capture title/author/date/claims/URL into the Charter doc or its Sheet. Do not log in. Stop at disallowed domains. Acceptance: 6 rows with URL + last-updated.",
+  "/harvest": "From every open tab, extract structured fields relevant to the task (e.g., CWV: LCP/INP/CLS; Network: long tasks, blocking resources). Append rows; flag contradictions/outdated.",
+  "/synthesize": "In the Charter doc, write Known vs Unknown, ranked sources (with reasons), and 3 next actions (owners/dates). Include a Data Appendix with the table summary + URLs.",
+  "/report": "Answer the user\u2019s question using ONLY the captured cell data. If insufficient, say what\u2019s missing and where to get it (allowlist only).",
+  "/clean": "Close non-source tabs, keep Charter + Synthesis open. Output a final checklist with decisions, open questions, blockers, and next steps (who/what/when)."
+}

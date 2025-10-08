@@ -1,0 +1,23 @@
+# === TASK CHARTER (Paste in first tab doc) ===
+
+task: "{{ title }}"
+created: "{{ created }}"
+risk_mode: "{{ risk_mode | default("ask-before-acting") }}"
+allowed_domains:
+{% for d in allowed_domains %}  - {{ d }}
+{% endfor %}forbidden_actions:
+  - login
+  - financial_tx
+  - cookie_consent_beyond_reject
+stop_conditions:
+  - "permission stalled > 60s"
+  - "domain not in allowed_domains"
+outputs:
+  - doc: "{{ outputs_doc_title }}"
+{% if outputs_sheet_title %}  - sheet: "{{ outputs_sheet_title }}"
+{% endif %}review_protocol: |
+  - All findings must be written into the doc above.
+  - Cite source URL + last-updated date for every claim.
+  - Ask before creating any files or sheets.
+notes: |
+{{ notes | indent(2) }}

@@ -1,0 +1,23 @@
+{
+  "name": "BRT Research Cell",
+  "description": "Browser Research Toolkit packaged as an MCP-aware app exposing Charter tools.",
+  "version": "0.1.0",
+  "mcp": {
+    "servers": [
+      {
+        "name": "brt-charter",
+        "url": "http://localhost:8399",
+        "auth": "Bearer ${BRT_CHARTER_API_KEY}"
+      }
+    ],
+    "tools": [
+      "brt_start_task",
+      "brt_advance_phase",
+      "brt_add_evidence",
+      "brt_search_evidence",
+      "brt_get_status",
+      "brt_validate_domain"
+    ]
+  },
+  "notes": "This is an optional distribution path. You may point your client to the brt-charter server directly instead."
+}

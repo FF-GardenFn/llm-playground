@@ -1,0 +1,5 @@
+timestamp,task_slug,phase,metric,value,notes
+2025-10-06T15:20:00,audit_stripe_api_20251006,init-group,started,ok,
+2025-10-06T15:22:00,audit_stripe_api_20251006,triage,perm_prompts,3,"cookie banners on github"
+2025-10-06T15:35:00,audit_stripe_api_20251006,harvest,rows,12,"collected key endpoints"
+2025-10-06T15:50:00,audit_stripe_api_20251006,synthesize,t_synth,1800,"includes ranking and next actions"

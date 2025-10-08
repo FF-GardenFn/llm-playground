@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive-memory"
+version = "0.1.0"
+description = "Context engineering with access pattern learning - built on BRT"
+authors = [
+    {name = "HyperExploiter"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["adaptive_memory*", "brt_core*"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+amem = "adaptive_memory.cli.amem:cli"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"

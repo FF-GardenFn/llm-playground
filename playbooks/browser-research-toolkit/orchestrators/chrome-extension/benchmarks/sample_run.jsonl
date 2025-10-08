@@ -1,0 +1,4 @@
+{"timestamp":"2025-10-06T15:20:00","task_slug":"audit_stripe_api_20251006","phase":"init-group","metric":"started","value":"ok","notes":""}
+{"timestamp":"2025-10-06T15:22:00","task_slug":"audit_stripe_api_20251006","phase":"triage","metric":"perm_prompts","value":3,"notes":"cookie banners on github"}
+{"timestamp":"2025-10-06T15:35:00","task_slug":"audit_stripe_api_20251006","phase":"harvest","metric":"rows","value":12,"notes":"collected key endpoints"}
+{"timestamp":"2025-10-06T15:50:00","task_slug":"audit_stripe_api_20251006","phase":"synthesize","metric":"t_synth","value":1800,"notes":"includes ranking and next actions"}

@@ -1,0 +1,3 @@
+{"id":"osint-001","snippet":"The domain example-payments.io was registered via Namecheap on 2023-08-12.","question":"When was the domain registered?","answer":"2023-08-12"}
+{"id":"osint-002","snippet":"The IP 203.0.113.42 was seen hosting a phishing kit targeting Outlook accounts.","question":"What service was targeted?","answer":"Outlook"}
+{"id":"osint-003","snippet":"LinkedIn profile claims employment at Initech since 2019, located in Austin, TX.","question":"What city is listed?","answer":"Austin"}
