@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "constitutional-debate"
+version = "0.1.0"
+description = "Multi-LLM constitutional debates with learned evidence ranking"
+authors = [
+    {name = "HyperExploiter"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "ruff>=0.1.0",
+]
+
+llm = [
+    "anthropic>=0.18.0",
+    "openai>=1.12.0",
+    "google-generativeai>=0.3.0",
+]
+
+[project.scripts]
+debate = "constitutional_debate.cli.debate:cli"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+asyncio_mode = "auto"
