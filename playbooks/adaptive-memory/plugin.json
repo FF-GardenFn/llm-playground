@@ -2,7 +2,7 @@
   "name": "adaptive-memory",
   "version": "0.1.0",
   "description": "Learned-from-use relevance ranking on top of BRT semantic search.",
-  "author": { "name": "LLM Playground" },
+  "author": { "Faycal Farhat": "LLM Playground" },
   "homepage": "../adaptive-memory/README.md",
   "repository": "https://github.com/FF-GardenFn/llm-playground/tree/main/playbooks/adaptive-memory",
   "license": "MIT",

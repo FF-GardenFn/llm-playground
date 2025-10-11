@@ -2,7 +2,7 @@
   "name": "browser-research-toolkit",
   "version": "0.1.0",
   "description": "Structured, auditable web research with Charter-driven workflows and multiple integration paths.",
-  "author": { "name": "LLM Playground" },
+  "author": { "Faycal Farhat": "LLM Playground" },
   "homepage": "../browser-research-toolkit/README.md",
   "repository": "https://github.com/FF-GardenFn/llm-playground/tree/main/playbooks/browser-research-toolkit",
   "license": "MIT",
