@@ -265,7 +265,7 @@ for evidence in consensus.supporting_evidence:
 - [ ] Basic orchestrator
 
 **Phase 2** (Week 2): Multi-LLM
-- [ ] LLM client abstractions
+- [x] LLM client abstractions (modularized debaters package)
 - [ ] Multi-agent coordination
 - [ ] Round management
 - [ ] CLI tool

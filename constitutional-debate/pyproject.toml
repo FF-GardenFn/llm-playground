@@ -34,6 +34,10 @@ llm = [
 [project.scripts]
 debate = "constitutional_debate.cli.debate:cli"
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["constitutional_debate*"]
+
 [tool.ruff]
 line-length = 120
 target-version = "py310"

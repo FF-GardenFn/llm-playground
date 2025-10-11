@@ -12,25 +12,37 @@ models:
   # Enable/disable models
   enabled:
     - claude
-    - gpt4
+    - gpt5
     # - gemini  # Uncomment to enable
     # - llama   # Uncomment to enable
 
   # Model-specific settings
   claude:
-    model: "claude-3-5-sonnet-20241022"  # or claude-3-opus-20240229
+    model: "claude-sonnet-4-5"  # Latest: claude-sonnet-4-5, claude-opus-4-1, claude-sonnet-4
+    temperature: 0.7
+    max_tokens: 2000
+    timeout: 60
+
+  gpt5:
+    model: "gpt-5-2025-08-07"  # Latest GPT-5 flagship model
     temperature: 0.7
     max_tokens: 2000
     timeout: 60
 
   gpt4:
-    model: "gpt-4-turbo-preview"  # or gpt-4, gpt-3.5-turbo
+    model: "gpt-4-turbo-preview"  # Legacy GPT-4
     temperature: 0.7
     max_tokens: 2000
     timeout: 60
 
+  o4:
+    model: "o4-mini"  # Latest reasoning model (o4-mini, o3, o3-mini, o3-pro)
+    temperature: 0.7
+    max_tokens: 2000
+    timeout: 90
+
   gemini:
-    model: "gemini-pro"
+    model: "gemini-2.5-pro"  # Latest: gemini-2.5-pro, gemini-2.5-flash, gemini-2.5-flash-lite
     temperature: 0.7
     max_tokens: 2000
     timeout: 60

@@ -21,10 +21,20 @@ class NodeType(Enum):
 
 
 class ModelType(Enum):
-    """Supported LLM models."""
+    """Supported LLM models for constitutional debates.
+
+    Model versions as of 2025:
+    - CLAUDE: claude-sonnet-4-5, claude-opus-4-1 (Anthropic)
+    - GPT5: gpt-5-2025-08-07 (OpenAI flagship)
+    - GPT4: gpt-4-turbo-preview (OpenAI legacy)
+    - O4: o4-mini reasoning model (OpenAI)
+    - GEMINI: gemini-2.5-pro (Google DeepMind)
+    - LLAMA: llama3 via Ollama (Meta)
+    """
     CLAUDE = "claude"
-    GPT4 = "gpt4"
     GPT5 = "gpt5"
+    GPT4 = "gpt4"
+    O4 = "o4"
     GEMINI = "gemini"
     LLAMA = "llama"
 

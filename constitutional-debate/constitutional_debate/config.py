@@ -102,7 +102,7 @@ def load_config(config_path: Optional[str] = None) -> Config:
     enabled_models = models_cfg.get('enabled', ['claude', 'gpt4'])
 
     models = {}
-    for model_name in ['claude', 'gpt4', 'gemini', 'llama']:
+    for model_name in ['claude', 'gpt5', 'gpt4', 'o4', 'gemini', 'llama']:
         if model_name in models_cfg:
             model_cfg = models_cfg[model_name]
             models[model_name] = ModelConfig(
