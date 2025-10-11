@@ -9,10 +9,12 @@ Usage:
 import click
 import asyncio
 from pathlib import Path
+from typing import Optional
 
 from ..orchestrator import Orchestrator, DebateConfig
 from ..charter import Charter
 from ..debate_tree import ModelType
+from ..config import get_config, load_config
 
 
 @click.group()
@@ -23,28 +25,47 @@ def cli():
 
 @cli.command()
 @click.argument('query')
-@click.option('--models', default='claude,gpt4', help='Comma-separated list: claude,gpt4,gemini,llama')
-@click.option('--workspace', default='default', help='Workspace name')
-@click.option('--rounds', default=3, help='Maximum rounds')
-@click.option('--strict/--lenient', default=True, help='Strict constitutional enforcement')
-def start(query: str, models: str, workspace: str, rounds: int, strict: bool):
+@click.option('--models', default=None, help='Comma-separated list: claude,gpt4,gemini,llama (overrides config)')
+@click.option('--workspace', default=None, help='Workspace name (overrides config)')
+@click.option('--rounds', default=None, type=int, help='Maximum rounds (overrides config)')
+@click.option('--strict/--lenient', default=None, help='Strict constitutional enforcement (overrides config)')
+@click.option('--config-path', default=None, help='Path to config.yaml')
+def start(query: str, models: Optional[str], workspace: Optional[str], rounds: Optional[int], strict: Optional[bool], config_path: Optional[str]):
     """Start a new constitutional debate."""
-    # Parse models
-    model_list = []
-    for m in models.split(','):
-        m = m.strip().lower()
-        if m == 'claude':
-            model_list.append(ModelType.CLAUDE)
-        elif m in ['gpt4', 'gpt-4']:
-            model_list.append(ModelType.GPT4)
-        elif m == 'gemini':
-            model_list.append(ModelType.GEMINI)
-        elif m == 'llama':
-            model_list.append(ModelType.LLAMA)
+
+    # Load main config
+    try:
+        main_config = load_config(config_path) if config_path else get_config()
+    except Exception as e:
+        click.echo(f"Error loading config: {e}", err=True)
+        click.echo("Make sure config.yaml exists and .env has API keys set", err=True)
+        return
+
+    # Parse models (from CLI or config)
+    if models:
+        model_list = []
+        for m in models.split(','):
+            m = m.strip().lower()
+            if m == 'claude':
+                model_list.append(ModelType.CLAUDE)
+            elif m in ['gpt4', 'gpt-4']:
+                model_list.append(ModelType.GPT4)
+            elif m == 'gemini':
+                model_list.append(ModelType.GEMINI)
+            elif m == 'llama':
+                model_list.append(ModelType.LLAMA)
+    else:
+        # Use from config
+        model_list = [ModelType(m) for m in main_config.enabled_models]
 
     if not model_list:
         click.echo("Error: No valid models specified", err=True)
         return
+
+    # Use workspace from CLI or config
+    workspace = workspace or main_config.debate.workspace
+    rounds = rounds or main_config.debate.max_rounds
+    strict = strict if strict is not None else main_config.debate.strict_constitutional
 
     click.echo(f"Starting debate with {len(model_list)} models: {[m.value for m in model_list]}")
     click.echo(f"Query: {query}")
@@ -54,14 +75,14 @@ def start(query: str, models: str, workspace: str, rounds: int, strict: bool):
 
     # Create orchestrator
     charter = Charter.default() if strict else Charter.lenient()
-    config = DebateConfig(
+    debate_config = DebateConfig(
         models=model_list,
         workspace=workspace,
         max_rounds=rounds,
-        enable_memory=True
+        enable_memory=main_config.memory.enabled
     )
 
-    orchestrator = Orchestrator(charter=charter, config=config)
+    orchestrator = Orchestrator(charter=charter, config=debate_config, main_config=main_config)
 
     # Run debate
     try:
@@ -80,8 +101,9 @@ def start(query: str, models: str, workspace: str, rounds: int, strict: bool):
             click.echo("\nNo consensus reached.")
 
         # Save to file
-        output_path = Path(f"debates/{tree.debate_id}.md")
-        output_path.parent.mkdir(exist_ok=True)
+        output_dir = main_config.output_dir
+        output_dir.mkdir(exist_ok=True)
+        output_path = output_dir / f"{tree.debate_id}.md"
         output_path.write_text(tree.to_markdown())
         click.echo(f"\nSaved to: {output_path}")
 

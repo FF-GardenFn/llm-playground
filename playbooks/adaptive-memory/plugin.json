@@ -1,0 +1,17 @@
+{
+  "name": "adaptive-memory",
+  "version": "0.1.0",
+  "description": "Learned-from-use relevance ranking on top of BRT semantic search.",
+  "author": { "name": "LLM Playground" },
+  "homepage": "../adaptive-memory/README.md",
+  "repository": "https://github.com/FF-GardenFn/llm-playground/tree/main/playbooks/adaptive-memory",
+  "license": "MIT",
+  "keywords": ["memory", "ranking", "search", "brt"],
+  "commands": [
+    "./claude/commands/amem_index.md",
+    "./claude/commands/amem_search.md",
+    "./claude/commands/amem_feedback.md",
+    "./claude/commands/amem_stats.md"
+  ],
+  "strict": true
+}

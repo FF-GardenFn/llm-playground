@@ -89,7 +89,6 @@ Tasks (checklist)
 - [✓] Document experiments/rft/ and orchestrators/helpers/emit_claim.py (stubs)
 - [✓] Prototype integrations/chatkit-ui/ (stub + docs) as demo-only
 - [✓] Update docs: getting-started for Agents/MCP/ChatKit paths and support matrix
-- [ ] wire in the cerebral cortex (metaphorically)
 
 Notes and references
 - Agents SDK examples: openai-agents-python/examples/mcp/* and examples/research_bot/ (planner/searcher/writer map to triage/harvest/synthesize)

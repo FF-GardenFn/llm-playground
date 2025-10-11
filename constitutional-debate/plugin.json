@@ -1,0 +1,17 @@
+{
+  "name": "constitutional-debate",
+  "version": "0.1.0",
+  "description": "Multi-LLM constitutional debates with evidence enforcement and consensus detection.",
+  "author": { "name": "LLM Playground" },
+  "homepage": "../constitutional-debate/README.md",
+  "repository": "https://github.com/FF-GardenFn/llm-playground/tree/main/constitutional-debate",
+  "license": "MIT",
+  "keywords": ["debate", "multi-llm", "charter", "consensus"],
+  "commands": [
+    "./claude/commands/debate_start.md",
+    "./claude/commands/debate_show.md",
+    "./claude/commands/debate_validate.md",
+    "./claude/commands/debate_demo.md"
+  ],
+  "strict": true
+}

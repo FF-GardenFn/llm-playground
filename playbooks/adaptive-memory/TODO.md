@@ -87,7 +87,7 @@
 - [ ] Add connection pooling for SQLite
 - [ ] Profile scoring function
 
-## Future 
+## Future Ideas
 
 ### Sparse Autoencoders (Post-MVP)
 - [ ] Train sparse autoencoder on access patterns
@@ -98,5 +98,8 @@
 - [ ] Add LLM-based query expansion
 - [ ] Generate concept labels automatically
 - [ ] Summarize learned patterns
-- [ ] debugger with --explain
 
+### Web UI
+- [ ] Build Flask/FastAPI server
+- [ ] Interactive dashboard for stats
+- [ ] Visual query debugger with --explain

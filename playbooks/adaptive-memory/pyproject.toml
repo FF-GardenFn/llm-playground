@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "adaptive-memory"
-version = "0.1.0"
-description = "Context engineering with access pattern learning - built on BRT"
+version = "0.2.0"
+description = "Context engineering with learned-from-use relevance ranking"
 authors = [
     {name = "HyperExploiter"}
 ]
@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["adaptive_memory*", "brt_core*"]
+include = ["adaptive_memory*"]
 
 [project.optional-dependencies]
 dev = [

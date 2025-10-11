@@ -1,0 +1,112 @@
+# Constitutional Debate Configuration
+
+# Debate Settings
+debate:
+  workspace: "default"
+  max_rounds: 3
+  consensus_threshold: 0.75  # 75% agreement required
+  strict_constitutional: true  # Enforce rules strictly or warnings only
+
+# Model Configuration
+models:
+  # Enable/disable models
+  enabled:
+    - claude
+    - gpt4
+    # - gemini  # Uncomment to enable
+    # - llama   # Uncomment to enable
+
+  # Model-specific settings
+  claude:
+    model: "claude-3-5-sonnet-20241022"  # or claude-3-opus-20240229
+    temperature: 0.7
+    max_tokens: 2000
+    timeout: 60
+
+  gpt4:
+    model: "gpt-4-turbo-preview"  # or gpt-4, gpt-3.5-turbo
+    temperature: 0.7
+    max_tokens: 2000
+    timeout: 60
+
+  gemini:
+    model: "gemini-pro"
+    temperature: 0.7
+    max_tokens: 2000
+    timeout: 60
+
+  llama:
+    model: "llama3"  # Ollama model name
+    base_url: "http://localhost:11434"  # Ollama API endpoint
+    temperature: 0.7
+    max_tokens: 2000
+    timeout: 90
+
+# Adaptive Memory Integration
+memory:
+  enabled: true
+  workspace: "constitutional-debates"
+  evidence_top_k: 10
+  min_memory_score: 0.5
+
+# Constitutional Rules Customization
+charter:
+  rules:
+    evidence_citation:
+      enabled: true
+      min_evidence: 1  # Minimum evidence citations per claim
+
+    source_attribution:
+      enabled: true
+      require_author: true
+      require_date: false  # Optional: require publication date
+
+    challenge_reference:
+      enabled: true
+      require_target: true
+
+    consensus_threshold:
+      enabled: true
+      threshold: 0.75
+
+    dissent_documentation:
+      enabled: true
+      required_fields:
+        - disagreement_point
+        - alternative_position
+        - evidence
+        - reasoning
+
+# Output Settings
+output:
+  save_debates: true
+  output_dir: "debates"
+  format: "markdown"  # markdown, json, both
+  include_metadata: true
+  include_constitutional_score: true
+
+# API Rate Limiting
+rate_limits:
+  claude:
+    requests_per_minute: 50
+    concurrent_requests: 5
+
+  gpt4:
+    requests_per_minute: 60
+    concurrent_requests: 5
+
+  gemini:
+    requests_per_minute: 60
+    concurrent_requests: 5
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "constitutional-debate.log"
+  log_llm_calls: true  # Log all LLM API calls/responses
+
+# Development Mode
+dev:
+  use_cache: true  # Cache LLM responses for testing
+  cache_dir: ".cache"
+  mock_llm_calls: false  # Use mock responses instead of real API calls

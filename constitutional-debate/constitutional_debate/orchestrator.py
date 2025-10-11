@@ -21,6 +21,7 @@ from .debate_tree import (
 )
 from .charter import Charter
 from .debater import Debater, create_debater
+from .config import Config as MainConfig
 
 
 @dataclass
@@ -37,14 +38,15 @@ class DebateConfig:
 class Orchestrator:
     """Orchestrates constitutional debates between multiple LLMs."""
 
-    def __init__(self, charter: Charter, config: DebateConfig):
+    def __init__(self, charter: Charter, config: DebateConfig, main_config: MainConfig):
         self.charter = charter
         self.config = config
+        self.main_config = main_config
 
         # Create debaters
         self.debaters: Dict[ModelType, Debater] = {}
         for model_type in config.models:
-            self.debaters[model_type] = create_debater(model_type, charter)
+            self.debaters[model_type] = create_debater(model_type, main_config, charter)
 
         # Evidence memory (will integrate with Adaptive Memory)
         self.evidence_cache: Dict[str, List[Evidence]] = {}

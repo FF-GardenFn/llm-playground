@@ -19,5 +19,5 @@
       "brt_validate_domain"
     ]
   },
-  "notes": "This is an optional distribution path for potential chatgpt. client can use brt-charter server directly."
+  "notes": "This is an optional distribution path. You may point your client to the brt-charter server directly instead."
 }

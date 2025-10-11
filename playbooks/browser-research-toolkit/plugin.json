@@ -1,0 +1,17 @@
+{
+  "name": "browser-research-toolkit",
+  "version": "0.1.0",
+  "description": "Structured, auditable web research with Charter-driven workflows and multiple integration paths.",
+  "author": { "name": "LLM Playground" },
+  "homepage": "../browser-research-toolkit/README.md",
+  "repository": "https://github.com/FF-GardenFn/llm-playground/tree/main/playbooks/browser-research-toolkit",
+  "license": "MIT",
+  "keywords": ["browser", "charter", "mcp", "workflows"],
+  "commands": [
+    "./claude/commands/brt_init.md",
+    "./claude/commands/brt_triage.md",
+    "./claude/commands/brt_harvest.md",
+    "./claude/commands/brt_synthesize.md"
+  ],
+  "strict": true
+}

@@ -1,0 +1,41 @@
+{
+  "name": "llm-playground-plugins",
+  "owner": {
+    "name": "Faycal Farhat",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "metadata": {
+    "description": "Local marketplace for LLM Playground plugins (constitutional-debate, adaptive-memory, browser-research-toolkit)",
+    "version": "0.1.0",
+    "pluginRoot": "."
+  },
+  "plugins": [
+    {
+      "name": "constitutional-debate",
+      "description": "Multi-LLM constitutional debates with evidence enforcement",
+      "source": "./constitutional-debate",
+      "version": "0.1.0",
+      "category": "ai-workflows",
+      "tags": ["debate", "multi-llm", "evidence", "consensus"],
+      "strict": true
+    },
+    {
+      "name": "adaptive-memory",
+      "description": "Learned-from-use ranking on top of BRT semantic search",
+      "source": "./playbooks/adaptive-memory",
+      "version": "0.1.0",
+      "category": "productivity",
+      "tags": ["memory", "ranking", "search", "learned"],
+      "strict": true
+    },
+    {
+      "name": "browser-research-toolkit",
+      "description": "Structured, auditable web research with Charter-driven workflows",
+      "source": "./playbooks/browser-research-toolkit",
+      "version": "0.1.0",
+      "category": "research",
+      "tags": ["browser", "charter", "mcp", "workflows"],
+      "strict": true
+    }
+  ]
+}
