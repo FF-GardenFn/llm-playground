@@ -6,13 +6,8 @@ Evaluation harness (minimal stub).
 - Optionally writes a run file under evals/runs/ for bookkeeping.
 - Designed to be extended to call different prompt systems/models.
 
-Usage:
-    python -m prompt_systems.evals.harness \
-        --dataset prompt-systems/evals/datasets/api_docs_mini.jsonl \
-        --run-name api_docs_smoke
-
 This stub does not generate predictions; it validates dataset format and
-creates a metadata run file recording basic stats to help you wire up models.
+creates a metadata run file recording basic stats to help wire up models.
 """
 from __future__ import annotations
 
