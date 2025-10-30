@@ -1,0 +1,23 @@
+{
+  "name": "react-architect",
+  "version": "1.0.0",
+  "description": "Senior React architect specializing in component design, state management, performance optimization, and accessibility. Systematic 6-phase workflow (Requirements→Pattern→State→Performance→Testing→Accessibility) with production-ready gates.",
+  "author": {
+    "name": "Faycal Farhat",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/hyperexploiter/llm-playground",
+  "repository": "https://github.com/hyperexploiter/llm-playground",
+  "keywords": [
+    "react",
+    "architecture",
+    "component-design",
+    "state-management",
+    "performance-optimization",
+    "accessibility",
+    "production-readiness",
+    "systematic-workflow"
+  ],
+  "skills": "./skills/"
+}
