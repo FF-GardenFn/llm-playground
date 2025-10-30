@@ -92,7 +92,7 @@
       "name": "orchestrator",
       "description": "Senior engineering manager coordinating parallel specialist agents. 5-phase orchestration (Reconnaissance→Decomposition→Delegation→Coordination→Integration). Automated tools for specialist matching, dependency analysis, conflict resolution.",
       "source": "./agents/orchestrator/.claude-plugin",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "category": "ai-workflows",
       "tags": ["orchestration", "multi-agent", "parallel-execution", "specialist-coordination", "integration-verification"],
       "strict": true
@@ -101,7 +101,7 @@
       "name": "terminal-orchestrator",
       "description": "Parallel agent execution engine with tmux session management, output validation, and merge verification. Infrastructure agent for orchestrator - executes multiple specialist agents in isolated sessions.",
       "source": "./agents/terminal-orchestrator/.claude-plugin",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "category": "infrastructure",
       "tags": ["parallel-execution", "tmux", "session-management", "output-validation", "merge-verification", "orchestration", "infrastructure", "agent-coordination"],
       "strict": true
