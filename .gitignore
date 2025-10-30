@@ -88,3 +88,4 @@ share/
 pyvenv.cfg
 CACHEDIR.TAG
 dev_playground/
+.claude/ # for .ctxpack session management
