@@ -256,6 +256,6 @@ MIT
 
 ## Credits
 
-Built on [Browser Research Toolkit](../browser-research-toolkit) by @anthropics.
+Built on [Browser Research Toolkit](../browser-research-toolkit) 
 
 Scoring approach inspired by learning-to-rank and implicit feedback research.
