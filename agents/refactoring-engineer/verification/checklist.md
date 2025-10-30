@@ -425,6 +425,160 @@ python smoke_tests/critical_paths.py
 
 ---
 
+## 7. Code-Reviewer Verification (Automated)
+
+### Invoke Code-Reviewer in Verification Mode
+
+**Purpose**: Get independent validation from code-reviewer that refactoring is safe.
+
+**When to Use**:
+- Always invoke code-reviewer after completing internal verification (Phases 1-6 above)
+- Code-reviewer provides independent verification of safety
+
+**Command**:
+```bash
+code-reviewer verify-refactoring \
+  --before-path=<original-code-path> \
+  --after-path=<refactored-code-path> \
+  --refactoring-report=REFACTORING_SUMMARY.md \
+  --verification-output=VERIFICATION_RESULT.md \
+  --mode=verification
+```
+
+### Code-Reviewer Verification Checks
+
+Code-reviewer will independently verify:
+- **Security**: No new vulnerabilities introduced
+- **Performance**: No performance regressions
+- **Functionality**: Behavior perfectly preserved
+- **Code Quality**: Quality improved or maintained
+- **Diff Analysis**: Changes are behavior-preserving
+
+### Verification Outcomes
+
+**✅ SAFE TO MERGE**:
+- All code-reviewer checks passed
+- Refactoring is safe to merge
+- Proceed to Phase 6 (Debt Tracking)
+
+```markdown
+# VERIFICATION_RESULT.md
+
+**Status**: ✅ SAFE TO MERGE
+**Recommendation**: Safe to merge. Refactoring successfully improved code quality.
+
+## Summary
+✅ Security: No new vulnerabilities
+✅ Performance: No regressions
+✅ Functionality: Behavior preserved
+✅ Quality: Complexity reduced 33%
+```
+
+**❌ UNSAFE - REVERT RECOMMENDED**:
+- Critical issues detected
+- MUST revert refactoring
+- Analyze failure, fix refactoring logic, retry
+
+```markdown
+# VERIFICATION_RESULT.md
+
+**Status**: ❌ UNSAFE - REVERT RECOMMENDED
+
+## Critical Issues
+### 1. Security Regression: SQL Injection
+**File**: src/services/user_service.py:45
+**Recommendation**: REVERT immediately
+```
+
+**⚠️ MANUAL REVIEW REQUIRED**:
+- Ambiguous results
+- Trade-offs detected
+- User decision required
+
+```markdown
+# VERIFICATION_RESULT.md
+
+**Status**: ⚠️ MANUAL REVIEW REQUIRED
+
+## Questions
+1. Accept 22% performance regression for improved readability? (Yes/No)
+2. Accept 2% coverage decrease (indirect testing)? (Yes/No)
+```
+
+### Integration Workflow
+
+```mermaid
+sequenceDiagram
+    participant RE as Refactoring-Engineer
+    participant CR as Code-Reviewer
+
+    RE->>RE: Complete internal verification (Phases 1-6)
+    RE->>RE: Write REFACTORING_SUMMARY.md
+    RE->>CR: Invoke verify-refactoring
+    CR->>CR: Independent verification
+    CR->>RE: Return VERIFICATION_RESULT.md
+
+    alt Status: SAFE
+        RE->>RE: Proceed to debt tracking
+    else Status: UNSAFE
+        RE->>RE: Revert changes
+    else Status: MANUAL_REVIEW
+        RE->>RE: Escalate to user
+    end
+```
+
+### Code-Reviewer Checklist
+
+- [ ] REFACTORING_SUMMARY.md written with before/after metrics
+- [ ] Code-reviewer invoked in Verification Mode
+- [ ] VERIFICATION_RESULT.md received and reviewed
+- [ ] Status is SAFE or user-approved MANUAL_REVIEW
+- [ ] If UNSAFE, changes have been reverted
+
+### REFACTORING_SUMMARY.md Template
+
+```markdown
+# REFACTORING_SUMMARY.md
+
+**Refactoring Type**: [extract_method/inline_method/etc.]
+**Target**: [Component/File]
+**Smell Addressed**: [long_method/duplicate_code/etc.]
+
+## Changes Made
+
+### Original Code
+- [Description with metrics]
+
+### Refactored Code
+- [Description with metrics]
+
+## Files Modified
+- src/services/user_service.py
+- tests/test_user_service.py
+
+## Metrics Comparison
+
+### Before Refactoring
+```json
+{
+  "complexity": {"cyclomatic_complexity": 12},
+  "maintainability": {"method_size": 60},
+  "test_coverage": {"line_coverage": 88}
+}
+```
+
+### After Refactoring
+```json
+{
+  "complexity": {"cyclomatic_complexity": 8},
+  "maintainability": {"method_size": 15},
+  "test_coverage": {"line_coverage": 88}
+}
+```
+```
+
+---
+
 ## Gate Completion Summary
 
 ### Verification Results
@@ -451,6 +605,10 @@ python smoke_tests/critical_paths.py
 - Execution Time: ☐ Faster ☐ Same ☐ Acceptable ☐ REGRESSION
 - Memory: ☐ Less ☐ Same ☐ Acceptable ☐ REGRESSION
 
+**Code-Reviewer Verification**:
+- Code-Reviewer Status: ☐ SAFE ☐ UNSAFE ☐ MANUAL_REVIEW
+- VERIFICATION_RESULT.md: ☐ Reviewed ☐ Approved
+
 ### Gate Status
 
 **ALL checks must pass**:
@@ -459,6 +617,7 @@ python smoke_tests/critical_paths.py
 - [ ] Metrics: PASS (improved or stable)
 - [ ] Quality: PASS
 - [ ] Performance: PASS (acceptable)
+- [ ] Code-Reviewer: SAFE (or user-approved MANUAL_REVIEW)
 
 **Gate Result**: ☐ PASS (proceed to Phase 6) ☐ FAIL (fix or revert)
 

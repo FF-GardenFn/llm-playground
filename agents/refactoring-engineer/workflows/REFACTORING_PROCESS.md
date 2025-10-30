@@ -275,13 +275,45 @@ Load and complete: `verification/checklist.md`
 - All acceptance tests passing: ✓
 - Manual testing (if applicable): ✓
 
+### Code-Reviewer Verification (Automated)
+
+**Purpose**: Get independent validation from code-reviewer that refactoring is safe.
+
+**When to Invoke**:
+- After completing all internal verification checks above
+- Before proceeding to Phase 6 (Debt Tracking)
+
+**Command**:
+```bash
+code-reviewer verify-refactoring \
+  --before-path=<original-code-path> \
+  --after-path=<refactored-code-path> \
+  --refactoring-report=REFACTORING_SUMMARY.md \
+  --verification-output=VERIFICATION_RESULT.md \
+  --mode=verification
+```
+
+**Code-Reviewer Checks**:
+- Security: No new vulnerabilities
+- Performance: No regressions
+- Functionality: Behavior preserved
+- Code Quality: Quality improved
+- Diff Analysis: Changes are behavior-preserving
+
+**Outcomes**:
+- **✅ SAFE**: Proceed to Phase 6
+- **❌ UNSAFE**: Revert immediately
+- **⚠️ MANUAL_REVIEW**: User decision required
+
+See `verification/checklist.md` Section 7 for details.
+
 **If ANY verification fails**:
 - STOP immediately
 - Identify root cause
 - Options:
   1. Fix issue and re-verify
   2. Revert refactoring
-  3. Continue with known issue (document in debt tracking)
+  3. Continue with known issue (document in debt tracking, requires user approval)
 
 ### Gate Enforcement
 

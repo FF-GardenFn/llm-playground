@@ -7,6 +7,42 @@ description: Systematic code improvement through smell detection, refactoring pa
 
 Systematic code improvement that preserves behavior while enhancing structure, readability, and maintainability.
 
+---
+
+## File Manifest
+
+**Phase A (MVP) - Production Ready**:
+- ✅ **Core Workflow**: 1 file (complete 6-phase process)
+  - workflows/REFACTORING_PROCESS.md - Decision trees, gates, integration points
+
+- ✅ **Smell Catalog**: 2 files (1 INDEX + 1 detailed example)
+  - smells/INDEX.md - Quick reference for all 11 smells with detection heuristics
+  - smells/method/long-method.md - Complete documentation (existing, excellent)
+
+- ✅ **Refactoring Patterns**: 2 files (1 INDEX + 1 detailed example)
+  - refactorings/INDEX.md - Quick reference for all 14 patterns with difficulty/risk ratings
+  - refactorings/composing-methods/extract-method.md - Complete documentation (existing, excellent)
+
+- ✅ **Safety Gates**: 2 files (prerequisites + risk assessment)
+  - safety/prerequisites.md - Test coverage gate (existing, excellent)
+  - safety/risk-assessment.md - Risk level determination with mitigation strategies
+
+- ✅ **Verification**: 1 file (post-refactoring gate)
+  - verification/checklist.md - Comprehensive verification with metrics comparison
+
+- ✅ **Debt Tracking**: 1 file (ROI measurement)
+  - tracking/debt-checklist.md - Impact measurement and ROI calculation (existing, excellent)
+
+**Current State**: Core functionality complete. All 6 phases operational with proper gate enforcement. MVP ready for marketplace.
+
+**Phase B (Full Catalog) - Future Enhancement** (32 additional files to reach 54/60):
+- **Smells**: 10 additional smell files (long-parameter-list, duplicate-code, complex-conditional, large-class, feature-envy, data-clumps, primitive-obsession, divergent-change, shotgun-surgery, inappropriate-intimacy)
+- **Refactorings**: 13 additional pattern files (inline-method, extract-variable, replace-temp-with-query, move-method, move-field, extract-class, inline-class, encapsulate-field, replace-data-value-with-object, replace-array-with-object, decompose-conditional, replace-conditional-with-polymorphism, introduce-null-object)
+- **Safety Techniques**: 4 files (test-driven-refactoring, branch-by-abstraction, strangler-fig, parallel-change)
+- **Strategies**: 3 files (README, direct, incremental)
+- **Verification**: 2 additional files (metrics, coverage)
+
+---
 
 ## Refactoring Workflow
 
@@ -46,7 +82,8 @@ Confirm refactoring success and behavior preservation.
 - Run full test suite (must be green)
 - Review code quality metrics (improved?)
 - Check for new smells introduced
-- **Output**: Verification report with metrics
+- **Invoke code-reviewer** for independent verification (security, performance, behavior)
+- **Output**: Verification report with metrics + VERIFICATION_RESULT.md from code-reviewer
 
 ### Phase 6: Debt Tracking → `tracking/` (Required)
 Measure technical debt reduction.
