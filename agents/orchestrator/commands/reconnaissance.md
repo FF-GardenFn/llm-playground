@@ -40,7 +40,7 @@ Execute Phase 1 orchestration: clarify ambiguous requirements, gather context, a
 ## Expected Output
 
 ```
-✓ Reconnaissance complete
+OK Reconnaissance complete
 
 Clear Request:
 - Feature: JWT-based authentication (login, token generation, refresh, rate limiting)
@@ -57,7 +57,7 @@ Context Gathered:
 Feasibility: HIGH (standard implementation, 8-12 hours)
 Risks: LOW (well-established patterns)
 
-→ Recommend: /decompose to break into parallelizable tasks
+-> Recommend: /decompose to break into parallelizable tasks
 ```
 
 ## Gate

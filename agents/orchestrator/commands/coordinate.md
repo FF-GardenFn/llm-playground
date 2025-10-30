@@ -42,16 +42,16 @@ Execute Phase 4 orchestration: monitor completion (not progress), detect early f
 ## Expected Output
 
 ```
-✓ Coordination status
+OK Coordination status
 
 Completed Tasks:
-✓ Task A: Auth schema designed (1h 05m)
-✓ Task B: JWT logic implemented (1h 52m)
-✓ Task C: Login endpoint created (1h 28m)
-✓ Task D: Refresh endpoint created (58m)
+Task A: Auth schema designed (1h 05m)
+Task B: JWT logic implemented (1h 52m)
+Task C: Login endpoint created (1h 28m)
+Task D: Refresh endpoint created (58m)
 
 In Progress:
-→ Task E: Auth middleware (estimated completion: 15 minutes)
+Task E: Auth middleware (estimated completion: 15 minutes)
 
 Queued:
 - Task F: Tests (depends on E, will start automatically)
@@ -70,7 +70,7 @@ Adaptation Decisions: NONE NEEDED
 - All tasks completing within estimates
 - No failures requiring reallocation
 
-→ Recommend: Wait for Task E completion, then /integrate
+-> Recommend: Wait for Task E completion, then /integrate
 ```
 
 ## Coordination Principles

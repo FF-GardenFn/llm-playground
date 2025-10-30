@@ -1,14 +1,14 @@
 {
   "name": "orchestrator",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Senior engineering manager coordinating parallel specialist agents through systematic 5-phase orchestration",
   "author": {
     "name": "Faycal Farhat",
     "email": "faycal.farhat@mail.mcgill.ca"
   },
   "license": "MIT",
-  "homepage": "https://github.com/hyperexploiter/llm-playground",
-  "repository": "https://github.com/hyperexploiter/llm-playground",
+  "homepage": "https://github.com/FF-GardenFn/llm-playground",
+  "repository": "https://github.com/FF-GardenFn/llm-playground",
   "keywords": [
     "orchestration",
     "multi-agent",
@@ -17,6 +17,13 @@
     "integration-verification",
     "production-ready"
   ],
-  "commands": "../commands/",
-  "skills": "./skills/"
+  "commands": [
+    "../commands/reconnaissance.md",
+    "../commands/decompose.md",
+    "../commands/delegate.md",
+    "../commands/coordinate.md",
+    "../commands/integrate.md"
+  ],
+  "skills": "./skills/",
+  "strict": true
 }

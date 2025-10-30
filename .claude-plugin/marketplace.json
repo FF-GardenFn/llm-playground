@@ -5,7 +5,7 @@
     "email": "faycal.farhat@mail.mcgill.ca"
   },
   "metadata": {
-    "description": "Research-grade AI tooling with mathematical guarantees. Test-gated orchestration, 6.5x better code navigation, 334x semantic compression. We don't just automate—we enforce discipline.",
+    "description": "Research-grade AI tooling with mathematical guarantees. Test-gated orchestration, for better code navigation, semantic compression. We don't just automate—we enforce discipline.",
     "version": "0.2.0",
     "pluginRoot": "."
   },
@@ -91,7 +91,7 @@
     {
       "name": "orchestrator",
       "description": "Senior engineering manager coordinating parallel specialist agents. 5-phase orchestration (Reconnaissance→Decomposition→Delegation→Coordination→Integration). Automated tools for specialist matching, dependency analysis, conflict resolution.",
-      "source": "./agents/orchestrator",
+      "source": "./agents/orchestrator/.claude-plugin",
       "version": "0.1.0",
       "category": "ai-workflows",
       "tags": ["orchestration", "multi-agent", "parallel-execution", "specialist-coordination", "integration-verification"],
@@ -100,7 +100,7 @@
     {
       "name": "terminal-orchestrator",
       "description": "Parallel agent execution engine with tmux session management, output validation, and merge verification. Infrastructure agent for orchestrator - executes multiple specialist agents in isolated sessions.",
-      "source": "./agents/terminal-orchestrator",
+      "source": "./agents/terminal-orchestrator/.claude-plugin",
       "version": "0.1.0",
       "category": "infrastructure",
       "tags": ["parallel-execution", "tmux", "session-management", "output-validation", "merge-verification", "orchestration", "infrastructure", "agent-coordination"],
@@ -126,7 +126,7 @@
     },
     {
       "name": "react-architect",
-      "description": "Senior React architect specializing in component design, state management, performance optimization, and accessibility. Systematic 6-phase workflow (Requirements→Pattern→State→Performance→Testing→Accessibility) with production-ready gates.",
+      "description": "Systematic 6-phase workflow (Requirements→Pattern→State→Performance→Testing→Accessibility) for React architect agent with emphasis on component design, state management, performance optimization, and accessibility.",
       "source": "./agents/react-architect",
       "version": "0.1.0",
       "category": "development",

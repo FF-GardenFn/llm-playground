@@ -41,7 +41,7 @@ Execute Phase 2 orchestration: break complex work into parallelizable units with
 ## Expected Output
 
 ```
-✓ Decomposition complete (strategy: phase)
+OK Decomposition complete (strategy: phase)
 
 Task Graph:
 A: Design auth schema (1hr)
@@ -53,20 +53,20 @@ F: Write tests (2hr) [depends on C, D, E]
 G: Security review (1hr) [depends on F]
 
 Dependencies:
-A → B → [C, D, E] → F → G
-         ↑parallel↑
+A -> B -> [C, D, E] -> F -> G
+         [parallel]
 
 Parallelization Analysis (dependency_analyzer.py):
 - Topological order: [A, B, C, D, E, F, G]
 - Parallelization levels: [[A], [B], [C,D,E], [F], [G]]
-- Critical path: A→B→C→F→G (6.5 hours)
+- Critical path: A->B->C->F->G (6.5 hours)
 - Speedup potential: 1.4x (with parallelization)
 
 Merge Strategy:
 - Integration approach: Incremental (merge after each task)
 - Conflict prediction: LOW (clear file boundaries)
 
-→ Recommend: /delegate to assign specialists
+-> Recommend: /delegate to assign specialists
 ```
 
 ## Gate

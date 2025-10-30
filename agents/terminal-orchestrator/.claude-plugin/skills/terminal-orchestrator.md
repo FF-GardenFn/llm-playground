@@ -1,7 +1,6 @@
 ---
 name: terminal-orchestrator
-description: Parallel agent execution engine for orchestrator. Use when Main Orchestrator needs to execute multiple specialist agents in parallel with tmux isolation, monitoring, validation, and merge verification.
+description: Parallel agent execution engine using tmux. Creates isolated sessions, monitors execution, validates outputs, detects conflicts, and merges results. Use when the main orchestrator requests parallel execution.
 ---
 
-<!-- AUTO-LOAD: Main agent file -->
-{{load: ${CLAUDE_PLUGIN_ROOT}/AGENT.md}}
+{{load: ${CLAUDE_PLUGIN_ROOT}/../AGENT.md}}

@@ -42,37 +42,37 @@ Execute Phase 3 orchestration: match tasks to specialists, provide context, laun
 ## Expected Output
 
 ```
-✓ Delegation complete
+OK Delegation complete
 
 Specialist Assignments:
 
 Task A (Design auth schema):
-→ Specialist: code-generator
-→ Confidence: 0.92
-→ Rationale: Exact domain match (backend), test-first workflow
-→ Context provided: Flask structure, PostgreSQL, bcrypt requirement
-→ Status: Launched via Task tool
+-> Specialist: code-generator
+-> Confidence: 0.92
+-> Rationale: Exact domain match (backend), test-first workflow
+-> Context provided: Flask structure, PostgreSQL, bcrypt requirement
+-> Status: Launched via Task tool
 
 Tasks B-F (JWT logic, endpoints, middleware, tests):
-→ Specialist: code-generator
-→ Confidence: 0.95
-→ Rationale: TDD practitioner, incremental implementation
-→ Context provided: Auth schema from Task A, existing patterns
-→ Status: Launched in parallel (B first, then C/D/E, then F)
+-> Specialist: code-generator
+-> Confidence: 0.95
+-> Rationale: TDD practitioner, incremental implementation
+-> Context provided: Auth schema from Task A, existing patterns
+-> Status: Launched in parallel (B first, then C/D/E, then F)
 
 Task G (Security review):
-→ Specialist: code-reviewer
-→ Confidence: 0.98
-→ Rationale: Security expertise, vulnerability detection
-→ Context provided: Complete implementation from Task F
-→ Status: Will launch after Task F completes
+-> Specialist: code-reviewer
+-> Confidence: 0.98
+-> Rationale: Security expertise, vulnerability detection
+-> Context provided: Complete implementation from Task F
+-> Status: Will launch after Task F completes
 
 Parallelization:
 - Task A: Running (ETA 1hr)
 - Tasks B-F: Queued (will start after A completes)
 - Task G: Queued (will start after F completes)
 
-→ Recommend: /coordinate to monitor progress
+-> Recommend: /coordinate to monitor progress
 ```
 
 ## Gate
