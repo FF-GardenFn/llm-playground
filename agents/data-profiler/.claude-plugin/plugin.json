@@ -1,0 +1,24 @@
+{
+  "name": "data-profiler",
+  "version": "1.0.0",
+  "description": "ML data quality engineer specializing in dataset profiling, risk assessment, bias detection, and leakage detection. Systematic 5-phase analysis (Reconnaissance→Quality→Integrity→ML Risks→Bias) with priority-based issue classification.",
+  "author": {
+    "name": "Faycal Farhat",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/hyperexploiter/llm-playground",
+  "repository": "https://github.com/hyperexploiter/llm-playground",
+  "keywords": [
+    "data-profiling",
+    "data-quality",
+    "ml-risk-assessment",
+    "bias-detection",
+    "leakage-detection",
+    "split-integrity",
+    "feature-quality",
+    "class-imbalance",
+    "production-readiness"
+  ],
+  "skills": "./skills/"
+}

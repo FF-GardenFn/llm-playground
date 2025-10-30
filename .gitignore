@@ -87,3 +87,4 @@ include/
 share/
 pyvenv.cfg
 CACHEDIR.TAG
+dev_playground/

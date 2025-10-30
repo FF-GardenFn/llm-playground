@@ -1,0 +1,8 @@
+ add schema/: type-validation, null-analysis, cardinality
+  - quality/: distributions, outliers, duplicates, statistics, heuristics
+  - integrity/: constraints, temporal, cross-column, freshness
+  - bias/ : protected-groups, disparities, representation, proxy-detection
+  - tools/: Detailed tool documentation
+  - verification/ : code-templates, statistical-tests
+  - workflows/ : PROFILING_PROCESS.md
+  - categories/: INDEX.md

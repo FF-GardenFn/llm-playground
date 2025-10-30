@@ -1,0 +1,280 @@
+# Baseline Training Configuration Template
+# Purpose: Fast iteration baseline (30-60 minute target)
+# Phase: Phase 2 (Baseline)
+
+# =============================================================================
+# Model Configuration
+# =============================================================================
+model:
+  # Architecture: Start simple, add complexity later
+  architecture: simple_cnn  # Options: simple_mlp, simple_cnn, small_transformer, resnet18
+
+  # Hidden dimensions: Conservative sizing
+  hidden_dims: [128, 64]  # For MLP/CNN intermediate layers
+
+  # Dropout: Mild regularization
+  dropout: 0.1  # Start low, increase if overfitting (diagnostic trigger)
+
+  # Activation: Standard choice
+  activation: relu  # Options: relu, leaky_relu, gelu, swish
+
+  # Output: Task-specific
+  # For classification: num_classes
+  # For regression: output_dim
+  num_classes: null  # SET THIS based on your task
+
+# =============================================================================
+# Training Configuration
+# =============================================================================
+training:
+  # Epochs: Short for fast baseline
+  # Target: 30-60 minute training time
+  # Adjust based on dataset size and GPU
+  epochs: 20  # Increase to 50 for final baseline if time permits
+
+  # Batch size: As large as GPU allows
+  # Larger batch = better GPU utilization
+  # Start conservative, increase until OOM
+  batch_size: 32  # Increase to 64, 128 if GPU memory allows
+
+  # Learning rate: Conservative starting point
+  # Too high → NaN loss, oscillation
+  # Too low → slow convergence
+  learning_rate: 0.001  # 1e-3 for Adam, 0.01-0.1 for SGD
+
+  # Optimizer: Adam is good default
+  optimizer: adam  # Options: adam, adamw, sgd
+
+  # Weight decay: L2 regularization
+  # Mild regularization for baseline
+  weight_decay: 0.0001  # 1e-4, increase to 1e-3 if overfitting
+
+  # Gradient clipping: Prevent exploding gradients
+  # null = disabled, set to 1.0 if gradient issues
+  gradient_clip_max_norm: null  # Enable if diagnostics show gradient explosion
+
+# =============================================================================
+# Learning Rate Scheduler
+# =============================================================================
+lr_scheduler:
+  # Type: ReduceLROnPlateau recommended for baseline
+  # Automatically reduces LR when val loss plateaus
+  type: reduce_on_plateau  # Options: reduce_on_plateau, step, cosine, none
+
+  # Patience: How many epochs without improvement before reducing LR
+  patience: 5
+
+  # Factor: Multiply LR by this when reducing
+  factor: 0.5  # 0.5 = halve LR
+
+  # Min LR: Don't reduce below this
+  min_lr: 1.0e-6
+
+# =============================================================================
+# Early Stopping
+# =============================================================================
+early_stopping:
+  # Enabled: Stop training when val loss stops improving
+  # Saves compute, prevents overfitting from continuing
+  enabled: true
+
+  # Patience: How many epochs without improvement before stopping
+  # Lower = more aggressive stopping, less training time
+  patience: 10  # Reduce to 5-7 for very fast baseline
+
+  # Metric: What to monitor
+  metric: val_loss  # Options: val_loss, val_accuracy, val_f1
+
+  # Mode: Minimize or maximize metric
+  mode: min  # min for loss, max for accuracy/f1
+
+  # Min delta: Minimum change to count as improvement
+  min_delta: 0.0  # Increase to 0.001 if validation noisy
+
+# =============================================================================
+# Checkpointing
+# =============================================================================
+checkpointing:
+  # Save best: Always save best model by validation metric
+  save_best: true
+
+  # Save last: Always save last model for resumption
+  save_last: true
+
+  # Save every N epochs: Periodic checkpoints
+  # Useful for recovery from crashes
+  save_every_n_epochs: 5
+
+  # Monitor: Which validation metric for "best"
+  monitor: val_accuracy  # Options: val_loss, val_accuracy, val_f1
+
+  # Mode: Maximize or minimize monitored metric
+  mode: max  # max for accuracy/f1, min for loss
+
+  # Save optimizer state: Enable to resume training exactly
+  save_optimizer_state: true
+
+  # Checkpoint dir: Where to save checkpoints
+  checkpoint_dir: checkpoints/  # Relative to output dir
+
+# =============================================================================
+# Logging & Monitoring
+# =============================================================================
+logging:
+  # Log every N steps: Batch-level logging frequency
+  # Higher = less logging overhead, lower = more granular monitoring
+  log_every_n_steps: 100
+
+  # Val every N epochs: Validation frequency
+  # 1 = validate every epoch (recommended for baseline)
+  val_every_n_epochs: 1
+
+  # TensorBoard: Enable TensorBoard logging
+  tensorboard: true
+
+  # Weights & Biases: Enable W&B logging (if installed)
+  wandb: false  # Set to true if using wandb
+
+  # Log gradients: Track gradient norms
+  # Useful for diagnostics, adds overhead
+  log_gradients: true
+
+  # Log learning rate: Track LR changes
+  log_learning_rate: true
+
+# =============================================================================
+# Data Configuration
+# =============================================================================
+data:
+  # Num workers: DataLoader worker processes
+  # Higher = faster data loading (if CPU-bound)
+  # Start with 4, increase to 8-16 if data loading is bottleneck
+  num_workers: 4
+
+  # Pin memory: Speed up data transfer to GPU
+  # Always true for GPU training
+  pin_memory: true
+
+  # Persistent workers: Keep workers alive between epochs
+  # Faster for multiple epochs
+  persistent_workers: true
+
+  # Prefetch factor: How many batches to prefetch
+  # Increase if GPU waiting for data
+  prefetch_factor: 2
+
+  # Shuffle: Shuffle training data each epoch
+  shuffle: true
+
+  # Drop last: Drop incomplete batch at end
+  # true for consistent batch size
+  drop_last: true
+
+# =============================================================================
+# Reproducibility (REQUIRED)
+# =============================================================================
+reproducibility:
+  # Seed: Random seed for all operations
+  # MUST be set for reproducibility
+  seed: 42
+
+  # Deterministic: Enable deterministic operations
+  # Required for exact reproduction
+  # May reduce performance ~10-20%
+  deterministic: true
+
+  # Benchmark: CuDNN benchmark mode
+  # false for determinism, true for speed
+  benchmark: false
+
+# =============================================================================
+# Experiment Metadata
+# =============================================================================
+experiment:
+  # Name: Experiment identifier
+  name: baseline_run  # Change for each experiment
+
+  # Description: What is this experiment testing
+  description: "Fast baseline to establish training infrastructure and reasonable performance"
+
+  # Tags: For organizing experiments
+  tags: [baseline, fast-iteration, infrastructure-test]
+
+  # Notes: Additional context
+  notes: "Target: 30-60 min training, reasonable performance, no crashes"
+
+# =============================================================================
+# Expected Outcomes (For Planning)
+# =============================================================================
+expected:
+  # Training time: Target training duration
+  training_time_minutes: 45  # 30-60 minute target
+
+  # Performance: Expected performance range
+  # Adjust based on task and data
+  expected_val_accuracy: [0.70, 0.85]  # [lower_bound, upper_bound]
+
+  # GPU utilization: Target GPU usage
+  target_gpu_utilization: 0.80  # Aim for >80%
+
+# =============================================================================
+# Configuration Guidelines
+# =============================================================================
+#
+# WHEN TO MODIFY THIS CONFIG:
+#
+# 1. Task-specific settings:
+#    - model.num_classes: Set based on your classification task
+#    - checkpointing.monitor: Use val_f1 for imbalanced classes
+#    - early_stopping.metric: Match your primary metric
+#
+# 2. If training too slow (>60 min):
+#    - Reduce training.epochs to 10-15
+#    - Reduce early_stopping.patience to 5
+#    - Increase training.batch_size if GPU allows
+#
+# 3. If overfitting detected (train-val gap >15%):
+#    - Increase model.dropout to 0.2-0.3
+#    - Increase training.weight_decay to 1e-3
+#    - Reduce early_stopping.patience to 5-7
+#    → See diagnostics/overfitting.md for full fixes
+#
+# 4. If underfitting (both train and val accuracy low):
+#    - Increase model complexity (hidden_dims)
+#    - Increase training.epochs to 50
+#    - Increase training.learning_rate to 5e-4 or 1e-3
+#
+# 5. If NaN loss:
+#    - Reduce training.learning_rate by 10x
+#    - Enable gradient_clip_max_norm: 1.0
+#    → See diagnostics/nan_loss.md
+#
+# 6. If GPU utilization <70%:
+#    - Increase training.batch_size
+#    - Increase data.num_workers to 8
+#    - Increase data.prefetch_factor to 4
+#    → See diagnostics/resource_inefficiency.md
+#
+# =============================================================================
+
+# =============================================================================
+# VALIDATION CHECKLIST
+# =============================================================================
+#
+# Before starting training, verify:
+# [ ] model.num_classes set correctly
+# [ ] reproducibility.seed = 42
+# [ ] reproducibility.deterministic = true
+# [ ] training.epochs reasonable for 30-60 min target
+# [ ] early_stopping.enabled = true
+# [ ] checkpointing.save_best = true
+# [ ] All paths correct (checkpoint_dir, data paths)
+#
+# After training completes, verify:
+# [ ] Best checkpoint saved
+# [ ] Training completed without crashes
+# [ ] GPU utilization >60%
+# [ ] Validation loss improved from epoch 1
+# [ ] No NaN losses encountered
+#
+# =============================================================================
