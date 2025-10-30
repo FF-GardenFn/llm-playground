@@ -1,0 +1,22 @@
+{
+  "name": "ml-trainer",
+  "version": "1.0.0",
+  "description": "Deterministic ML training through reproducible 5-phase pipeline with auto-loading diagnostics and mandatory gate enforcement",
+  "author": {
+    "name": "Faycal Farhat",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/hyperexploiter/llm-playground",
+  "repository": "https://github.com/hyperexploiter/llm-playground",
+  "keywords": [
+    "ml-training",
+    "reproducibility",
+    "diagnostic-driven",
+    "phase-pipeline",
+    "gate-enforcement",
+    "production-ready"
+  ],
+  "commands": "../commands/",
+  "skills": "./skills/"
+}
