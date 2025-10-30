@@ -43,7 +43,7 @@
     {
       "_comment": "NOT YET DONE",
       "name": "adaptive-memory",
-      "description": "Learned-from-use ranking on top of BRT semantic search",
+      "description": "Learned-from-use ranking on top of BRT semantic search and user codebase to assistant actions",
       "source": "./adaptive-memory",
       "version": "0.1.0",
       "category": "productivity",
