@@ -5,11 +5,29 @@
     "email": "faycal.farhat@mail.mcgill.ca"
   },
   "metadata": {
-    "description": "Local marketplace for LLM Playground plugins (constitutional-debate, adaptive-memory, browser-research-toolkit)",
-    "version": "0.1.0",
+    "description": "Research-grade AI tooling with mathematical guarantees. Test-gated orchestration, 6.5x better code navigation, 334x semantic compression. We don't just automate—we enforce discipline.",
+    "version": "0.2.0",
     "pluginRoot": "."
   },
   "plugins": [
+    {
+      "name": "llm-playground",
+      "description": "Test-gated orchestration framework. Shell-native workflows where steps only complete when tests pass. Resumable, auditable, zero vendor lock-in.",
+      "source": "./orchestration",
+      "version": "0.1.0",
+      "category": "infrastructure",
+      "tags": ["orchestration", "test-gated", "workflows", "tmux", "resumable", "shell-native", "discipline"],
+      "strict": true
+    },
+    {
+      "name": "graph-aware-rag",
+      "description": "Multi-modal code navigation with information-theoretic ranking. Benchmark-proven 6.5x better nDCG@10 than grep. 7 attention heads (syntactic, semantic, structural, pragmatic, temporal, social, risk). Greedy submodular maximization with ≥50% optimal guarantee.",
+      "source": "./graph-aware-rag",
+      "version": "0.2.0",
+      "category": "code-intelligence",
+      "tags": ["rag", "graph", "multi-modal", "information-theoretic", "benchmark-proven", "impact-analysis", "optimal"],
+      "strict": true
+    },
     {
       "name": "constitutional-debate",
       "description": "Multi-LLM constitutional debates with evidence enforcement",
@@ -22,7 +40,7 @@
     {
       "name": "adaptive-memory",
       "description": "Learned-from-use ranking on top of BRT semantic search",
-      "source": "./playbooks/adaptive-memory",
+      "source": "./adaptive-memory",
       "version": "0.1.0",
       "category": "productivity",
       "tags": ["memory", "ranking", "search", "learned"],
@@ -31,10 +49,91 @@
     {
       "name": "browser-research-toolkit",
       "description": "Structured, auditable web research with Charter-driven workflows",
-      "source": "./playbooks/browser-research-toolkit",
+      "source": "./browser-research-toolkit",
       "version": "0.1.0",
       "category": "research",
       "tags": ["browser", "charter", "mcp", "workflows"],
+      "strict": true
+    },
+    {
+      "name": "ctxpack",
+      "description": "Multi-level LLM context cache with 100x better token efficiency. L0/L1/L2/L3 cache hierarchy (seeds→snapshots→excerpts→full). Workspace dictionary sharing (9x space reduction). Lazy manifest loading (1000x faster). JSON-preserving compression (10-15x ratio).",
+      "source": "./ctxpack/current_work",
+      "version": "2.0.0",
+      "category": "code-intelligence",
+      "tags": ["context-compression", "cache-hierarchy", "workspace-dictionary", "lazy-loading", "100x-efficient", "production"],
+      "strict": true
+    },
+    {
+      "name": "ml-trainer",
+      "description": "Deterministic ML training through reproducible 5-phase pipeline (Planning→Baseline→Diagnostics→Optimization→Finalization). Reproducibility-first architecture. Auto-loading diagnostics. 24-item production readiness gate.",
+      "source": "./agents/ml-trainer",
+      "version": "0.1.0",
+      "category": "ai-workflows",
+      "tags": ["ml-training", "reproducibility", "diagnostic-driven", "phase-pipeline", "gate-enforcement", "production"],
+      "strict": true
+    },
+    {
+      "name": "mech-interp-researcher",
+      "description": "Mechanistic interpretability research with rigorous hypothesis formalization. Causal reasoning enforcement. Circuit discovery workflows. Evidence quality grading.",
+      "source": "./agents/mech-interp-researcher",
+      "version": "0.1.0",
+      "category": "ai-workflows",
+      "tags": ["mechanistic-interpretability", "hypothesis-formalization", "causal-reasoning", "circuit-discovery", "rigorous-research"],
+      "strict": true
+    },
+    {
+      "name": "orchestrator",
+      "description": "Senior engineering manager coordinating parallel specialist agents. 5-phase orchestration (Reconnaissance→Decomposition→Delegation→Coordination→Integration). Automated tools for specialist matching, dependency analysis, conflict resolution.",
+      "source": "./agents/orchestrator",
+      "version": "0.1.0",
+      "category": "ai-workflows",
+      "tags": ["orchestration", "multi-agent", "parallel-execution", "specialist-coordination", "integration-verification"],
+      "strict": true
+    },
+    {
+      "name": "terminal-orchestrator",
+      "description": "Parallel agent execution engine with tmux session management, output validation, and merge verification. Infrastructure agent for orchestrator - executes multiple specialist agents in isolated sessions.",
+      "source": "./agents/terminal-orchestrator",
+      "version": "0.1.0",
+      "category": "infrastructure",
+      "tags": ["parallel-execution", "tmux", "session-management", "output-validation", "merge-verification", "orchestration", "infrastructure", "agent-coordination"],
+      "strict": true
+    },
+    {
+      "name": "code-generator",
+      "description": "Production-grade code generation through systematic 4-phase verification (Reconnaissance→Design→Implementation→Validation). TDD-first, pattern-aware, minimal diffs. Auto-loading tools (search_codebase, run_tests, lint, complexity).",
+      "source": "./agents/code-generator",
+      "version": "0.1.0,,
+      "category": "ai-workflows",
+      "tags": ["code-generation", "tdd", "verification", "phase-pipeline", "pattern-aware", "minimal-diffs", "production"],
+      "strict": true
+    },
+    {
+      "name": "data-profiler",
+      "description": "ML data quality engineer for dataset profiling and risk assessment. 5-phase analysis (Reconnaissance→Quality→Integrity→ML Risks→Bias). Detects target leakage, split contamination, class imbalance, feature quality issues, and bias. Priority-based issue classification (Critical/High/Medium/Low).",
+      "source": "./agents/data-profiler",
+      "version": "0.1.0",
+      "category": "ai-workflows",
+      "tags": ["data-profiling", "ml-risk-assessment", "leakage-detection", "bias-detection", "data-quality", "split-integrity", "production"],
+      "strict": true
+    },
+    {
+      "name": "react-architect",
+      "description": "Senior React architect specializing in component design, state management, performance optimization, and accessibility. Systematic 6-phase workflow (Requirements→Pattern→State→Performance→Testing→Accessibility) with production-ready gates.",
+      "source": "./agents/react-architect",
+      "version": "0.1.0,
+      "category": "development",
+      "tags": ["react", "architecture", "component-design", "state-management", "performance", "accessibility", "systematic-workflow", "production"],
+      "strict": true
+    },
+    {
+      "name": "refactoring-engineer",
+      "description": "Systematic code improvement through smell detection, refactoring patterns, test-driven safety, and technical debt management. 6-phase workflow (Smell Detection→Pattern Selection→Safety Check→Implementation→Verification→Debt Tracking) with gate enforcement. Fowler's refactoring catalog implementation.",
+      "source": "./agents/refactoring-engineer",
+      "version": "0.1.0",
+      "category": "development",
+      "tags": ["refactoring", "code-quality", "smell-detection", "test-driven", "technical-debt", "fowler-catalog", "behavior-preservation", "production"],
       "strict": true
     }
   ]
