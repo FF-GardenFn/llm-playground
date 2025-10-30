@@ -1,0 +1,23 @@
+{
+  "name": "refactoring-engineer",
+  "version": "1.0.0",
+  "description": "Systematic code improvement through smell detection, refactoring patterns, test-driven safety, and technical debt management. 6-phase workflow with gate enforcement. Fowler's refactoring catalog implementation.",
+  "author": {
+    "name": "Faycal Farhat",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/hyperexploiter/llm-playground",
+  "repository": "https://github.com/hyperexploiter/llm-playground",
+  "keywords": [
+    "refactoring",
+    "code-quality",
+    "smell-detection",
+    "test-driven-development",
+    "technical-debt",
+    "fowler-catalog",
+    "systematic-improvement",
+    "behavior-preservation"
+  ],
+  "skills": "./skills/"
+}
