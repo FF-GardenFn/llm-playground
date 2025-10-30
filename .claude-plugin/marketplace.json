@@ -146,8 +146,8 @@
     {
       "name": "code-reviewer",
       "description": "Production code review with defect detection, risk assessment, and gate enforcement. 5-phase review (Structure→Correctness→Security→Performance→Maintainability).",
-      "source": "./agents/code-reviewer",
-      "version": "0.1.0",
+      "source": "./agents/code-reviewer/.claude-plugin",
+      "version": "0.1.1",
       "category": "development",
       "tags": ["code-review", "static-analysis", "security", "testing", "gate-enforcement", "production"],
       "strict": true

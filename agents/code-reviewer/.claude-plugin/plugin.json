@@ -1,0 +1,28 @@
+{
+  "name": "code-reviewer",
+  "version": "0.1.1",
+  "description": "Production code review with defect detection, risk assessment, and gate enforcement. 5-phase review (Structure → Correctness → Security → Performance → Maintainability).",
+  "author": {
+    "name": "Faycal Farhat",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/FF-GardenFn/llm-playground",
+  "repository": "https://github.com/FF-GardenFn/llm-playground",
+  "keywords": [
+    "code-review",
+    "static-analysis",
+    "security",
+    "testing",
+    "gate-enforcement",
+    "production"
+  ],
+  "commands": [
+    "../commands/review-code.md",
+    "../commands/check-tests.md",
+    "../commands/check-security.md",
+    "../commands/verify-refactoring.md"
+  ],
+  "skills": "./skills/",
+  "strict": true
+}
