@@ -11,6 +11,7 @@
   },
   "plugins": [
     {
+      "_comment": "NOT YET DONE AND OR MIGHT NOT BE HERE",
       "name": "llm-playground",
       "description": "Test-gated orchestration framework. Shell-native workflows where steps only complete when tests pass. Resumable, auditable, zero vendor lock-in.",
       "source": "./orchestration",
@@ -20,6 +21,7 @@
       "strict": true
     },
     {
+      "_comment": "NOT YET DONE AND OR MIGHT NOT BE HERE",
       "name": "graph-aware-rag",
       "description": "Multi-modal code navigation with information-theoretic ranking. Benchmark-proven 6.5x better nDCG@10 than grep. 7 attention heads (syntactic, semantic, structural, pragmatic, temporal, social, risk). Greedy submodular maximization with ≥50% optimal guarantee.",
       "source": "./graph-aware-rag",
@@ -29,6 +31,7 @@
       "strict": true
     },
     {
+      "_comment": "NOT YET DONE",
       "name": "constitutional-debate",
       "description": "Multi-LLM constitutional debates with evidence enforcement",
       "source": "./constitutional-debate",
@@ -38,6 +41,7 @@
       "strict": true
     },
     {
+      "_comment": "NOT YET DONE",
       "name": "adaptive-memory",
       "description": "Learned-from-use ranking on top of BRT semantic search",
       "source": "./adaptive-memory",
@@ -47,6 +51,7 @@
       "strict": true
     },
     {
+      "_comment": "NOT YET DONE.",
       "name": "browser-research-toolkit",
       "description": "Structured, auditable web research with Charter-driven workflows",
       "source": "./browser-research-toolkit",
@@ -56,6 +61,7 @@
       "strict": true
     },
     {
+      "_comment": "NOT YET DONE AND OR MIGHT NOT BE HERE",
       "name": "ctxpack",
       "description": "Multi-level LLM context cache with 100x better token efficiency. L0/L1/L2/L3 cache hierarchy (seeds→snapshots→excerpts→full). Workspace dictionary sharing (9x space reduction). Lazy manifest loading (1000x faster). JSON-preserving compression (10-15x ratio).",
       "source": "./ctxpack/current_work",
