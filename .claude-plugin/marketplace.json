@@ -104,7 +104,7 @@
       "name": "code-generator",
       "description": "Production-grade code generation through systematic 4-phase verification (Reconnaissance→Design→Implementation→Validation). TDD-first, pattern-aware, minimal diffs. Auto-loading tools (search_codebase, run_tests, lint, complexity).",
       "source": "./agents/code-generator",
-      "version": "0.1.0,,
+      "version": "0.1.0",
       "category": "ai-workflows",
       "tags": ["code-generation", "tdd", "verification", "phase-pipeline", "pattern-aware", "minimal-diffs", "production"],
       "strict": true
