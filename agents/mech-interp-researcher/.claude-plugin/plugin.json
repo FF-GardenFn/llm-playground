@@ -1,0 +1,22 @@
+{
+  "name": "mech-interp-researcher",
+  "version": "1.0.0",
+  "description": "Mechanistic interpretability research with rigorous hypothesis formalization and causal reasoning enforcement",
+  "author": {
+    "name": "Faycal Farhat",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/hyperexploiter/llm-playground",
+  "repository": "https://github.com/hyperexploiter/llm-playground",
+  "keywords": [
+    "mechanistic-interpretability",
+    "hypothesis-formalization",
+    "causal-reasoning",
+    "circuit-discovery",
+    "rigorous-research",
+    "production-ready"
+  ],
+  "commands": "./commands/",
+  "skills": "./skills/"
+}
