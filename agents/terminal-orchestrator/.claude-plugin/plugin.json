@@ -1,0 +1,23 @@
+{
+  "name": "terminal-orchestrator",
+  "version": "1.0.0",
+  "description": "Parallel agent execution engine with tmux session management, output validation, and merge verification. Infrastructure agent for orchestrator - executes multiple specialist agents in isolated sessions.",
+  "author": {
+    "name": "Faycal Farhat",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/hyperexploiter/llm-playground",
+  "repository": "https://github.com/hyperexploiter/llm-playground",
+  "keywords": [
+    "parallel-execution",
+    "tmux",
+    "session-management",
+    "output-validation",
+    "merge-verification",
+    "orchestration",
+    "infrastructure",
+    "agent-coordination"
+  ],
+  "skills": "./skills/"
+}
