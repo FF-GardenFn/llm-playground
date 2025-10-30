@@ -122,7 +122,7 @@
       "name": "react-architect",
       "description": "Senior React architect specializing in component design, state management, performance optimization, and accessibility. Systematic 6-phase workflow (Requirements→Pattern→State→Performance→Testing→Accessibility) with production-ready gates.",
       "source": "./agents/react-architect",
-      "version": "0.1.0,
+      "version": "0.1.0",
       "category": "development",
       "tags": ["react", "architecture", "component-design", "state-management", "performance", "accessibility", "systematic-workflow", "production"],
       "strict": true
