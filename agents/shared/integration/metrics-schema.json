@@ -1,0 +1,298 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shared Quality Metrics Schema",
+  "description": "Standardized quality metrics format used by code-reviewer and refactoring-engineer",
+  "version": "1.0.0",
+  "type": "object",
+  "properties": {
+    "quality_metrics": {
+      "type": "object",
+      "description": "Complete quality assessment metrics",
+      "properties": {
+        "cyclomatic_complexity": {
+          "type": "integer",
+          "description": "McCabe cyclomatic complexity score",
+          "minimum": 1
+        },
+        "lines_of_code": {
+          "type": "integer",
+          "description": "Total lines of code (excluding comments and blank lines)",
+          "minimum": 0
+        },
+        "duplication_percentage": {
+          "type": "number",
+          "description": "Percentage of duplicated code",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "test_coverage": {
+          "type": "number",
+          "description": "Percentage of code covered by tests",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "security_issues": {
+          "type": "integer",
+          "description": "Count of security vulnerabilities",
+          "minimum": 0
+        },
+        "performance_issues": {
+          "type": "integer",
+          "description": "Count of performance problems",
+          "minimum": 0
+        },
+        "code_smells": {
+          "type": "array",
+          "description": "List of detected code smells",
+          "items": {
+            "$ref": "#/definitions/smell_object"
+          }
+        },
+        "maintainability_index": {
+          "type": "number",
+          "description": "Maintainability index (0-100, higher is better)",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "technical_debt_minutes": {
+          "type": "integer",
+          "description": "Estimated technical debt in minutes",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "cyclomatic_complexity",
+        "lines_of_code",
+        "test_coverage",
+        "code_smells"
+      ]
+    }
+  },
+  "definitions": {
+    "smell_object": {
+      "type": "object",
+      "description": "Individual code smell detection",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of code smell",
+          "enum": [
+            "long_method",
+            "long_parameter_list",
+            "duplicate_code",
+            "complex_conditional",
+            "large_class",
+            "feature_envy",
+            "data_clumps",
+            "primitive_obsession",
+            "divergent_change",
+            "shotgun_surgery",
+            "inappropriate_intimacy"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Location in format 'file:line-range' (e.g., 'src/user.py:45-120')",
+          "pattern": "^.+:\\d+(-\\d+)?$"
+        },
+        "severity": {
+          "type": "string",
+          "description": "Severity level of the smell",
+          "enum": [
+            "critical",
+            "important",
+            "suggestion"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the smell"
+        },
+        "refactorable": {
+          "type": "boolean",
+          "description": "Whether this smell can be addressed by refactoring",
+          "default": true
+        },
+        "suggested_refactoring": {
+          "type": "string",
+          "description": "Suggested refactoring pattern (if refactorable)",
+          "enum": [
+            "extract_method",
+            "inline_method",
+            "extract_variable",
+            "replace_temp_with_query",
+            "move_method",
+            "move_field",
+            "extract_class",
+            "inline_class",
+            "encapsulate_field",
+            "replace_data_value_with_object",
+            "replace_array_with_object",
+            "decompose_conditional",
+            "replace_conditional_with_polymorphism",
+            "introduce_null_object"
+          ]
+        },
+        "metrics": {
+          "type": "object",
+          "description": "Specific metrics for this smell",
+          "properties": {
+            "method_length": {
+              "type": "integer",
+              "description": "Length of method (for long_method smell)"
+            },
+            "parameter_count": {
+              "type": "integer",
+              "description": "Number of parameters (for long_parameter_list smell)"
+            },
+            "duplication_lines": {
+              "type": "integer",
+              "description": "Number of duplicated lines (for duplicate_code smell)"
+            },
+            "conditional_depth": {
+              "type": "integer",
+              "description": "Nesting depth (for complex_conditional smell)"
+            },
+            "class_size": {
+              "type": "integer",
+              "description": "Class size in lines (for large_class smell)"
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "location",
+        "severity"
+      ]
+    },
+    "metrics_delta": {
+      "type": "object",
+      "description": "Comparison of metrics before and after change",
+      "properties": {
+        "metric_name": {
+          "type": "string",
+          "description": "Name of the metric being compared"
+        },
+        "before": {
+          "type": "number",
+          "description": "Metric value before change"
+        },
+        "after": {
+          "type": "number",
+          "description": "Metric value after change"
+        },
+        "delta": {
+          "type": "number",
+          "description": "Change in metric (after - before)"
+        },
+        "delta_percentage": {
+          "type": "number",
+          "description": "Percentage change ((after - before) / before * 100)"
+        },
+        "improvement": {
+          "type": "boolean",
+          "description": "Whether this change is an improvement"
+        }
+      },
+      "required": [
+        "metric_name",
+        "before",
+        "after",
+        "delta",
+        "improvement"
+      ]
+    },
+    "verification_result": {
+      "type": "object",
+      "description": "Result of code verification check",
+      "properties": {
+        "check_name": {
+          "type": "string",
+          "description": "Name of the verification check"
+        },
+        "passed": {
+          "type": "boolean",
+          "description": "Whether the check passed"
+        },
+        "issues_found": {
+          "type": "integer",
+          "description": "Number of issues found",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable message about the check result"
+        },
+        "details": {
+          "type": "array",
+          "description": "Detailed issues found",
+          "items": {
+            "type": "object",
+            "properties": {
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "critical",
+                  "important",
+                  "suggestion"
+                ]
+              },
+              "location": {
+                "type": "string",
+                "description": "Location of the issue"
+              },
+              "description": {
+                "type": "string",
+                "description": "Description of the issue"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "check_name",
+        "passed",
+        "message"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "quality_metrics": {
+        "cyclomatic_complexity": 15,
+        "lines_of_code": 250,
+        "duplication_percentage": 12.5,
+        "test_coverage": 85.3,
+        "security_issues": 2,
+        "performance_issues": 3,
+        "maintainability_index": 68,
+        "technical_debt_minutes": 180,
+        "code_smells": [
+          {
+            "type": "long_method",
+            "location": "src/user_service.py:45-120",
+            "severity": "important",
+            "description": "Method 'process_user_data' is 75 lines long",
+            "refactorable": true,
+            "suggested_refactoring": "extract_method",
+            "metrics": {
+              "method_length": 75
+            }
+          },
+          {
+            "type": "duplicate_code",
+            "location": "src/user_service.py:150-180",
+            "severity": "important",
+            "description": "30 lines duplicated in admin_service.py:90-120",
+            "refactorable": true,
+            "suggested_refactoring": "extract_method",
+            "metrics": {
+              "duplication_lines": 30
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
