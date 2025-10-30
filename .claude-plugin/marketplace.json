@@ -142,5 +142,33 @@
       "tags": ["refactoring", "code-quality", "smell-detection", "test-driven", "technical-debt", "fowler-catalog", "behavior-preservation", "production"],
       "strict": true
     }
+,
+    {
+      "name": "code-reviewer",
+      "description": "Production code review with defect detection, risk assessment, and gate enforcement. 5-phase review (Structure→Correctness→Security→Performance→Maintainability).",
+      "source": "./agents/code-reviewer",
+      "version": "0.1.0",
+      "category": "development",
+      "tags": ["code-review", "static-analysis", "security", "testing", "gate-enforcement", "production"],
+      "strict": true
+    },
+    {
+      "name": "ml-evaluator",
+      "description": "Rigorous ML evaluation with dataset splits, metrics selection, ablation studies, and risk analysis.",
+      "source": "./agents/ml-evaluator",
+      "version": "0.1.0",
+      "category": "ai-workflows",
+      "tags": ["ml-evaluation", "metrics", "ablation", "risk", "reproducibility"],
+      "strict": true
+    },
+    {
+      "name": "ml-research-planner",
+      "description": "ML research planning with hypothesis formalization, experimental design, and milestone tracking.",
+      "source": "./agents/ml-research-planner",
+      "version": "0.1.0",
+      "category": "ai-workflows",
+      "tags": ["research-planning", "experiments", "hypotheses", "milestones"],
+      "strict": true
+    }
   ]
 }
