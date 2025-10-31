@@ -693,3 +693,128 @@ sequenceDiagram
 - Refactoring-Engineer proceeds based on status
 
 **Priority**: **Critical** (ensures refactorings don't break production)
+
+---
+
+## Verification Outcome Templates (From Commands)
+
+### Outcome 1: SAFE TO MERGE
+
+**Criteria**:
+- All security checks passed
+- No performance regressions
+- All tests pass
+- Behavior preserved
+- Code quality improved or maintained
+
+**Output Template**:
+```markdown
+# VERIFICATION_RESULT.md
+
+**Status**: SAFE TO MERGE
+**Timestamp**: [timestamp]
+**Refactoring**: [type] in [component]
+
+## Summary
+- Security: No new vulnerabilities
+- Performance: No regressions
+- Functionality: Behavior preserved
+- Quality: [metric] improved [percent]%
+
+## Recommendation
+Safe to merge. Refactoring successfully improved code quality without introducing issues.
+
+## Next Steps
+1. Merge changes to main branch
+2. Deploy to staging for final verification
+3. Update documentation if needed
+```
+
+**Tell refactoring-engineer**: "Verification PASSED. Safe to merge."
+
+---
+
+### Outcome 2: UNSAFE - REVERT RECOMMENDED
+
+**Criteria**:
+- Security vulnerability introduced
+- Significant performance regression
+- Tests fail
+- Behavior not preserved
+
+**Output Template**:
+```markdown
+# VERIFICATION_RESULT.md
+
+**Status**: UNSAFE - REVERT RECOMMENDED
+**Timestamp**: [timestamp]
+
+## Critical Issues
+
+### [Issue Type]: [Issue Title]
+**File**: [file:line]
+**Severity**: CRITICAL
+
+**Original** (SAFE):
+```[language]
+[safe code]
+```
+
+**Refactored** (UNSAFE):
+```[language]
+[unsafe code]
+```
+
+**Impact**: [description of impact]
+
+## Recommendation
+REVERT immediately. [Specific reason why].
+
+## Next Steps
+1. Revert refactoring changes
+2. Analyze why refactoring introduced issue
+3. Fix refactoring logic
+4. Re-run refactoring
+5. Request verification again
+```
+
+**Tell refactoring-engineer**: "Verification FAILED. REVERT recommended due to: [reason]"
+
+---
+
+### Outcome 3: MANUAL REVIEW REQUIRED
+
+**Criteria**:
+- Ambiguous results
+- Minor issues detected
+- Behavioral changes unclear
+- Performance regression borderline
+
+**Output Template**:
+```markdown
+# VERIFICATION_RESULT.md
+
+**Status**: MANUAL REVIEW REQUIRED
+**Timestamp**: [timestamp]
+
+## Ambiguous Results
+
+### [Issue Title] (Borderline)
+**Metric**: [metric name]
+**Change**: [before] → [after] ([percent] change)
+**Threshold**: [threshold] (exceeded by [amount])
+
+**Analysis**:
+[Detailed explanation of the ambiguity]
+
+**Trade-off**: [Performance/Coverage/etc.] vs [Readability/Maintainability/etc.]
+
+## Questions for User
+1. [Question 1]? (Yes/No)
+2. [Question 2]? (Yes/No)
+
+## Recommendation
+User review required. Decision depends on project priorities.
+```
+
+**Ask the user**: "Manual review required. Please answer the questions above to proceed."

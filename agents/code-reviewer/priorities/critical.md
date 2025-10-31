@@ -472,3 +472,26 @@ curl -X POST http://localhost:5000/users -d "user_id=1 OR 1=1"
 **All critical issues must be fixed before code approval.**
 
 **No exceptions.**
+
+---
+
+## Security Severity Classification (From Commands)
+
+### Critical Security Issues
+
+**Definition**: Issues that can lead to immediate and severe security compromise.
+
+**Criteria**:
+- **Remote code execution possible**: Attacker can execute arbitrary code on server
+- **Data exfiltration possible**: Attacker can steal sensitive data (passwords, PII, financial data)
+- **Authentication bypass**: Attacker can access system without valid credentials
+- **SQL injection with write access**: Attacker can modify or delete database records
+
+**Examples**:
+- SQL injection vulnerabilities allowing data modification
+- Command injection allowing remote code execution
+- Hardcoded secrets exposed in code or version control
+- Authentication logic that can be bypassed
+- Insecure cryptography exposing sensitive data
+
+**Response**: Fix immediately before any code approval or deployment. Block all pull requests containing critical security issues.

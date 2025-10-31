@@ -535,3 +535,78 @@ def test_create_user_with_valid_age():
 - Look for slow tests, flaky tests, unclear tests
 
 **Priority**: **Important** (affects maintainability)
+
+---
+
+## FIRST Principles Assessment (From Commands)
+
+**FIRST Principles**:
+- **Fast**: Tests run quickly (< 10ms for unit tests)
+- **Independent**: Tests don't depend on each other
+- **Repeatable**: Tests produce same result every time
+- **Self-validating**: Clear pass/fail without manual inspection
+- **Timely**: Tests written with or before code (TDD)
+
+### Quality Checklist
+
+Check each test file for:
+
+**Fast**:
+- [ ] Unit tests < 10ms
+- [ ] Integration tests < 100ms
+- [ ] Full suite < 5 minutes
+- [ ] No unnecessary delays (sleep)
+
+**Independent**:
+- [ ] Tests can run in any order
+- [ ] No shared global state
+- [ ] Each test sets up own data
+- [ ] No sequential numbering (test_01, test_02)
+
+**Repeatable**:
+- [ ] No flaky tests
+- [ ] Time/date mocked
+- [ ] Random values seeded
+- [ ] No external dependencies (network, filesystem)
+
+**Self-validating**:
+- [ ] Clear assertions
+- [ ] No print() statements for validation
+- [ ] No manual inspection required
+- [ ] Specific error messages
+
+**Timely**:
+- [ ] Tests exist for all new features
+- [ ] Tests updated with code changes
+- [ ] High-risk code has tests
+
+**Output Format**:
+```markdown
+## Test Quality Assessment (FIRST Principles)
+
+### Fast
+- Unit tests average: [X]ms [OK < 10ms / WARN Slow]
+- Integration tests average: [X]ms [OK < 100ms / WARN Slow]
+- Full suite runtime: [X] seconds [OK < 5min / WARN Slow]
+
+### Independent
+- Tests can run in any order: [YES / NO]
+- Shared global state detected: [YES / NO]
+- Sequential test numbering: [YES / NO]
+
+### Repeatable
+- Flaky tests detected: [YES / NO] ([count] flaky)
+- Time/date mocked: [YES / NO]
+- Random values controlled: [YES / NO]
+
+### Self-validating
+- All tests have assertions: [YES / NO]
+- Print statements for validation: [YES / NO]
+- Assertion messages present: [YES / NO]
+
+### Timely
+- New features have tests: [YES / NO]
+- Test coverage maintained: [YES / NO]
+
+**Overall Quality**: [Excellent / Good / Needs Improvement]
+```

@@ -706,3 +706,204 @@ Standard markdown format (shown in examples above)
 **Output Formats**: Console, Markdown, JSON
 
 **Priority**: **Important** (affects communication effectiveness)
+
+---
+
+## Testing-Specific Output Template (From Commands)
+
+```markdown
+# Testing Review Report
+
+**Review Date**: [Date]
+**Reviewed By**: Code-Reviewer Agent (Testing Focus)
+
+---
+
+## Executive Summary
+
+**Testing Status**: [Excellent / Good / Needs Improvement / Critical Gaps]
+
+**Key Findings**:
+- Test pyramid: [Healthy / Inverted / Missing layer]
+- Coverage: [X]% overall ([Y]% critical code)
+- Test quality: [FIRST principles score]
+- Mocking strategy: [Appropriate / Over-mocking / Under-mocking]
+
+---
+
+## 1. Testing Pyramid
+
+[Analysis from section 1]
+
+---
+
+## 2. Test Coverage
+
+[Analysis from section 2]
+
+---
+
+## 3. Test Quality (FIRST)
+
+[Analysis from section 3]
+
+---
+
+## 4. Mocking Strategy
+
+[Analysis from section 4]
+
+---
+
+## 5. Test Smells
+
+[Any test smells detected]
+
+---
+
+## Recommendations
+
+### Critical (Must Fix)
+1. [Critical gap 1]
+2. [Critical gap 2]
+
+### Important (Should Fix)
+1. [Important gap 1]
+2. [Important gap 2]
+
+### Suggestions (Nice to Have)
+1. [Suggestion 1]
+2. [Suggestion 2]
+
+---
+
+## Positive Highlights
+
+[Things done well in testing]
+
+---
+
+## Action Plan
+
+1. **Immediate**: [Fix critical coverage gaps]
+2. **Next Sprint**: [Address important issues]
+3. **Long-term**: [Improve test quality]
+
+---
+
+## Resources
+
+- Testing pyramid: `testing/test-types.md`
+- Coverage targets: `testing/coverage.md`
+- FIRST principles: `testing/test-quality.md`
+- Mocking guidelines: `testing/mocking.md`
+```
+
+---
+
+## Security-Specific Output Template (From Commands)
+
+```markdown
+# Security Review Report
+
+**Review Date**: [Date]
+**Reviewed By**: Code-Reviewer Agent (Security Focus)
+
+---
+
+## Executive Summary
+
+**Security Status**: [CRITICAL ISSUES / NEEDS ATTENTION / GOOD]
+
+**Critical Vulnerabilities**: [count]
+**Important Vulnerabilities**: [count]
+**Suggestions**: [count]
+
+**OWASP Top 10 Coverage**:
+- A01 (Access Control): [PASS/ISSUES]
+- A02 (Cryptography): [PASS/ISSUES]
+- A03 (Injection): [PASS/ISSUES]
+- [... all 10 categories ...]
+
+---
+
+## Critical Vulnerabilities (Fix Immediately)
+
+### 1. [Vulnerability Type] in [Component]
+
+**OWASP Category**: A03:2021 - Injection
+**Severity**: CRITICAL
+**Location**: [file:line]
+**Exploitability**: HIGH
+
+**Vulnerable Code**:
+```python
+[code with vulnerability]
+```
+
+**Attack Scenario**:
+```python
+# Attacker input
+malicious_input = "[attack payload]"
+
+# Results in
+[explanation of exploit]
+```
+
+**Fix**:
+```python
+[secure code]
+```
+
+**Impact**: [Description of what attacker can do]
+
+**References**:
+- [OWASP link]
+- [CWE link]
+
+---
+
+## Important Vulnerabilities (Address Soon)
+
+[Similar format for important issues]
+
+---
+
+## Security Suggestions (Best Practices)
+
+[Security improvements that are nice to have]
+
+---
+
+## Compliance Assessment
+
+**OWASP Top 10 (2021) Status**:
+- A01: Broken Access Control - Compliant
+- A02: Cryptographic Failures - Issues found
+- A03: Injection - Partial compliance
+- [... continue for all 10 ...]
+
+**Overall Compliance**: [X/10 categories compliant]
+
+---
+
+## Positive Security Practices
+
+[Things done well - security-wise]
+
+---
+
+## Recommended Actions
+
+1. [Immediate action for critical issues]
+2. [Next steps for important issues]
+3. [Long-term security improvements]
+
+---
+
+## Resources
+
+- OWASP Top 10 (2021): https://owasp.org/Top10/
+- Security guidelines: `security/owasp-checklist.md`
+- Input validation: `security/input-validation.md`
+```

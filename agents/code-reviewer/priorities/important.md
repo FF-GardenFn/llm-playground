@@ -528,3 +528,26 @@ Suggestion: 90 (90%) ← Too many minor issues
 **Distribution**: ~30% of total issues should be Important
 
 **Priority**: **Important** (affects prioritization accuracy)
+
+---
+
+## Security Severity Classification (From Commands)
+
+### Important Security Issues
+
+**Definition**: Security concerns that should be addressed soon but don't pose immediate critical risk.
+
+**Criteria**:
+- **Information disclosure**: Exposure of non-critical data that could aid attackers
+- **Privilege escalation** (requires authentication): Authenticated users can gain higher privileges
+- **Denial of service**: System can be made unavailable through resource exhaustion
+- **Weak cryptography**: Use of outdated or weak cryptographic algorithms
+
+**Examples**:
+- Weak password requirements (< 8 characters, no complexity)
+- Missing rate limiting on API endpoints
+- Information leakage through verbose error messages
+- Insufficient logging of security events
+- Use of deprecated cryptographic functions
+
+**Response**: Should be fixed in the next sprint or iteration. Important for defense-in-depth but not immediately exploitable.

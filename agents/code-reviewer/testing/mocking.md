@@ -606,3 +606,58 @@ def test_send_welcome_email():
 - Check if mocks verified
 
 **Priority**: **Important** (affects test isolation and quality)
+
+---
+
+## Mocking Assessment (From Commands)
+
+**Mocking Strategy**:
+- **Mock**: External dependencies (APIs, databases, network)
+- **Don't Mock**: Business logic, value objects, simple objects
+
+### Mocking Checklist
+
+Check for:
+
+**Good Mocking**:
+- [ ] External APIs mocked
+- [ ] Database mocked (or in-memory)
+- [ ] File system mocked
+- [ ] Network calls mocked
+- [ ] Time/random mocked for determinism
+
+**Over-Mocking** (BAD):
+- [ ] Business logic mocked (should test real logic!)
+- [ ] Value objects mocked (should use real objects!)
+- [ ] Simple objects mocked (unnecessary)
+
+**Output Format**:
+```markdown
+## Mocking Assessment
+
+### Good Mocking Practices
+- External APIs mocked: [YES / NO]
+- Database mocked: [YES / NO]
+- File system mocked: [YES / NO]
+
+### Over-Mocking Issues
+- Business logic mocked: [YES / NO] ← [If YES: BAD]
+- Value objects mocked: [YES / NO] ← [If YES: BAD]
+
+**Example of Over-Mocking**:
+```python
+# BAD: Mocking business logic
+def test_calculate_discount():
+    mock_calculator = Mock()
+    mock_calculator.calculate.return_value = 90
+    result = mock_calculator.calculate(100, 0.1)
+    assert result == 90  # Testing the mock, not real code!
+
+# GOOD: Test real business logic
+def test_calculate_discount():
+    result = calculate_discount(100, 0.1)
+    assert result == 90  # Testing real implementation
+```
+
+**Recommendation**: Mock I/O, test logic.
+```

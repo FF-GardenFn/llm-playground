@@ -492,3 +492,92 @@ def test_payment_retry_on_network_error(): pass
 - Assess risk of untested paths
 
 **Priority**: **Important** (Critical for payment/security code)
+
+---
+
+## Coverage Targets by Category (From Commands)
+
+**Coverage Targets by Category**:
+- **Critical Code** (payment, security, data integrity): 100%
+- **Core Logic** (business rules, workflows): 90%+
+- **Utility Code** (helpers, formatters): 80%+
+- **UI/Controllers** (request handlers): 70%+
+
+### Coverage Analysis
+
+Ask user to provide coverage report or run:
+```bash
+pytest --cov=. --cov-report=term-missing
+```
+
+**Output Format**:
+```markdown
+## Test Coverage Assessment
+
+**Overall Coverage**: [X]%
+
+**Coverage by Category**:
+
+### Critical Code (Target: 100%)
+- Payment processing: [X]% [OK / BAD GAPS]
+  - Untested: [file:lines]
+- Security (authentication): [X]% [OK / BAD GAPS]
+  - Untested: [file:lines]
+- Data integrity: [X]% [OK / BAD GAPS]
+
+### Core Business Logic (Target: 90%+)
+- Order processing: [X]% [OK / WARN BELOW TARGET]
+- User management: [X]% [OK / WARN BELOW TARGET]
+
+### Utility Code (Target: 80%+)
+- Formatters: [X]% [OK / WARN BELOW TARGET]
+- Validators: [X]% [OK / WARN BELOW TARGET]
+
+### UI/Controllers (Target: 70%+)
+- API endpoints: [X]% [OK / WARN BELOW TARGET]
+
+**Critical Gaps** (must address):
+1. [File/function with 0% coverage in critical code]
+2. [File/function with low coverage in critical code]
+
+**Important Gaps** (should address):
+1. [Core logic with < 90% coverage]
+2. [Utility with < 80% coverage]
+```
+
+### Coverage Gap Example
+
+```markdown
+## Critical: Payment Processing Untested
+
+**File**: `src/services/payment_service.py`
+**Coverage**: 45% (Target: 100% for payment code)
+
+**Untested Code**:
+- Lines 23-40: `process_credit_card()` - CRITICAL
+- Lines 50-65: `handle_refund()` - CRITICAL
+- Lines 80-95: `retry_failed_payment()` - IMPORTANT
+
+**Impact**: Payment logic has no tests, high risk of production bugs.
+
+**Recommended Tests**:
+```python
+def test_process_credit_card_success():
+    payment = process_credit_card(valid_card, amount=100)
+    assert payment.status == 'success'
+
+def test_process_credit_card_insufficient_funds():
+    with pytest.raises(InsufficientFundsError):
+        process_credit_card(empty_card, amount=100)
+
+def test_process_credit_card_gateway_failure():
+    with pytest.raises(GatewayError):
+        process_credit_card(card, amount=100)
+
+def test_handle_refund_success():
+    refund = handle_refund(payment_id='12345', amount=50)
+    assert refund.status == 'completed'
+```
+
+**Priority**: CRITICAL - Add tests immediately before next release.
+```
