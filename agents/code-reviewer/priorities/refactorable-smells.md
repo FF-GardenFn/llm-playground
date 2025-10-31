@@ -432,7 +432,7 @@ Is this a code smell?
 **Process**:
 ```markdown
 1. Classify all detected smells:
-   - Load refactoring-engineer catalog: {{load: ../../refactoring-engineer/smells/INDEX.md}}
+   - Load refactoring-engineer catalog: {{load: ../refactoring-engineer/smells/INDEX.md}}
    - Load code-reviewer security/performance smells: {{load: ../security/performance-smells.md}}
 
 2. For each smell, determine:

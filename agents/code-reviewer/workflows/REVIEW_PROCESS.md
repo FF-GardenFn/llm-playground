@@ -64,7 +64,7 @@ python atools/static_analysis.py <file>
 
 Load smell catalog from refactoring-engineer:
 ```markdown
-{{load: ../../refactoring-engineer/smells/INDEX.md}}
+{{load: ../refactoring-engineer/smells/INDEX.md}}
 ```
 
 Check code against shared smells:

@@ -175,7 +175,7 @@ These smells are **NOT refactorable** and are defined only in code-reviewer:
 ### Step 1.3: Smell Detection
 
 Load shared smell catalog from refactoring-engineer:
-  {{load: ../../refactoring-engineer/smells/INDEX.md}}
+  {{load: ../refactoring-engineer/smells/INDEX.md}}
 
 Check code against shared smells (11 smells):
   Method Smells:
@@ -325,11 +325,11 @@ See: performance/database-performance.md for patterns
 # In code-reviewer workflow files
 
 Load smell catalog:
-  {{load: ../../refactoring-engineer/smells/INDEX.md}}
+  {{load: ../refactoring-engineer/smells/INDEX.md}}
 
 Load specific smell documentation:
-  {{load: ../../refactoring-engineer/smells/method/long-method.md}}
-  {{load: ../../refactoring-engineer/smells/class/large-class.md}}
+  {{load: ../refactoring-engineer/smells/method/long-method.md}}
+  {{load: ../refactoring-engineer/smells/class/large-class.md}}
 ```
 
 ### Method 2: Integration Documentation

@@ -174,7 +174,7 @@ Code-Reviewer: "Invoking refactoring-engineer... (estimated 35 minutes)"
 
 ```markdown
 Load refactoring-engineer integration:
-  {{load: ../../refactoring-engineer/workflows/REFACTORING_PROCESS.md}}
+  {{load: ../refactoring-engineer/workflows/REFACTORING_PROCESS.md}}
 
 Invoke with prepared payload:
   {detected_smells: [...], context: {...}}

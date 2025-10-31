@@ -2,8 +2,6 @@
 
 All notable changes to the Terminal-Orchestrator plugin will be documented in this file.
 
-The format is based on Keep a Changelog, and this project adheres to Semantic Versioning (SemVer). Pre-1.0 versions may introduce changes in minor releases.
-
 ## [0.1.1] - 2025-10-30
 ### Added
 - PRIMER.md as the default, token-lean entrypoint for the Skill.
