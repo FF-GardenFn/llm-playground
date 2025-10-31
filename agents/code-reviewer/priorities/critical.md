@@ -1,6 +1,6 @@
 # Critical Issues (Must Fix)
 
-**Priority Level**: 🔴 CRITICAL
+**Priority Level**:  CRITICAL
 **Action Required**: Fix before code approval
 **Gate**: Cannot approve pull request with unresolved critical issues
 
@@ -36,14 +36,14 @@ Critical issues pose immediate risk to security, data integrity, or system relia
 
 **Example**:
 ```python
-# ❌ CRITICAL: SQL injection vulnerability
+#  CRITICAL: SQL injection vulnerability
 query = f"SELECT * FROM users WHERE id = {user_id}"
 db.execute(query)
 ```
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Parameterized query
+#  Fixed: Parameterized query
 query = "SELECT * FROM users WHERE id = %s"
 db.execute(query, (user_id,))
 ```
@@ -58,13 +58,13 @@ db.execute(query, (user_id,))
 
 **Example**:
 ```python
-# ❌ CRITICAL: XSS vulnerability
+#  CRITICAL: XSS vulnerability
 return f"<div>Welcome, {username}!</div>"
 ```
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Escaped output
+#  Fixed: Escaped output
 from html import escape
 return f"<div>Welcome, {escape(username)}!</div>"
 ```
@@ -79,13 +79,13 @@ return f"<div>Welcome, {escape(username)}!</div>"
 
 **Example**:
 ```python
-# ❌ CRITICAL: Hard-coded API key
+#  CRITICAL: Hard-coded API key
 API_KEY = "sk_live_abc123def456"
 ```
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Environment variable
+#  Fixed: Environment variable
 import os
 API_KEY = os.environ['API_KEY']
 ```
@@ -100,14 +100,14 @@ API_KEY = os.environ['API_KEY']
 
 **Example**:
 ```python
-# ❌ CRITICAL: Client-side authentication
+#  CRITICAL: Client-side authentication
 if request.headers.get('X-Is-Admin') == 'true':
     return admin_panel()
 ```
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Server-side authentication
+#  Fixed: Server-side authentication
 @require_auth
 def admin_panel():
     user = get_current_user()
@@ -126,13 +126,13 @@ def admin_panel():
 
 **Example**:
 ```python
-# ❌ CRITICAL: Weak password hashing
+#  CRITICAL: Weak password hashing
 password_hash = hashlib.md5(password.encode()).hexdigest()
 ```
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Strong hashing with bcrypt
+#  Fixed: Strong hashing with bcrypt
 import bcrypt
 password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 ```
@@ -149,7 +149,7 @@ password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
 **Example**:
 ```python
-# ❌ CRITICAL: Race condition
+#  CRITICAL: Race condition
 balance = account.balance
 balance -= amount
 account.balance = balance  # Lost update if concurrent access
@@ -158,7 +158,7 @@ db.commit()
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Atomic update
+#  Fixed: Atomic update
 db.execute("UPDATE accounts SET balance = balance - %s WHERE id = %s", (amount, account_id))
 
 # Or: Optimistic locking
@@ -177,14 +177,14 @@ db.commit()
 
 **Example**:
 ```python
-# ❌ CRITICAL: No transaction
+#  CRITICAL: No transaction
 user.create()  # Succeeds
 account.create()  # Fails - user created but no account!
 ```
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Transaction wrapping
+#  Fixed: Transaction wrapping
 with db.begin():
     user.create()
     account.create()
@@ -201,14 +201,14 @@ with db.begin():
 
 **Example**:
 ```python
-# ❌ CRITICAL: No validation
+#  CRITICAL: No validation
 age = request.form['age']
 user.age = age  # Could be -100, "abc", etc.
 ```
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Validation
+#  Fixed: Validation
 age = request.form.get('age')
 if not age or not age.isdigit():
     abort(400, "Invalid age")
@@ -230,7 +230,7 @@ user.age = age
 
 **Example**:
 ```python
-# ❌ CRITICAL: Unhandled exception
+#  CRITICAL: Unhandled exception
 @app.route('/checkout')
 def checkout():
     user = User.query.get(session['user_id'])  # KeyError if not logged in
@@ -240,7 +240,7 @@ def checkout():
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Error handling
+#  Fixed: Error handling
 @app.route('/checkout')
 def checkout():
     try:
@@ -269,7 +269,7 @@ def checkout():
 
 **Example**:
 ```python
-# ❌ CRITICAL: Memory leak
+#  CRITICAL: Memory leak
 global_cache = []
 
 @app.route('/process')
@@ -281,7 +281,7 @@ def process_data():
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Bounded cache with expiration
+#  Fixed: Bounded cache with expiration
 from cachetools import TTLCache
 
 cache = TTLCache(maxsize=100, ttl=3600)  # Max 100 items, 1-hour TTL
@@ -307,7 +307,7 @@ def process_data():
 
 **Example**:
 ```python
-# ❌ CRITICAL: Deadlock risk
+#  CRITICAL: Deadlock risk
 # Thread 1
 with lock_a:
     with lock_b:
@@ -321,7 +321,7 @@ with lock_b:  # Deadlock if Thread 1 holds lock_a
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Consistent lock ordering
+#  Fixed: Consistent lock ordering
 # All threads acquire locks in same order
 with lock_a:
     with lock_b:
@@ -340,7 +340,7 @@ with lock_a:
 
 **Example**:
 ```python
-# ❌ CRITICAL: Breaking change
+#  CRITICAL: Breaking change
 # Old API (v1)
 @app.route('/api/users/<int:id>')
 def get_user(id):
@@ -355,7 +355,7 @@ def get_user(id):
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Deprecation period
+#  Fixed: Deprecation period
 @app.route('/api/v2/users/<int:id>')
 def get_user_v2(id):
     user = User.query.get(id)
@@ -380,13 +380,13 @@ def get_user_v1(id):
 
 **Example**:
 ```python
-# ❌ CRITICAL: Code expects new column, migration not included
+#  CRITICAL: Code expects new column, migration not included
 user.email_verified  # New column not in database
 ```
 
 **Fix Required**:
 ```python
-# ✅ Fixed: Include migration
+#  Fixed: Include migration
 # migrations/add_email_verified.py
 def upgrade():
     op.add_column('users', sa.Column('email_verified', sa.Boolean(), default=False))
@@ -402,7 +402,7 @@ def upgrade():
 
 **When critical issue found**:
 
-1. **Mark as CRITICAL** with 🔴 indicator
+1. **Mark as CRITICAL** with  indicator
 2. **Explain severity**: Why this blocks approval (security, data corruption, production failure)
 3. **Provide fix**: Exact code to resolve issue
 4. **Include verification**: How to test the fix
@@ -410,7 +410,7 @@ def upgrade():
 
 **Example**:
 ```markdown
-### 🔴 CRITICAL: SQL Injection Vulnerability (users.py:45)
+### Critical: CRITICAL: SQL Injection Vulnerability (users.py:45)
 
 **Severity**: CRITICAL - Direct path to database compromise
 

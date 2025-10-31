@@ -14,22 +14,22 @@ Security vulnerabilities are the highest priority in code review. A single vulne
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: String interpolation
+#  VULNERABLE: String interpolation
 query = f"SELECT * FROM users WHERE id = {user_id}"
 query = "SELECT * FROM users WHERE name = '" + username + "'"
 query = "SELECT * FROM users WHERE id = %s" % user_id
 
-# ❌ VULNERABLE: String concatenation
+#  VULNERABLE: String concatenation
 query = "SELECT * FROM users WHERE id = " + str(user_id)
 ```
 
 **Fix**:
 ```python
-# ✅ SAFE: Parameterized queries
+#  SAFE: Parameterized queries
 query = "SELECT * FROM users WHERE id = %s"
 cursor.execute(query, (user_id,))
 
-# ✅ SAFE: ORM (SQLAlchemy, Django ORM)
+#  SAFE: ORM (SQLAlchemy, Django ORM)
 user = User.query.filter_by(id=user_id).first()
 ```
 
@@ -55,26 +55,26 @@ bandit -r src/ -f json | jq '.results[] | select(.issue_text | contains("SQL"))'
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: Unescaped user input in HTML
+#  VULNERABLE: Unescaped user input in HTML
 return f"<div>Welcome, {username}!</div>"
 
-# ❌ VULNERABLE: innerHTML in JavaScript
+#  VULNERABLE: innerHTML in JavaScript
 document.getElementById('welcome').innerHTML = username;
 
-# ❌ VULNERABLE: Jinja2 without autoescaping
+#  VULNERABLE: Jinja2 without autoescaping
 return render_template_string(f"<div>{user_input}</div>")
 ```
 
 **Fix**:
 ```python
-# ✅ SAFE: Escaped output
+#  SAFE: Escaped output
 from html import escape
 return f"<div>Welcome, {escape(username)}!</div>"
 
-# ✅ SAFE: Template autoescaping (Flask, Django)
+#  SAFE: Template autoescaping (Flask, Django)
 return render_template('welcome.html', username=username)
 
-# ✅ SAFE: textContent in JavaScript
+#  SAFE: textContent in JavaScript
 document.getElementById('welcome').textContent = username;
 ```
 
@@ -99,7 +99,7 @@ grep -r "render_template_string" src/
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: State-changing operations without CSRF protection
+#  VULNERABLE: State-changing operations without CSRF protection
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
     user_id = session['user_id']
@@ -109,7 +109,7 @@ def delete_account():
 
 **Fix**:
 ```python
-# ✅ SAFE: CSRF token validation (Flask-WTF)
+#  SAFE: CSRF token validation (Flask-WTF)
 from flask_wtf.csrf import CSRFProtect
 
 csrf = CSRFProtect(app)
@@ -122,7 +122,7 @@ def delete_account():
     delete_user(user_id)
     return {'status': 'deleted'}
 
-# ✅ SAFE: SameSite cookies
+#  SAFE: SameSite cookies
 app.config['SESSION_COOKIE_SAMESITE'] = 'Strict'
 ```
 
@@ -140,20 +140,20 @@ Attackers can:
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: Client-side authentication
+#  VULNERABLE: Client-side authentication
 if request.headers.get('X-Is-Admin') == 'true':
     return admin_panel()
 
-# ❌ VULNERABLE: Predictable session IDs
+#  VULNERABLE: Predictable session IDs
 session_id = str(user_id)  # Attacker can guess
 
-# ❌ VULNERABLE: No session expiration
+#  VULNERABLE: No session expiration
 session.permanent = True  # Never expires
 ```
 
 **Fix**:
 ```python
-# ✅ SAFE: Server-side authentication
+#  SAFE: Server-side authentication
 from functools import wraps
 
 def require_auth(f):
@@ -172,10 +172,10 @@ def admin_panel():
         abort(403)
     return render_template('admin.html')
 
-# ✅ SAFE: Cryptographically secure session IDs
+#  SAFE: Cryptographically secure session IDs
 app.config['SECRET_KEY'] = os.urandom(32)  # Flask generates secure IDs
 
-# ✅ SAFE: Session expiration
+#  SAFE: Session expiration
 from datetime import timedelta
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 ```
@@ -188,43 +188,43 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: Weak password hashing
+#  VULNERABLE: Weak password hashing
 password_hash = hashlib.md5(password.encode()).hexdigest()
 password_hash = hashlib.sha1(password.encode()).hexdigest()
 
-# ❌ VULNERABLE: No salt
+#  VULNERABLE: No salt
 password_hash = hashlib.sha256(password.encode()).hexdigest()
 
-# ❌ VULNERABLE: Weak encryption
+#  VULNERABLE: Weak encryption
 from Crypto.Cipher import DES
 cipher = DES.new(key)  # DES is broken
 
-# ❌ VULNERABLE: Hard-coded keys
+#  VULNERABLE: Hard-coded keys
 SECRET_KEY = "mysecretkey123"
 ```
 
 **Fix**:
 ```python
-# ✅ SAFE: Strong password hashing with salt
+#  SAFE: Strong password hashing with salt
 from werkzeug.security import generate_password_hash, check_password_hash
 
 password_hash = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16)
 is_valid = check_password_hash(password_hash, password)
 
-# ✅ SAFE: bcrypt (recommended)
+#  SAFE: bcrypt (recommended)
 import bcrypt
 
 password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 is_valid = bcrypt.checkpw(password.encode(), password_hash)
 
-# ✅ SAFE: Strong encryption (AES)
+#  SAFE: Strong encryption (AES)
 from cryptography.fernet import Fernet
 
 key = Fernet.generate_key()  # Store securely
 cipher = Fernet(key)
 encrypted = cipher.encrypt(plaintext.encode())
 
-# ✅ SAFE: Environment variables for secrets
+#  SAFE: Environment variables for secrets
 SECRET_KEY = os.environ['SECRET_KEY']
 ```
 
@@ -251,32 +251,32 @@ truffleHog --regex --entropy=False .
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: Hard-coded credentials
+#  VULNERABLE: Hard-coded credentials
 DATABASE_URL = "postgresql://admin:password123@localhost/db"
 API_KEY = "sk_live_abc123def456"
 AWS_SECRET = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 
-# ❌ VULNERABLE: Committed .env file
+#  VULNERABLE: Committed .env file
 # .env in repository
 ```
 
 **Fix**:
 ```python
-# ✅ SAFE: Environment variables
+#  SAFE: Environment variables
 import os
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
 API_KEY = os.environ.get('API_KEY')
 AWS_SECRET = os.environ.get('AWS_SECRET_KEY')
 
-# ✅ SAFE: Secret management service
+#  SAFE: Secret management service
 from boto3 import client
 
 secrets_client = client('secretsmanager')
 response = secrets_client.get_secret_value(SecretId='prod/database/password')
 DATABASE_PASSWORD = response['SecretString']
 
-# ✅ SAFE: .env excluded from version control
+#  SAFE: .env excluded from version control
 # .gitignore
 .env
 .env.local
@@ -309,19 +309,19 @@ grep -r "api_key\|apikey\|secret_key" src/
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: Missing permission checks
+#  VULNERABLE: Missing permission checks
 @app.route('/users/<int:user_id>/delete', methods=['POST'])
 def delete_user(user_id):
     User.query.filter_by(id=user_id).delete()  # No permission check!
     return {'status': 'deleted'}
 
-# ❌ VULNERABLE: Client-side authorization
+#  VULNERABLE: Client-side authorization
 # Trusting user-supplied role/permission claims
 ```
 
 **Fix**:
 ```python
-# ✅ SAFE: Permission checks
+#  SAFE: Permission checks
 @app.route('/users/<int:user_id>/delete', methods=['POST'])
 def delete_user(user_id):
     current_user = get_current_user()
@@ -333,7 +333,7 @@ def delete_user(user_id):
     User.query.filter_by(id=user_id).delete()
     return {'status': 'deleted'}
 
-# ✅ SAFE: Decorator-based authorization
+#  SAFE: Decorator-based authorization
 from functools import wraps
 
 def require_permission(permission):
@@ -366,7 +366,7 @@ def admin_settings():
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: Unsanitized file paths
+#  VULNERABLE: Unsanitized file paths
 @app.route('/download/<path:filename>')
 def download_file(filename):
     return send_file(f"/uploads/{filename}")  # Can access ../../../etc/passwd
@@ -374,7 +374,7 @@ def download_file(filename):
 
 **Fix**:
 ```python
-# ✅ SAFE: Validate and sanitize paths
+#  SAFE: Validate and sanitize paths
 import os
 from werkzeug.utils import secure_filename
 
@@ -408,30 +408,30 @@ Attackers can:
 
 **Detection**:
 ```python
-# ❌ VULNERABLE: Unsanitized input to shell
+#  VULNERABLE: Unsanitized input to shell
 import os
 filename = request.args.get('file')
 os.system(f"cat {filename}")  # Can execute: `; rm -rf /`
 
-# ❌ VULNERABLE: Shell=True with user input
+#  VULNERABLE: Shell=True with user input
 import subprocess
 subprocess.run(f"ping {host}", shell=True)
 ```
 
 **Fix**:
 ```python
-# ✅ SAFE: Avoid shell, use list arguments
+#  SAFE: Avoid shell, use list arguments
 import subprocess
 filename = request.args.get('file')
 subprocess.run(['cat', filename])  # Arguments properly escaped
 
-# ✅ SAFE: Input validation (allowlist)
+#  SAFE: Input validation (allowlist)
 import re
 if not re.match(r'^[a-zA-Z0-9_.-]+$', filename):
     abort(400, "Invalid filename")
 subprocess.run(['cat', filename])
 
-# ✅ SAFE: Use libraries instead of shell commands
+#  SAFE: Use libraries instead of shell commands
 # Instead of `cat file`, use Python's open()
 with open(filename, 'r') as f:
     content = f.read()

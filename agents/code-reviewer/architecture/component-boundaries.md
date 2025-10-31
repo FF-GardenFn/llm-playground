@@ -6,7 +6,7 @@
 
 **Priority**: Important (architectural issues)
 
-**Refactorable**: ⚠️ PARTIALLY (some violations can be refactored via Move Method/Extract Class)
+**Refactorable**: Warning: PARTIALLY (some violations can be refactored via Move Method/Extract Class)
 
 ---
 
@@ -44,7 +44,7 @@ Component boundaries define how system is divided into modules/layers. Well-defi
 
 **Example - Good Layering**:
 ```python
-# ✅ GOOD: Clear layer separation
+# GOOD: Clear layer separation
 
 # Presentation Layer (views.py)
 from business_logic import UserService
@@ -80,7 +80,7 @@ class UserRepository:
 
 **Example - Violation (Layer Skipping)**:
 ```python
-# ❌ BAD: Presentation directly accesses database
+# BAD: Presentation directly accesses database
 
 # views.py
 from models import User  # ← Skipping business logic layer!
@@ -126,7 +126,7 @@ class UserController:
 
 **Example - Good Dependency Direction**:
 ```python
-# ✅ GOOD: Domain has no dependencies
+# GOOD: Domain has no dependencies
 
 # domain/user.py (Core Domain)
 class User:
@@ -163,7 +163,7 @@ class UserRepository:
 
 **Example - Violation (Wrong Dependency Direction)**:
 ```python
-# ❌ BAD: Domain depends on infrastructure
+# BAD: Domain depends on infrastructure
 
 # domain/user.py
 from infrastructure.database import db  # ← WRONG! Domain depends on infrastructure!
@@ -203,7 +203,7 @@ class User:
 
 **Example - Mixed Concerns**:
 ```python
-# ❌ BAD: Multiple concerns in one class
+# BAD: Multiple concerns in one class
 class UserController:
     def create_user(self, request):
         # Concern 1: Request parsing (presentation)
@@ -233,7 +233,7 @@ class UserController:
 
 **Example - Separated Concerns**:
 ```python
-# ✅ GOOD: Concerns separated
+# GOOD: Concerns separated
 
 # Presentation Layer
 class UserController:
@@ -290,7 +290,7 @@ class EmailService:
 
 **Tight Coupling (BAD)**:
 ```python
-# ❌ BAD: Direct dependency on concrete class
+# BAD: Direct dependency on concrete class
 class OrderProcessor:
     def __init__(self):
         self.payment_gateway = StripePaymentGateway()  # ← Tightly coupled!
@@ -303,7 +303,7 @@ class OrderProcessor:
 
 **Loose Coupling (GOOD)**:
 ```python
-# ✅ GOOD: Dependency injection with interface
+# GOOD: Dependency injection with interface
 from abc import ABC, abstractmethod
 
 class PaymentGateway(ABC):
@@ -338,7 +338,7 @@ order_processor = OrderProcessor(PayPalPaymentGateway())
 
 **High Cohesion (GOOD)**:
 ```python
-# ✅ GOOD: User-related operations together
+# GOOD: User-related operations together
 class UserService:
     def create_user(self, user_data): pass
     def update_user(self, user_id, user_data): pass
@@ -350,7 +350,7 @@ class UserService:
 
 **Low Cohesion (BAD)**:
 ```python
-# ❌ BAD: Unrelated operations in same class
+# BAD: Unrelated operations in same class
 class UtilityService:
     def create_user(self, user_data): pass
     def send_email(self, email): pass
@@ -374,7 +374,7 @@ class UtilityService:
 ### 1. Business Logic in Controllers
 
 ```python
-# ❌ BAD: Business logic in controller
+# BAD: Business logic in controller
 class UserController:
     def create_user(self, request):
         # Business logic here! (should be in service)
@@ -389,7 +389,7 @@ class UserController:
         user = User.objects.create(name=name, email=email)
         return render('success.html')
 
-# ✅ GOOD: Business logic in service
+# GOOD: Business logic in service
 class UserService:
     def create_user(self, user_data):
         if len(user_data['name']) < 3:
@@ -412,7 +412,7 @@ class UserController:
 ### 2. Database Logic in Business Layer
 
 ```python
-# ❌ BAD: SQL in business logic
+# BAD: SQL in business logic
 class UserService:
     def create_user(self, user_data):
         # SQL here! (should be in repository)
@@ -422,7 +422,7 @@ class UserService:
         )
         return cursor.lastrowid
 
-# ✅ GOOD: SQL in repository
+# GOOD: SQL in repository
 class UserRepository:
     def save(self, user_data):
         cursor.execute(
@@ -441,14 +441,14 @@ class UserService:
 ### 3. Multiple Responsibilities (SRP Violation)
 
 ```python
-# ❌ BAD: Multiple responsibilities
+# BAD: Multiple responsibilities
 class UserManager:
     def create_user(self, user_data): pass      # User CRUD
     def send_welcome_email(self, email): pass   # Email
     def log_user_created(self, user_id): pass   # Logging
     def calculate_discount(self, user): pass     # Pricing
 
-# ✅ GOOD: Separate responsibilities
+# GOOD: Separate responsibilities
 class UserService:
     def create_user(self, user_data): pass
 
@@ -516,7 +516,7 @@ class PricingService:
 - Look for SRP violations, layer skipping, tight coupling
 
 **Refactorable**:
-- ⚠️ PARTIALLY - Some violations fixable via Move Method, Extract Class
+- Warning: PARTIALLY - Some violations fixable via Move Method, Extract Class
 - Some require architectural redesign
 
 **Priority**: **Important** (affects maintainability, testability)

@@ -4,19 +4,13 @@ allowed-tools: Read, Write, AskUserQuestion
 argument-hint: [--before path --after path --summary path]
 ---
 
-You are code-reviewer in **Verification Mode**.
+# Refactoring Verification Mode
 
-**Your Task**: Verify that a refactoring performed by refactoring-engineer is safe to merge.
+Verification mode for comprehensive security, performance, and architecture regression checks. Validates that refactorings are behavior-preserving and safe to merge.
 
 ## Operational Mode: Verification
 
-**Context**: You have been invoked by refactoring-engineer Phase 5 to validate a refactoring.
-
-**Your Identity**:
-- You are an independent code reviewer
-- You verify refactorings are behavior-preserving
-- You check for security/performance regressions
-- You provide binary decisions: SAFE / UNSAFE / MANUAL_REVIEW
+**Context**: Invoked by refactoring-engineer Phase 5 to validate refactorings independently.
 
 ## Verification Workflow
 

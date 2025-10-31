@@ -205,7 +205,7 @@ Load category based on issue type:
 
 Issues prioritized by severity and impact:
 
-### 🔴 Critical (Must Fix) → `priorities/critical.md`
+### Critical (Must Fix) → `priorities/critical.md`
 
 **Cannot approve code with critical issues.**
 
@@ -234,7 +234,7 @@ Issues prioritized by severity and impact:
 
 ---
 
-### 🟡 Important (Should Fix) → `priorities/important.md`
+### Important (Should Fix) → `priorities/important.md`
 
 **Code should not merge with unaddressed important issues (or documented justification).**
 
@@ -264,7 +264,7 @@ Issues prioritized by severity and impact:
 
 ---
 
-### 🔵 Suggestion (Consider) → `priorities/suggestion.md`
+### Suggestion (Consider) → `priorities/suggestion.md`
 
 **Recommendations for improvement, not blockers.**
 
@@ -292,7 +292,7 @@ Issues prioritized by severity and impact:
 
 ---
 
-### ✅ Praise (Good Work) → `priorities/praise.md`
+### Praise (Good Work) → `priorities/praise.md`
 
 **Acknowledge good practices to reinforce positive patterns.**
 
@@ -343,7 +343,7 @@ Standard review structure ensures constructive, educational feedback:
 
 ## Detailed Review
 
-### 🔴 Critical Issues
+### Critical Issues
 
 #### 1. [Issue Title] (file.py:line)
 ```language
@@ -360,12 +360,12 @@ Standard review structure ensures constructive, educational feedback:
 [Impact, consequences, examples of attacks/failures]
 ```
 
-### 🟡 Important Issues
+### Important Issues
 
 #### 1. [Issue Title] (file.py:line)
 [Same format as Critical]
 
-### 🔵 Suggestions
+### Suggestions
 
 #### 1. [Title] (file.py:line)
 ```language
@@ -379,7 +379,7 @@ Standard review structure ensures constructive, educational feedback:
 [why alternative is better - clarity, performance, etc.]
 ```
 
-### ✅ Good Practices Observed
+### Good Practices Observed
 
 - [Specific good practice 1]
 - [Specific good practice 2]
@@ -411,9 +411,9 @@ Standard review structure ensures constructive, educational feedback:
 **Don't just point out issues—explain impact:**
 
 ```markdown
-❌ Bad: "Don't use `eval()`"
+BAD: "Don't use `eval()`"
 
-✅ Good:
+OK:
 "Avoid `eval()` for user input (line 45).
 
 Issue: `eval()` executes arbitrary Python code, allowing attackers to run malicious commands.
@@ -428,9 +428,9 @@ Fix: Use `ast.literal_eval()` for safe evaluation of Python literals, or validat
 **Include concrete code examples:**
 
 ```markdown
-❌ Bad: "This should be refactored"
+BAD: "This should be refactored"
 
-✅ Good:
+OK:
 "Consider extracting validation logic (lines 30-65).
 
 Current: 35-line validation mixed with business logic
@@ -559,14 +559,14 @@ python manage.py shell_plus --print-sql
 
 Code review complete when:
 
-- ✅ Security vulnerabilities identified (OWASP Top 10)
-- ✅ Code quality assessed (SOLID, clean code, code smells)
-- ✅ Performance issues detected (algorithmic, database, memory, concurrency)
-- ✅ Architecture evaluated (component boundaries, API design, error handling)
-- ✅ Testing validated (coverage, quality, types, mocking)
-- ✅ Issues prioritized (Critical/Important/Suggestion/Praise)
-- ✅ Feedback is constructive (Why + How + Context)
-- ✅ Recommendations actionable (code examples, verification commands)
+- Security vulnerabilities identified (OWASP Top 10)
+- Code quality assessed (SOLID, clean code, code smells)
+- Performance issues detected (algorithmic, database, memory, concurrency)
+- Architecture evaluated (component boundaries, API design, error handling)
+- Testing validated (coverage, quality, types, mocking)
+- Issues prioritized (Critical/Important/Suggestion/Praise)
+- Feedback is constructive (Why + How + Context)
+- Recommendations actionable (code examples, verification commands)
 
 **If any criteria unmet, review incomplete.**
 

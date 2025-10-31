@@ -27,13 +27,13 @@ Clean code is code that is easy to read, understand, and modify. Code-reviewer e
 **Good Practices**:
 
 ```python
-# ❌ BAD: Cryptic names
+# BAD: Cryptic names
 def calc(d):
     return d * 0.85
 
 x = calc(100)
 
-# ✅ GOOD: Meaningful names
+# GOOD: Meaningful names
 def calculate_discounted_price(original_price):
     DISCOUNT_RATE = 0.85
     return original_price * DISCOUNT_RATE
@@ -61,14 +61,14 @@ discounted_price = calculate_discounted_price(100)
 
 **Example - Before/After**:
 ```python
-# ❌ BAD: Poor naming
+# BAD: Poor naming
 class UM:
     def p(self, u):
         if u.a:
             return True
         return False
 
-# ✅ GOOD: Clean naming
+# GOOD: Clean naming
 class UserAuthenticator:
     def is_user_authenticated(self, user):
         if user.is_active:
@@ -92,7 +92,7 @@ class UserAuthenticator:
 
 **Example - Problem**:
 ```python
-# ❌ BAD: Function does too many things
+# BAD: Function does too many things
 def process_order(order):
     # Validate order
     if not order.customer_id:
@@ -119,7 +119,7 @@ def process_order(order):
 
 **Fix - Single Responsibility**:
 ```python
-# ✅ GOOD: Each function does one thing
+# GOOD: Each function does one thing
 def process_order(order):
     validate_order(order)
     total = calculate_order_total(order)
@@ -167,7 +167,7 @@ def log_order_processed(order):
 **Bad Comments**:
 
 ```python
-# ❌ BAD: Comments explain what (redundant)
+# BAD: Comments explain what (redundant)
 # Increment counter by 1
 counter += 1
 
@@ -176,7 +176,7 @@ for user in users:
     # Print user name
     print(user.name)
 
-# ✅ GOOD: Code is self-explanatory (no comments needed)
+# GOOD: Code is self-explanatory (no comments needed)
 counter += 1
 
 for user in users:
@@ -186,7 +186,7 @@ for user in users:
 **Good Comments**:
 
 ```python
-# ✅ GOOD: Comments explain why (intent)
+# GOOD: Comments explain why (intent)
 # Apply 15% discount for Black Friday promotion (ends Nov 30)
 discounted_price = original_price * 0.85
 
@@ -226,7 +226,7 @@ self.parent = weakref.ref(parent)
 **Bad Practices**:
 
 ```python
-# ❌ BAD: Error codes
+# BAD: Error codes
 def get_user(user_id):
     user = db.query(user_id)
     if user is None:
@@ -243,7 +243,7 @@ else:
 **Good Practices**:
 
 ```python
-# ✅ GOOD: Exceptions
+# GOOD: Exceptions
 def get_user(user_id):
     user = db.query(user_id)
     if user is None:
@@ -262,22 +262,22 @@ except UserNotFoundError as e:
 
 1. **Use specific exceptions**:
 ```python
-# ❌ BAD: Generic exception
+# BAD: Generic exception
 raise Exception("User not found")
 
-# ✅ GOOD: Specific exception
+# GOOD: Specific exception
 raise UserNotFoundError("User not found")
 ```
 
 2. **Don't swallow exceptions**:
 ```python
-# ❌ BAD: Silent failure
+# BAD: Silent failure
 try:
     process_payment()
 except Exception:
     pass  # Ignored!
 
-# ✅ GOOD: Log and handle
+# GOOD: Log and handle
 try:
     process_payment()
 except PaymentError as e:
@@ -288,14 +288,14 @@ except PaymentError as e:
 
 3. **Use context managers**:
 ```python
-# ❌ BAD: Manual cleanup
+# BAD: Manual cleanup
 f = open('file.txt')
 try:
     data = f.read()
 finally:
     f.close()
 
-# ✅ GOOD: Context manager
+# GOOD: Context manager
 with open('file.txt') as f:
     data = f.read()  # Automatically closed
 ```
@@ -315,7 +315,7 @@ with open('file.txt') as f:
 
 **Example - Problem**:
 ```python
-# ❌ BAD: Repeated validation
+# BAD: Repeated validation
 def create_user(username, email):
     if not username or len(username) < 3:
         raise ValueError("Invalid username")
@@ -333,7 +333,7 @@ def update_user(user_id, username, email):
 
 **Fix - Extract Common Logic**:
 ```python
-# ✅ GOOD: Single validation function
+# GOOD: Single validation function
 def validate_username(username):
     if not username or len(username) < 3:
         raise ValueError("Invalid username")
@@ -375,13 +375,13 @@ def update_user(user_id, username, email):
 
 **Whitespace**:
 ```python
-# ✅ GOOD: Consistent whitespace
+# GOOD: Consistent whitespace
 def calculate_total(price, quantity, discount):
     subtotal = price * quantity
     discounted = subtotal * (1 - discount)
     return discounted
 
-# ❌ BAD: Inconsistent whitespace
+# BAD: Inconsistent whitespace
 def calculate_total(price,quantity,discount):
     subtotal=price*quantity
     discounted =subtotal*(1-discount)
@@ -390,7 +390,7 @@ def calculate_total(price,quantity,discount):
 
 **Imports**:
 ```python
-# ✅ GOOD: Grouped imports (PEP 8)
+# GOOD: Grouped imports (PEP 8)
 # Standard library
 import os
 import sys
@@ -420,12 +420,12 @@ from app.utils import validate
 
 **Example**:
 ```python
-# ❌ BAD: 100-line function
+# BAD: 100-line function
 def process_order(order):
     # 100 lines of mixed concerns
     pass
 
-# ✅ GOOD: Composed of small functions
+# GOOD: Composed of small functions
 def process_order(order):
     validate_order(order)
     calculate_total(order)
@@ -457,7 +457,7 @@ def process_order(order):
 
 **Example - Problem**:
 ```python
-# ❌ BAD: Too many dependencies
+# BAD: Too many dependencies
 class OrderProcessor:
     def __init__(self, db, email_service, payment_gateway,
                  inventory_service, shipping_service, tax_calculator,
@@ -470,7 +470,7 @@ class OrderProcessor:
 
 **Fix - Dependency Injection with Facade**:
 ```python
-# ✅ GOOD: Facade pattern reduces dependencies
+# GOOD: Facade pattern reduces dependencies
 class OrderServices:
     def __init__(self, db, email_service, payment_gateway,
                  inventory_service, shipping_service, tax_calculator,
@@ -585,7 +585,7 @@ for user in users:
 **4. DRY Violation (Lines 150-180)**
 Validation logic duplicated. Extract to `validate_email(email)` function.
 
-**What Went Well** ✓:
+**What Went Well**:
 - Excellent error handling with specific exceptions
 - Consistent formatting throughout
 - Good use of context managers

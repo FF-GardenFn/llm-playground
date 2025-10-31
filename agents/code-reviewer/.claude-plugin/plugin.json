@@ -18,10 +18,10 @@
     "production"
   ],
   "commands": [
-    "../commands/review-code.md",
-    "../commands/check-tests.md",
-    "../commands/check-security.md",
-    "../commands/verify-refactoring.md"
+    "./commands/review-code.md",
+    "./commands/check-tests.md",
+    "./commands/check-security.md",
+    "./commands/verify-refactoring.md"
   ],
   "skills": "./skills/",
   "strict": true

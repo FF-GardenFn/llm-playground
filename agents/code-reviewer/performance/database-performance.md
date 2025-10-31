@@ -6,7 +6,7 @@
 
 **Priority**: Important (causes severe performance degradation)
 
-**Refactorable**: ❌ NO (requires database/ORM knowledge, not code structure changes)
+**Refactorable**:  NO (requires database/ORM knowledge, not code structure changes)
 
 ---
 
@@ -35,7 +35,7 @@ These require **manual optimization**, not behavior-preserving refactoring.
 
 **Example - N+1 (Django)**:
 ```python
-# ❌ BAD: N+1 query problem (1 + N queries)
+# BAD: N+1 query problem (1 + N queries)
 def get_users_with_orders():
     users = User.objects.all()  # Query 1: SELECT * FROM users
     result = []
@@ -53,7 +53,7 @@ def get_users_with_orders():
 
 **Fix - Eager Loading (2 queries)**:
 ```python
-# ✅ GOOD: Eager loading with prefetch_related (2 queries)
+# GOOD: Eager loading with prefetch_related (2 queries)
 def get_users_with_orders():
     # Query 1: SELECT * FROM users
     # Query 2: SELECT * FROM orders WHERE user_id IN (...)
@@ -73,7 +73,7 @@ def get_users_with_orders():
 
 **Fix - Aggregation (1 query)**:
 ```python
-# ✅ BETTER: Aggregation (1 query)
+#  BETTER: Aggregation (1 query)
 from django.db.models import Count
 
 def get_users_with_orders():
@@ -112,7 +112,7 @@ def get_users_with_orders():
 
 **Example - Missing Index**:
 ```python
-# ❌ BAD: Frequent queries on unindexed email column
+# BAD: Frequent queries on unindexed email column
 class User(models.Model):
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=255)  # No index!
@@ -127,7 +127,7 @@ def find_user_by_email(email):
 
 **Fix - Add Index**:
 ```python
-# ✅ GOOD: Add index to email column
+# GOOD: Add index to email column
 class User(models.Model):
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=255, db_index=True)  # Indexed!
@@ -142,7 +142,7 @@ def find_user_by_email(email):
 
 **Composite Index Example**:
 ```python
-# ✅ GOOD: Composite index for common query pattern
+# GOOD: Composite index for common query pattern
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=20)
@@ -175,7 +175,7 @@ def get_active_orders_for_user(user_id):
 
 **Example - Wasteful**:
 ```python
-# ❌ BAD: Fetching all user fields when only need name and email
+# BAD: Fetching all user fields when only need name and email
 def get_user_emails():
     users = User.objects.all()  # SELECT * FROM users
     return [user.email for user in users]
@@ -185,7 +185,7 @@ def get_user_emails():
 
 **Fix - Only Fetch Needed Columns**:
 ```python
-# ✅ GOOD: Select only needed columns
+# GOOD: Select only needed columns
 def get_user_emails():
     users = User.objects.only('email')  # SELECT id, email FROM users
     return [user.email for user in users]
@@ -211,7 +211,7 @@ def get_user_emails():
 
 **Example - Repeated Queries**:
 ```python
-# ❌ BAD: 3 separate queries
+# BAD: 3 separate queries
 def get_user_summary(user_id):
     user = User.objects.get(id=user_id)  # Query 1
     orders = Order.objects.filter(user=user)  # Query 2
@@ -225,7 +225,7 @@ def get_user_summary(user_id):
 
 **Fix - Single Query with Prefetch**:
 ```python
-# ✅ GOOD: Single query with prefetch (or 2-3 optimized queries)
+# GOOD: Single query with prefetch (or 2-3 optimized queries)
 def get_user_summary(user_id):
     user = User.objects.prefetch_related('orders', 'payments').get(id=user_id)
     return {
@@ -249,7 +249,7 @@ def get_user_summary(user_id):
 
 **Example - N+1 on Foreign Keys**:
 ```python
-# ❌ BAD: N+1 on foreign key access
+# BAD: N+1 on foreign key access
 def get_orders_with_users():
     orders = Order.objects.all()  # Query 1
     result = []
@@ -267,7 +267,7 @@ def get_orders_with_users():
 
 **Fix - select_related() for Foreign Keys**:
 ```python
-# ✅ GOOD: select_related() for foreign keys (1 query with JOIN)
+# GOOD: select_related() for foreign keys (1 query with JOIN)
 def get_orders_with_users():
     # Query 1: SELECT * FROM orders JOIN users ON orders.user_id = users.id
     orders = Order.objects.select_related('user')
@@ -302,7 +302,7 @@ def get_orders_with_users():
 
 **Example - Functions in WHERE Clause**:
 ```python
-# ❌ BAD: Function on column prevents index usage
+# BAD: Function on column prevents index usage
 def find_users_by_date(target_date):
     # WHERE YEAR(created_at) = 2024 (index not used!)
     return User.objects.filter(created_at__year=target_date.year)
@@ -312,7 +312,7 @@ def find_users_by_date(target_date):
 
 **Fix - Range Query Uses Index**:
 ```python
-# ✅ GOOD: Range query uses index
+# GOOD: Range query uses index
 from datetime import datetime
 
 def find_users_by_date(target_date):
@@ -326,16 +326,16 @@ def find_users_by_date(target_date):
 
 **Other Examples**:
 ```python
-# ❌ BAD: LIKE '%pattern%' (no index usage)
+# BAD: LIKE '%pattern%' (no index usage)
 User.objects.filter(name__icontains='smith')
 
-# ✅ GOOD: LIKE 'pattern%' (index can be used)
+# GOOD: LIKE 'pattern%' (index can be used)
 User.objects.filter(name__istartswith='smith')
 
-# ❌ BAD: OR conditions often inefficient
+# BAD: OR conditions often inefficient
 User.objects.filter(name='John') | User.objects.filter(name='Jane')
 
-# ✅ GOOD: IN clause more efficient
+# GOOD: IN clause more efficient
 User.objects.filter(name__in=['John', 'Jane'])
 ```
 
@@ -354,14 +354,14 @@ User.objects.filter(name__in=['John', 'Jane'])
 
 **Example - Expensive Count**:
 ```python
-# ❌ BAD: Expensive COUNT(*) on 10M row table
+# BAD: Expensive COUNT(*) on 10M row table
 def get_user_count():
     return User.objects.count()  # SELECT COUNT(*) FROM users (slow!)
 ```
 
 **Fix - Cache Count**:
 ```python
-# ✅ GOOD: Cache count in separate table
+# GOOD: Cache count in separate table
 class UserStats(models.Model):
     total_users = models.IntegerField()
     updated_at = models.DateTimeField()
@@ -375,7 +375,7 @@ def get_user_count():
 
 **Alternative - Approximate Count**:
 ```python
-# ✅ GOOD: Use approximate count for large tables (PostgreSQL)
+# GOOD: Use approximate count for large tables (PostgreSQL)
 from django.db import connection
 
 def get_approximate_user_count():
@@ -401,32 +401,32 @@ def get_approximate_user_count():
 ### Batch Operations
 
 ```python
-# ❌ BAD: Individual inserts (N queries)
+# BAD: Individual inserts (N queries)
 for data in user_data_list:
     User.objects.create(**data)
 
-# ✅ GOOD: Bulk insert (1 query)
+# GOOD: Bulk insert (1 query)
 User.objects.bulk_create([User(**data) for data in user_data_list])
 
-# ❌ BAD: Individual updates (N queries)
+# BAD: Individual updates (N queries)
 for user in users:
     user.is_active = True
     user.save()
 
-# ✅ GOOD: Bulk update (1 query)
+# GOOD: Bulk update (1 query)
 User.objects.filter(id__in=[user.id for user in users]).update(is_active=True)
 ```
 
 ### Query Caching
 
 ```python
-# ❌ BAD: Repeated identical queries
+# BAD: Repeated identical queries
 def process_orders(orders):
     for order in orders:
         user = User.objects.get(id=order.user_id)  # Repeated query!
         # Process...
 
-# ✅ GOOD: Cache user lookups
+# GOOD: Cache user lookups
 def process_orders(orders):
     user_ids = [order.user_id for order in orders]
     users = {u.id: u for u in User.objects.filter(id__in=user_ids)}
@@ -439,11 +439,11 @@ def process_orders(orders):
 ### Pagination
 
 ```python
-# ❌ BAD: Load all records (slow for large datasets)
+# BAD: Load all records (slow for large datasets)
 def get_all_users():
     return User.objects.all()  # Loads 1M users into memory!
 
-# ✅ GOOD: Paginate results
+# GOOD: Paginate results
 from django.core.paginator import Paginator
 
 def get_users_page(page_num, page_size=100):

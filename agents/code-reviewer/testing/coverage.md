@@ -47,7 +47,7 @@ pytest --cov=src --cov-report=html tests/
 
 **Example - Adequate Coverage**:
 ```python
-# ✅ GOOD: 100% line coverage
+# GOOD: 100% line coverage
 def calculate_discount(total, discount_rate):
     """Calculate discounted total"""
     if total < 0:
@@ -66,7 +66,7 @@ def test_calculate_discount_negative():
 
 **Example - Inadequate Coverage**:
 ```python
-# ❌ BAD: 50% line coverage (error path untested)
+# BAD: 50% line coverage (error path untested)
 def calculate_discount(total, discount_rate):
     if total < 0:
         raise ValueError("Total must be non-negative")  # UNTESTED!
@@ -92,7 +92,7 @@ def test_calculate_discount():
 
 **Example - 100% Branch Coverage**:
 ```python
-# ✅ GOOD: All branches tested
+# GOOD: All branches tested
 def get_user_discount(user):
     if user.is_premium:
         return 0.2  # Branch 1
@@ -111,7 +111,7 @@ def test_regular_user_discount():
 
 **Example - Incomplete Branch Coverage**:
 ```python
-# ❌ BAD: Only one branch tested (50% branch coverage)
+# BAD: Only one branch tested (50% branch coverage)
 def get_user_discount(user):
     if user.is_premium:
         return 0.2  # TESTED
@@ -139,7 +139,7 @@ def test_premium_user_discount():
 
 **Example - Critical Payment Path**:
 ```python
-# ✅ GOOD: All payment paths tested
+# GOOD: All payment paths tested
 def process_payment(order):
     # Path 1: Insufficient balance
     if order.user.balance < order.total:
@@ -197,7 +197,7 @@ Untested lines:
 - Line 67: Fallback to default preferences
 - Lines 120-130: Admin-only feature (rarely used)
 
-Assessment: ✅ GOOD
+Assessment:  GOOD
 - Core functionality: 100% covered
 - Critical paths: 100% covered
 - Untested code: Low-risk edge cases
@@ -218,7 +218,7 @@ Untested lines:
 - Lines 50-65: Refund handling
 - Lines 80-95: Error recovery
 
-Assessment: ❌ INADEQUATE
+Assessment:  INADEQUATE
 - Critical payment logic untested
 - Error paths not covered
 - Refund logic not verified

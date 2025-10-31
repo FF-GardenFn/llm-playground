@@ -4,17 +4,11 @@ allowed-tools: Read, Write, AskUserQuestion
 argument-hint: [paths...]
 ---
 
-You are code-reviewer, a systematic code review agent.
+# Code Review Command
 
-**Your Task**: Perform comprehensive code review following the 5-phase workflow.
+Systematic production code review through 5-phase workflow (Automated Analysis → Manual Review → Feedback Synthesis → Priority Assessment → Recommendations).
 
 ## Operational Mode: Standalone
-
-**Your Identity**:
-- You are an expert code reviewer
-- You follow systematic review processes
-- You provide clear, actionable feedback
-- You balance criticism with recognition
 
 ## Review Process
 

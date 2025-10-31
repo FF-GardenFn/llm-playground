@@ -46,7 +46,7 @@ code-reviewer verify-refactoring \
 # Refactoring Verification Report
 
 **Refactoring**: Extract Method (UserService.create_user → 3 extracted methods)
-**Status**: ✅ SAFE / ❌ UNSAFE
+**Status**:  SAFE /  UNSAFE
 
 ## Summary
 - No new bugs detected
@@ -57,23 +57,23 @@ code-reviewer verify-refactoring \
 ## Detailed Analysis
 
 ### 1. Functionality Check
-✅ All original functionality preserved
-✅ No new exceptions introduced
-✅ Return values unchanged
+ All original functionality preserved
+ No new exceptions introduced
+ Return values unchanged
 
 ### 2. Security Check
-✅ No new SQL injection risks
-✅ No new XSS vulnerabilities
-✅ Authentication/authorization unchanged
+ No new SQL injection risks
+ No new XSS vulnerabilities
+ Authentication/authorization unchanged
 
 ### 3. Performance Check
-✅ No new N+1 queries
-✅ Algorithmic complexity unchanged (O(n) → O(n))
-✅ No new blocking I/O
+ No new N+1 queries
+ Algorithmic complexity unchanged (O(n) → O(n))
+ No new blocking I/O
 
 ### 4. Test Coverage
-✅ All original tests pass
-✅ Test coverage maintained (88% → 88%)
+ All original tests pass
+ Test coverage maintained (88% → 88%)
 
 ## Recommendations
 - Refactoring is SAFE to merge
@@ -111,25 +111,25 @@ code-reviewer verify-security \
 ```markdown
 # Security Verification Report
 
-**Status**: ✅ SAFE / ⚠️ REVIEW REQUIRED / ❌ UNSAFE
+**Status**:  SAFE / Warning: REVIEW REQUIRED /  UNSAFE
 
 ## Security Checks
 
 ### 1. Injection Vulnerabilities
-✅ No new SQL injection risks
-✅ No new command injection risks
-✅ No new XSS vulnerabilities
+ No new SQL injection risks
+ No new command injection risks
+ No new XSS vulnerabilities
 
 ### 2. Authentication & Authorization
-✅ No changes to auth logic
-✅ Access control unchanged
+ No changes to auth logic
+ Access control unchanged
 
 ### 3. Cryptography
-✅ No crypto changes
-✅ No hardcoded secrets added
+ No crypto changes
+ No hardcoded secrets added
 
 ### 4. Input Validation
-⚠️ REVIEW REQUIRED: Input validation moved from UserService to UserValidator
+Warning: REVIEW REQUIRED: Input validation moved from UserService to UserValidator
 - Original: Validated email in create_user()
 - Refactored: Validation in UserValidator.validate_email()
 - Assessment: Equivalent validation, but verify UserValidator is called
@@ -163,7 +163,7 @@ code-reviewer verify-tests \
 ```markdown
 # Test Verification Report
 
-**Status**: ✅ PASSED / ❌ FAILED
+**Status**:  PASSED /  FAILED
 
 ## Test Results
 
@@ -178,17 +178,17 @@ code-reviewer verify-tests \
 - Runtime: 2.1 seconds
 
 ### Analysis
-✅ All tests pass (120/120)
-✅ Coverage maintained (88% → 88%)
-✅ Performance improved (2.3s → 2.1s)
+ All tests pass (120/120)
+ Coverage maintained (88% → 88%)
+ Performance improved (2.3s → 2.1s)
 
 ## New Test Gaps (if any)
-⚠️ Extracted methods not directly tested:
+Warning: Extracted methods not directly tested:
 - UserService._validate_email() (called indirectly)
 - UserService._normalize_name() (called indirectly)
 
 ## Recommendation
-✅ Safe to merge
+ Safe to merge
 Consider adding unit tests for extracted private methods
 ```
 
@@ -218,32 +218,32 @@ code-reviewer verify-performance \
 ```markdown
 # Performance Verification Report
 
-**Status**: ✅ NO REGRESSIONS / ⚠️ MINOR REGRESSION / ❌ SIGNIFICANT REGRESSION
+**Status**:  NO REGRESSIONS / Warning: MINOR REGRESSION /  SIGNIFICANT REGRESSION
 
 ## Performance Metrics
 
 ### Database Queries
 - Before: 5 queries
 - After: 5 queries
-✅ No change in query count
+ No change in query count
 
 ### Algorithmic Complexity
 - Before: O(n)
 - After: O(n)
-✅ Complexity unchanged
+ Complexity unchanged
 
 ### Memory Usage
 - Before: 2.3 MB
 - After: 2.4 MB
-✅ Negligible increase (<5%)
+ Negligible increase (<5%)
 
 ### Runtime
 - Before: 45ms (avg over 100 runs)
 - After: 43ms (avg over 100 runs)
-✅ Performance improved (4.4%)
+ Performance improved (4.4%)
 
 ## Recommendation
-✅ No performance regressions detected
+ No performance regressions detected
 ```
 
 ---
@@ -292,7 +292,7 @@ code-reviewer diff-analysis \
 - _create_user_record() - 12 lines (NEW - extracted)
 - _send_welcome_email() - 15 lines (NEW - extracted)
 
-**Risk Assessment**: ✅ LOW
+**Risk Assessment**:  LOW
 - Behavior-preserving refactoring
 - Logic moved, not changed
 - All original code paths preserved
@@ -303,11 +303,11 @@ code-reviewer diff-analysis \
 **Changes**:
 - Added import for extracted methods (for testing)
 
-**Risk Assessment**: ✅ MINIMAL
+**Risk Assessment**:  MINIMAL
 - Test imports updated only
 
 ## Recommendation
-✅ Safe refactoring - behavior preserved
+ Safe refactoring - behavior preserved
 ```
 
 ---
@@ -339,7 +339,7 @@ code-reviewer verify-behavior \
 **Test Runs**: 1000 random inputs
 
 ## Results
-✅ 1000/1000 test cases passed
+ 1000/1000 test cases passed
 - All outputs identical
 - Exception handling identical
 - Side effects identical
@@ -350,16 +350,16 @@ code-reviewer verify-behavior \
 **Input**: {"name": "John Doe", "email": "john@example.com"}
 **Original Output**: User(id=1, name="John Doe", email="john@example.com")
 **Refactored Output**: User(id=1, name="John Doe", email="john@example.com")
-✅ MATCH
+ MATCH
 
 ### Test Case 2
 **Input**: {"name": "", "email": "invalid"}
 **Original Exception**: ValidationError("Name cannot be empty")
 **Refactored Exception**: ValidationError("Name cannot be empty")
-✅ MATCH
+ MATCH
 
 ## Recommendation
-✅ Behavior perfectly preserved across 1000 test cases
+ Behavior perfectly preserved across 1000 test cases
 ```
 
 ---
@@ -376,9 +376,9 @@ graph TD
     D --> E[Code-Reviewer: Test Check]
     E --> F[Code-Reviewer: Diff Analysis]
     F --> G{All Checks Pass?}
-    G -->|Yes| H[✅ SAFE - Recommend Merge]
-    G -->|No| I[❌ UNSAFE - Recommend Revert]
-    G -->|Ambiguous| J[⚠️ Manual Review Required]
+    G -->|Yes| H[ SAFE - Recommend Merge]
+    G -->|No| I[ UNSAFE - Recommend Revert]
+    G -->|Ambiguous| J[Warning: Manual Review Required]
 ```
 
 ### Step-by-Step
@@ -529,7 +529,7 @@ def _insert_user(user_data):
 
 **Verification Result**:
 ```markdown
-## ❌ UNSAFE - Security Regression Detected
+##  UNSAFE - Security Regression Detected
 
 ### SQL Injection Vulnerability Introduced
 **File**: src/services/user_service.py
@@ -565,7 +565,7 @@ def get_user_orders(user_id):
 
 **Verification Result**:
 ```markdown
-## ⚠️ MANUAL REVIEW - Performance Regression Detected
+## Warning: MANUAL REVIEW - Performance Regression Detected
 
 ### N+1 Query Introduced
 **File**: src/services/order_service.py

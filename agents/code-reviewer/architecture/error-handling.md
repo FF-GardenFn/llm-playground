@@ -6,7 +6,7 @@
 
 **Priority**: Important (affects robustness and maintainability)
 
-**Refactorable**: ⚠️ PARTIALLY (some patterns can be improved via refactoring)
+**Refactorable**: Warning: PARTIALLY (some patterns can be improved via refactoring)
 
 ---
 
@@ -26,7 +26,7 @@ Good error handling ensures:
 
 **Good - Exceptions**:
 ```python
-# ✅ GOOD: Exceptions separate error handling from business logic
+# GOOD: Exceptions separate error handling from business logic
 def get_user(user_id):
     user = User.objects.filter(id=user_id).first()
     if not user:
@@ -44,7 +44,7 @@ except UserNotFoundError as e:
 
 **Bad - Error Codes**:
 ```python
-# ❌ BAD: Error codes mixed with business logic
+# BAD: Error codes mixed with business logic
 def get_user(user_id):
     user = User.objects.filter(id=user_id).first()
     if not user:
@@ -75,7 +75,7 @@ else:
 
 **Good - Specific Exceptions**:
 ```python
-# ✅ GOOD: Specific exception types
+# GOOD: Specific exception types
 class UserNotFoundError(Exception):
     """Raised when user doesn't exist"""
     pass
@@ -102,7 +102,7 @@ except UserNotFoundError:
 
 **Bad - Generic Exceptions**:
 ```python
-# ❌ BAD: Generic exceptions
+# BAD: Generic exceptions
 def withdraw(account, amount):
     if account.balance < amount:
         raise Exception("Withdrawal failed")  # Too generic!
@@ -130,7 +130,7 @@ except Exception as e:  # Catches everything!
 
 **Good - Handle or Propagate**:
 ```python
-# ✅ GOOD: Log and handle appropriately
+# GOOD: Log and handle appropriately
 def process_payment(order):
     try:
         charge_card(order.total)
@@ -139,7 +139,7 @@ def process_payment(order):
         notify_admin(order, e)
         raise  # Re-raise for caller to handle
 
-# ✅ GOOD: Specific handling
+# GOOD: Specific handling
 def process_payment(order):
     try:
         charge_card(order.total)
@@ -152,7 +152,7 @@ def process_payment(order):
 
 **Bad - Silent Failure**:
 ```python
-# ❌ BAD: Swallowing exception
+# BAD: Swallowing exception
 def process_payment(order):
     try:
         charge_card(order.total)
@@ -177,7 +177,7 @@ def process_payment(order):
 
 **Good - Resource Cleanup**:
 ```python
-# ✅ GOOD: Finally ensures cleanup
+# GOOD: Finally ensures cleanup
 def process_file(filename):
     f = open(filename)
     try:
@@ -189,7 +189,7 @@ def process_file(filename):
     finally:
         f.close()  # Always closes, even on exception
 
-# ✅ BETTER: Context manager
+#  BETTER: Context manager
 def process_file(filename):
     try:
         with open(filename) as f:
@@ -202,7 +202,7 @@ def process_file(filename):
 
 **Bad - No Cleanup**:
 ```python
-# ❌ BAD: File not closed on exception
+# BAD: File not closed on exception
 def process_file(filename):
     f = open(filename)
     data = f.read()
@@ -225,7 +225,7 @@ def process_file(filename):
 
 **Good - Preserve Context**:
 ```python
-# ✅ GOOD: Exception chaining
+# GOOD: Exception chaining
 def save_user(user):
     try:
         user.save()
@@ -240,7 +240,7 @@ def save_user(user):
 
 **Bad - Lost Context**:
 ```python
-# ❌ BAD: Original exception lost
+# BAD: Original exception lost
 def save_user(user):
     try:
         user.save()
@@ -265,7 +265,7 @@ def save_user(user):
 
 **Good - Boundary Validation**:
 ```python
-# ✅ GOOD: Validate at API boundary
+# GOOD: Validate at API boundary
 @app.route('/users', methods=['POST'])
 def create_user():
     # Validate input immediately
@@ -283,7 +283,7 @@ def create_user():
     except ValidationError as e:
         return jsonify({'error': str(e)}), 422
 
-# ✅ GOOD: Validate in service layer too
+# GOOD: Validate in service layer too
 class UserService:
     def create_user(self, user_data):
         # Additional domain validation
@@ -298,7 +298,7 @@ class UserService:
 
 **Bad - No Validation**:
 ```python
-# ❌ BAD: No input validation
+# BAD: No input validation
 @app.route('/users', methods=['POST'])
 def create_user():
     # No validation!
@@ -326,7 +326,7 @@ def create_user():
 
 **Good - Precondition Checks**:
 ```python
-# ✅ GOOD: Check preconditions
+# GOOD: Check preconditions
 def divide(a, b):
     if b == 0:
         raise ValueError("Division by zero")
@@ -345,7 +345,7 @@ def process_order(order):
 
 **Bad - No Checks**:
 ```python
-# ❌ BAD: Assumes valid input
+# BAD: Assumes valid input
 def divide(a, b):
     return a / b  # Crashes on division by zero
 
@@ -369,7 +369,7 @@ def process_order(order):
 
 **Good - Retry with Backoff**:
 ```python
-# ✅ GOOD: Retry transient failures
+# GOOD: Retry transient failures
 import time
 
 def fetch_data_with_retry(url, max_retries=3):
@@ -389,7 +389,7 @@ def fetch_data_with_retry(url, max_retries=3):
 
 **Good - Fallback Value**:
 ```python
-# ✅ GOOD: Use fallback on error
+# GOOD: Use fallback on error
 def get_user_preferences(user_id):
     try:
         return PreferenceService.get(user_id)
@@ -413,7 +413,7 @@ def get_user_preferences(user_id):
 
 **Good - Contextual Logging**:
 ```python
-# ✅ GOOD: Structured logging with context
+# GOOD: Structured logging with context
 import logging
 
 logger = logging.getLogger(__name__)
@@ -445,7 +445,7 @@ def process_payment(order_id, amount):
 
 **Bad - Poor Logging**:
 ```python
-# ❌ BAD: Vague logging
+# BAD: Vague logging
 def process_payment(order_id, amount):
     try:
         order = Order.objects.get(id=order_id)
@@ -470,7 +470,7 @@ def process_payment(order_id, amount):
 
 **Good - Clear Messages**:
 ```python
-# ✅ GOOD: User-friendly error messages
+# GOOD: User-friendly error messages
 @app.route('/users', methods=['POST'])
 def create_user():
     try:
@@ -498,7 +498,7 @@ def create_user():
 
 **Bad - Technical Errors Exposed**:
 ```python
-# ❌ BAD: Expose technical details to user
+# BAD: Expose technical details to user
 @app.route('/users', methods=['POST'])
 def create_user():
     try:
@@ -581,7 +581,7 @@ def create_user():
 - Look for swallowed exceptions, missing cleanup, poor validation
 
 **Refactorable**:
-- ⚠️ PARTIALLY - Some patterns improvable
+- Warning: PARTIALLY - Some patterns improvable
 - Some require error handling redesign
 
 **Priority**: **Important** (affects robustness, debuggability, UX)

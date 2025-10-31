@@ -31,7 +31,7 @@ SOLID is an acronym for five design principles that make software more understan
 ### Violation Example
 
 ```python
-# ❌ BAD: Multiple responsibilities
+# BAD: Multiple responsibilities
 class User:
     def __init__(self, name, email):
         self.name = name
@@ -59,7 +59,7 @@ class User:
 ### Fix: Separate Responsibilities
 
 ```python
-# ✅ GOOD: Single responsibility per class
+# GOOD: Single responsibility per class
 class User:
     """Represents user data (single responsibility: domain model)"""
     def __init__(self, name, email):
@@ -110,7 +110,7 @@ class UserReportGenerator:
 ### Violation Example
 
 ```python
-# ❌ BAD: Must modify class to add new shapes
+# BAD: Must modify class to add new shapes
 class AreaCalculator:
     def calculate_area(self, shape):
         if shape.type == 'circle':
@@ -125,7 +125,7 @@ class AreaCalculator:
 ### Fix: Extension via Polymorphism
 
 ```python
-# ✅ GOOD: Extend by adding new classes (no modification)
+# GOOD: Extend by adding new classes (no modification)
 from abc import ABC, abstractmethod
 
 class Shape(ABC):
@@ -182,7 +182,7 @@ class AreaCalculator:
 ### Violation Example
 
 ```python
-# ❌ BAD: Square violates LSP (changes Rectangle behavior)
+# BAD: Square violates LSP (changes Rectangle behavior)
 class Rectangle:
     def __init__(self, width, height):
         self.width = width
@@ -214,17 +214,17 @@ def test_rectangle(rect):
     assert rect.get_area() == 50  # Expected: 50
 
 rect = Rectangle(0, 0)
-test_rectangle(rect)  # ✓ PASS: area = 50
+test_rectangle(rect)  # PASS: area = 50
 
 square = Square(0, 0)
-test_rectangle(square)  # ✗ FAIL: area = 100 (not 50!)
+test_rectangle(square)  # FAIL: area = 100 (not 50!)
 # Square is NOT substitutable for Rectangle!
 ```
 
 ### Fix: Separate Hierarchies
 
 ```python
-# ✅ GOOD: Use composition or separate hierarchies
+# GOOD: Use composition or separate hierarchies
 from abc import ABC, abstractmethod
 
 class Shape(ABC):
@@ -270,7 +270,7 @@ class Square(Shape):  # No longer extends Rectangle
 ### Violation Example
 
 ```python
-# ❌ BAD: Fat interface forces implementation of unused methods
+# BAD: Fat interface forces implementation of unused methods
 from abc import ABC, abstractmethod
 
 class Worker(ABC):
@@ -310,7 +310,7 @@ class RobotWorker(Worker):
 ### Fix: Segregate Interfaces
 
 ```python
-# ✅ GOOD: Specific interfaces
+# GOOD: Specific interfaces
 from abc import ABC, abstractmethod
 
 class Workable(ABC):
@@ -364,7 +364,7 @@ class RobotWorker(Workable):  # Only implements what it needs
 ### Violation Example
 
 ```python
-# ❌ BAD: High-level class depends on low-level concrete class
+# BAD: High-level class depends on low-level concrete class
 class MySQLDatabase:
     def connect(self):
         print("Connecting to MySQL")
@@ -386,7 +386,7 @@ class UserService:
 ### Fix: Depend on Abstraction
 
 ```python
-# ✅ GOOD: Depend on interface (abstraction)
+# GOOD: Depend on interface (abstraction)
 from abc import ABC, abstractmethod
 
 class Database(ABC):  # Abstraction
@@ -529,12 +529,12 @@ Benefits:
 
 **Single Responsibility Principle**:
 - Violation: Large Class with multiple responsibilities
-- Refactorable: ✅ YES via Extract Class
+- Refactorable: YES via Extract Class
 - See: `refactoring-engineer/smells/class/large-class.md`
 
 **Open/Closed Principle**:
 - Violation: Type-based if/elif chains
-- Refactorable: ✅ PARTIALLY via Replace Conditional with Polymorphism
+- Refactorable: PARTIALLY via Replace Conditional with Polymorphism
 - See: `refactoring-engineer/refactorings/simplifying-conditionals/`
 
 ### SOLID Violations That Are NOT Refactorable

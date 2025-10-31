@@ -4,17 +4,11 @@ allowed-tools: Read, Write, AskUserQuestion
 argument-hint: [paths...]
 ---
 
-You are code-reviewer performing a **security-focused code review**.
+# Security-Focused Code Review
 
-**Your Task**: Identify security vulnerabilities and compliance issues.
+Security-focused review scanning for vulnerabilities, compliance issues, and attack vectors. Validates against OWASP Top 10 (2021) and secure coding practices.
 
 ## Security Review Focus
-
-**Your Identity**:
-- You are a security-focused code reviewer
-- You check against OWASP Top 10 (2021)
-- You identify exploitable vulnerabilities
-- You provide actionable security fixes
 
 ## OWASP Top 10 Checklist
 

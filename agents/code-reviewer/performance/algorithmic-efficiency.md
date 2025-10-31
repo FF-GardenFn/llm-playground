@@ -6,7 +6,7 @@
 
 **Priority**: Important (causes scalability issues)
 
-**Refactorable**: ❌ NO (requires algorithmic knowledge, not code structure changes)
+**Refactorable**:  NO (requires algorithmic knowledge, not code structure changes)
 
 ---
 
@@ -34,7 +34,7 @@ These require **manual optimization**, not refactoring.
 
 **Example - O(n²)**:
 ```python
-# ❌ BAD: O(n²) - nested loops
+# BAD: O(n²) - nested loops
 def find_duplicates(items):
     """Find duplicate items in list"""
     duplicates = []
@@ -49,7 +49,7 @@ def find_duplicates(items):
 
 **Fix - O(n) with Set**:
 ```python
-# ✅ GOOD: O(n) - single pass with set
+# GOOD: O(n) - single pass with set
 def find_duplicates(items):
     """Find duplicate items in list"""
     seen = set()
@@ -65,7 +65,7 @@ def find_duplicates(items):
 
 **Alternative - O(n) with Counter**:
 ```python
-# ✅ GOOD: O(n) - using Counter
+# GOOD: O(n) - using Counter
 from collections import Counter
 
 def find_duplicates(items):
@@ -94,7 +94,7 @@ def find_duplicates(items):
 
 **Example - O(n)**:
 ```python
-# ❌ BAD: O(n) - linear search on sorted data
+# BAD: O(n) - linear search on sorted data
 def find_user(users, target_id):
     """users is sorted by id"""
     for user in users:
@@ -107,7 +107,7 @@ def find_user(users, target_id):
 
 **Fix - O(log n) Binary Search**:
 ```python
-# ✅ GOOD: O(log n) - binary search
+# GOOD: O(log n) - binary search
 import bisect
 
 def find_user(users, target_id):
@@ -125,7 +125,7 @@ def find_user(users, target_id):
 
 **Alternative - Use Dictionary**:
 ```python
-# ✅ BETTER: O(1) - hash table lookup
+#  BETTER: O(1) - hash table lookup
 def build_user_index(users):
     return {user.id: user for user in users}
 
@@ -152,7 +152,7 @@ def find_user(user_index, target_id):
 
 **Example - O(n²)**:
 ```python
-# ❌ BAD: O(n²) - list.index() in loop
+# BAD: O(n²) - list.index() in loop
 def remove_items(items, to_remove):
     """Remove items from list"""
     for item in to_remove:
@@ -165,7 +165,7 @@ def remove_items(items, to_remove):
 
 **Fix - O(n) with Set**:
 ```python
-# ✅ GOOD: O(n) - set difference
+# GOOD: O(n) - set difference
 def remove_items(items, to_remove):
     """Remove items from list"""
     to_remove_set = set(to_remove)
@@ -189,7 +189,7 @@ def remove_items(items, to_remove):
 
 **Example - O(n² log n)**:
 ```python
-# ❌ BAD: Sorting in loop
+# BAD: Sorting in loop
 def process_batches(items, batch_size):
     results = []
     for i in range(0, len(items), batch_size):
@@ -203,7 +203,7 @@ def process_batches(items, batch_size):
 
 **Fix - O(n log n)**:
 ```python
-# ✅ GOOD: Sort once
+# GOOD: Sort once
 def process_batches(items, batch_size):
     items = sorted(items)  # Sort once
     results = []
@@ -228,7 +228,7 @@ def process_batches(items, batch_size):
 
 **Example - O(n²)**:
 ```python
-# ❌ BAD: List copy in loop
+# BAD: List copy in loop
 def filter_items(items, conditions):
     result = items.copy()  # O(n)
     for condition in conditions:
@@ -240,7 +240,7 @@ def filter_items(items, conditions):
 
 **Fix - O(n)**:
 ```python
-# ✅ GOOD: Generator chain (no copies)
+# GOOD: Generator chain (no copies)
 from functools import reduce
 
 def filter_items(items, conditions):
@@ -269,7 +269,7 @@ def filter_items(items, conditions):
 
 **Example - O(n²)**:
 ```python
-# ❌ BAD: O(n²) - string concatenation in loop
+# BAD: O(n²) - string concatenation in loop
 def build_csv(rows):
     csv = ""
     for row in rows:
@@ -281,7 +281,7 @@ def build_csv(rows):
 
 **Fix - O(n) with Join**:
 ```python
-# ✅ GOOD: O(n) - build list, join once
+# GOOD: O(n) - build list, join once
 def build_csv(rows):
     lines = [",".join(row) for row in rows]
     return "\n".join(lines)
@@ -291,7 +291,7 @@ def build_csv(rows):
 
 **Alternative - O(n) with io.StringIO**:
 ```python
-# ✅ GOOD: O(n) - buffered writing
+# GOOD: O(n) - buffered writing
 from io import StringIO
 
 def build_csv(rows):
@@ -338,23 +338,23 @@ def build_csv(rows):
 ### Common Mistakes
 
 ```python
-# ❌ BAD: Using list for membership testing
+# BAD: Using list for membership testing
 items = ['a', 'b', 'c', 'd', 'e']  # list
 if 'x' in items:  # O(n) search
     pass
 
-# ✅ GOOD: Using set for membership testing
+# GOOD: Using set for membership testing
 items = {'a', 'b', 'c', 'd', 'e'}  # set
 if 'x' in items:  # O(1) search
     pass
 
-# ❌ BAD: Using list to track visited
+# BAD: Using list to track visited
 visited = []  # list
 for node in graph:
     if node not in visited:  # O(n) search!
         visited.append(node)
 
-# ✅ GOOD: Using set to track visited
+# GOOD: Using set to track visited
 visited = set()
 for node in graph:
     if node not in visited:  # O(1) search!

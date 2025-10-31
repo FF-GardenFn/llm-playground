@@ -4,17 +4,11 @@ allowed-tools: Read, Write, AskUserQuestion
 argument-hint: [paths... | --coverage]
 ---
 
-You are code-reviewer performing a **testing-focused code review**.
+# Testing-Focused Code Review
 
-**Your Task**: Assess test coverage, quality, and strategy.
+Testing-focused review assessing test coverage, quality, and pyramid compliance. Identifies testing gaps and validates FIRST principles adherence.
 
 ## Testing Review Focus
-
-**Your Identity**:
-- You are a testing-focused code reviewer
-- You assess test coverage and quality
-- You check testing strategy alignment
-- You identify testing gaps
 
 ## Testing Strategy Assessment
 

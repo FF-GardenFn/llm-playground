@@ -6,7 +6,7 @@
 
 **Priority**: Important (performance) to Critical (DoS vulnerabilities)
 
-**Refactorable**: ❌ NO - These smells require optimization knowledge, not behavior-preserving refactoring
+**Refactorable**:  NO - These smells require optimization knowledge, not behavior-preserving refactoring
 
 ---
 
@@ -35,7 +35,7 @@ These issues require **manual optimization**, not behavior-preserving code struc
 
 **Example - Problem**:
 ```python
-# ❌ BAD: N+1 query problem (1 + N queries)
+# BAD: N+1 query problem (1 + N queries)
 def get_users_with_orders():
     users = User.objects.all()  # 1 query
     result = []
@@ -52,7 +52,7 @@ def get_users_with_orders():
 
 **Fix - Eager Loading**:
 ```python
-# ✅ GOOD: Eager loading (2 queries total)
+# GOOD: Eager loading (2 queries total)
 def get_users_with_orders():
     users = User.objects.prefetch_related('orders')  # 2 queries (users + all orders)
     result = []
@@ -69,7 +69,7 @@ def get_users_with_orders():
 
 **Fix - Aggregation**:
 ```python
-# ✅ BETTER: Single query with aggregation
+#  BETTER: Single query with aggregation
 from django.db.models import Count
 
 def get_users_with_orders():
@@ -102,7 +102,7 @@ def get_users_with_orders():
 
 **Example - Problem**:
 ```python
-# ❌ BAD: Query on unindexed email column
+# BAD: Query on unindexed email column
 class User(models.Model):
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=255)  # No index!
@@ -113,7 +113,7 @@ def find_user_by_email(email):
 
 **Fix - Add Index**:
 ```python
-# ✅ GOOD: Add index to email column
+# GOOD: Add index to email column
 class User(models.Model):
     username = models.CharField(max_length=100)
     email = models.CharField(max_length=255, db_index=True)  # Indexed
@@ -146,7 +146,7 @@ def find_user_by_email(email):
 
 **Example - Problem**:
 ```python
-# ❌ BAD: Blocking I/O in async function
+# BAD: Blocking I/O in async function
 import asyncio
 import requests
 
@@ -159,7 +159,7 @@ async def fetch_data():
 
 **Fix - Async I/O**:
 ```python
-# ✅ GOOD: Async I/O
+# GOOD: Async I/O
 import asyncio
 import aiohttp
 
@@ -194,7 +194,7 @@ async def fetch_data():
 
 **Example - Problem**:
 ```python
-# ❌ BAD: Memory leak (circular reference)
+# BAD: Memory leak (circular reference)
 class Node:
     def __init__(self, value):
         self.value = value
@@ -210,7 +210,7 @@ class Node:
 
 **Fix - Weak References**:
 ```python
-# ✅ GOOD: Use weak references to break cycle
+# GOOD: Use weak references to break cycle
 import weakref
 
 class Node:
@@ -226,13 +226,13 @@ class Node:
 
 **Example - Resource Leak**:
 ```python
-# ❌ BAD: File handle not closed
+# BAD: File handle not closed
 def read_config():
     f = open('config.txt')
     data = f.read()
     return data  # File handle leaked!
 
-# ✅ GOOD: Use context manager
+# GOOD: Use context manager
 def read_config():
     with open('config.txt') as f:
         return f.read()  # File closed automatically
@@ -263,7 +263,7 @@ def read_config():
 
 **Example - Problem**:
 ```python
-# ❌ BAD: O(n²) algorithm (nested loops)
+# BAD: O(n²) algorithm (nested loops)
 def find_duplicates(items):
     duplicates = []
     for i in range(len(items)):
@@ -277,7 +277,7 @@ def find_duplicates(items):
 
 **Fix - Better Algorithm**:
 ```python
-# ✅ GOOD: O(n) algorithm using set
+# GOOD: O(n) algorithm using set
 def find_duplicates(items):
     seen = set()
     duplicates = set()
@@ -316,7 +316,7 @@ def find_duplicates(items):
 
 **Example - Problem**:
 ```python
-# ❌ BAD: 3 separate queries
+# BAD: 3 separate queries
 def get_user_summary(user_id):
     user = User.objects.get(id=user_id)  # Query 1
     orders = Order.objects.filter(user=user)  # Query 2
@@ -330,7 +330,7 @@ def get_user_summary(user_id):
 
 **Fix - Single Query**:
 ```python
-# ✅ GOOD: Single query with prefetch
+# GOOD: Single query with prefetch
 def get_user_summary(user_id):
     user = User.objects.prefetch_related('orders', 'payments').get(id=user_id)  # 1 query
     return {
@@ -360,7 +360,7 @@ def get_user_summary(user_id):
 
 **Example - Problem**:
 ```python
-# ❌ CRITICAL: No rate limiting on API
+#  CRITICAL: No rate limiting on API
 @app.route('/api/search')
 def search():
     query = request.args.get('q')
@@ -370,7 +370,7 @@ def search():
 
 **Fix - Rate Limiting**:
 ```python
-# ✅ GOOD: Rate limiting
+# GOOD: Rate limiting
 from flask_limiter import Limiter
 
 limiter = Limiter(app, key_func=lambda: request.remote_addr)
@@ -385,14 +385,14 @@ def search():
 
 **Example - Unbounded Loop**:
 ```python
-# ❌ CRITICAL: Unbounded loop with user input
+#  CRITICAL: Unbounded loop with user input
 @app.route('/generate')
 def generate():
     count = int(request.args.get('count', 10))
     items = [expensive_operation() for _ in range(count)]  # Attacker can set count=999999999
     return jsonify(items)
 
-# ✅ GOOD: Bounded loop
+# GOOD: Bounded loop
 @app.route('/generate')
 def generate():
     count = int(request.args.get('count', 10))
@@ -425,7 +425,7 @@ def generate():
 
 **Example - Problem**:
 ```python
-# ❌ CRITICAL: ReDoS vulnerability
+#  CRITICAL: ReDoS vulnerability
 import re
 
 def validate_input(user_input):
@@ -437,7 +437,7 @@ def validate_input(user_input):
 
 **Fix - Safe Regex**:
 ```python
-# ✅ GOOD: Non-backtracking regex
+# GOOD: Non-backtracking regex
 import re
 
 def validate_input(user_input):
@@ -469,7 +469,7 @@ def validate_input(user_input):
 
 **Example - Problem**:
 ```python
-# ❌ CRITICAL: Weak random for security
+#  CRITICAL: Weak random for security
 import random
 
 def generate_session_token():
@@ -478,7 +478,7 @@ def generate_session_token():
 
 **Fix - Cryptographically Secure Random**:
 ```python
-# ✅ GOOD: Cryptographically secure random
+# GOOD: Cryptographically secure random
 import secrets
 
 def generate_session_token():
@@ -557,7 +557,7 @@ def generate_session_token():
 
 **Category**: Performance Smell
 **Severity**: Important
-**Refactorable**: ❌ NO (requires database optimization)
+**Refactorable**:  NO (requires database optimization)
 
 **Impact**: 1000 users = 1001 database queries (severe performance degradation)
 
@@ -591,7 +591,7 @@ users = User.objects.annotate(order_count=Count('orders'))
 
 **Category**: Security + Performance
 **Severity**: CRITICAL
-**Refactorable**: ❌ NO (requires security design)
+**Refactorable**:  NO (requires security design)
 
 **Impact**: Attacker can exhaust server resources by spamming endpoint
 

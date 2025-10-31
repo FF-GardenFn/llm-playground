@@ -28,7 +28,7 @@ Test quality is as important as test coverage. Code-reviewer assesses:
 
 **Good - Fast Tests**:
 ```python
-# ✅ GOOD: Unit test runs in milliseconds
+# GOOD: Unit test runs in milliseconds
 def test_calculate_discount():
     result = calculate_discount(100, 0.1)
     assert result == 90
@@ -38,7 +38,7 @@ def test_calculate_discount():
 
 **Bad - Slow Tests**:
 ```python
-# ❌ BAD: Test depends on external services
+# BAD: Test depends on external services
 def test_calculate_discount():
     # Makes actual API call (slow!)
     exchange_rate = fetch_exchange_rate_from_api()
@@ -69,7 +69,7 @@ def test_calculate_discount():
 
 **Good - Independent Tests**:
 ```python
-# ✅ GOOD: Each test sets up its own data
+# GOOD: Each test sets up its own data
 def test_create_user():
     user = User.objects.create(name="John")
     assert user.id is not None
@@ -86,7 +86,7 @@ def test_update_user():
 
 **Bad - Dependent Tests**:
 ```python
-# ❌ BAD: Tests depend on each other
+# BAD: Tests depend on each other
 user_id = None
 
 def test_create_user():
@@ -120,7 +120,7 @@ def test_update_user():
 
 **Good - Deterministic Tests**:
 ```python
-# ✅ GOOD: Fixed datetime for testing
+# GOOD: Fixed datetime for testing
 from datetime import datetime
 from unittest.mock import patch
 
@@ -135,13 +135,13 @@ def test_order_timestamp():
 
 **Bad - Non-Deterministic Tests**:
 ```python
-# ❌ BAD: Depends on current time
+# BAD: Depends on current time
 def test_order_timestamp():
     order = Order.objects.create()
     # Fails if test runs at midnight!
     assert order.created_at.hour == 12
 
-# ❌ BAD: Depends on random values
+# BAD: Depends on random values
 def test_random_discount():
     discount = random.choice([0.1, 0.2, 0.3])
     result = calculate_discount(100, discount)
@@ -163,13 +163,13 @@ def test_random_discount():
 
 **Good - Clear Assertions**:
 ```python
-# ✅ GOOD: Test clearly passes or fails
+# GOOD: Test clearly passes or fails
 def test_calculate_total():
     order = Order(items=[Item(price=10), Item(price=20)])
     total = order.calculate_total()
     assert total == 30  # Clear assertion
 
-# ✅ GOOD: Multiple specific assertions
+# GOOD: Multiple specific assertions
 def test_create_user():
     user = User.objects.create(name="John", email="john@example.com")
     assert user.id is not None
@@ -179,12 +179,12 @@ def test_create_user():
 
 **Bad - Manual Validation**:
 ```python
-# ❌ BAD: Requires manual inspection
+# BAD: Requires manual inspection
 def test_generate_report():
     report = generate_report()
     print(report)  # Need to manually check output!
 
-# ❌ BAD: No assertions
+# BAD: No assertions
 def test_create_user():
     user = User.objects.create(name="John")
     # No assertion - always passes!
@@ -205,7 +205,7 @@ def test_create_user():
 
 **Good - Test-Driven Development**:
 ```python
-# ✅ GOOD: Test written first (TDD)
+# GOOD: Test written first (TDD)
 # Step 1: Write failing test
 def test_calculate_discount():
     result = calculate_discount(100, 0.1)
@@ -236,7 +236,7 @@ def calculate_discount(total, rate):
 
 **Bad**:
 ```python
-# ❌ BAD: 50-line test
+# BAD: 50-line test
 def test_order_processing():
     # Create user
     user = User.objects.create(name="John", email="john@example.com")
@@ -263,7 +263,7 @@ def test_order_processing():
 
 **Good**:
 ```python
-# ✅ GOOD: Focused tests
+# GOOD: Focused tests
 def test_order_total_calculation():
     order = create_test_order(items=[10, 20])
     assert order.total == 30
@@ -292,7 +292,7 @@ def test_order_payment_association():
 
 **Bad**:
 ```python
-# ❌ BAD: Vague names
+# BAD: Vague names
 def test_user(): pass
 def test_order(): pass
 def test_1(): pass
@@ -301,7 +301,7 @@ def test_edge_case(): pass
 
 **Good**:
 ```python
-# ✅ GOOD: Descriptive names
+# GOOD: Descriptive names
 def test_user_creation_sets_default_role(): pass
 def test_order_total_includes_tax(): pass
 def test_discount_not_applied_to_sale_items(): pass
@@ -324,7 +324,7 @@ def test_empty_cart_raises_validation_error(): pass
 
 **Bad**:
 ```python
-# ❌ BAD: Which assertion failed?
+# BAD: Which assertion failed?
 def test_user_creation():
     user = User.objects.create(name="John", email="john@example.com")
     assert user.id is not None
@@ -337,7 +337,7 @@ def test_user_creation():
 
 **Good**:
 ```python
-# ✅ GOOD: Clear assertion messages
+# GOOD: Clear assertion messages
 def test_user_creation():
     user = User.objects.create(name="John", email="john@example.com")
     assert user.id is not None, "User ID should be set"
@@ -349,7 +349,7 @@ def test_user_creation():
 
 **Or separate tests**:
 ```python
-# ✅ BETTER: One concept per test
+#  BETTER: One concept per test
 def test_user_creation_sets_id(): pass
 def test_user_creation_sets_name(): pass
 def test_user_creation_sets_email(): pass
@@ -371,7 +371,7 @@ def test_user_creation_sets_timestamp(): pass
 
 **Bad**:
 ```python
-# ❌ BAD: Complex fixture obscures test
+# BAD: Complex fixture obscures test
 @pytest.fixture
 def setup_complex_scenario():
     user = User.objects.create(name="John")
@@ -388,7 +388,7 @@ def test_user_order_count(setup_complex_scenario):
 
 **Good**:
 ```python
-# ✅ GOOD: Inline setup makes test clear
+# GOOD: Inline setup makes test clear
 def test_user_order_count():
     user = User.objects.create(name="John")
     # Create 10 orders
@@ -413,7 +413,7 @@ def test_user_order_count():
 
 **Bad**:
 ```python
-# ❌ BAD: Tests implementation details
+# BAD: Tests implementation details
 def test_calculate_total():
     order = Order()
     order._internal_cache = {}  # Testing private implementation!
@@ -423,7 +423,7 @@ def test_calculate_total():
 
 **Good**:
 ```python
-# ✅ GOOD: Tests public behavior
+# GOOD: Tests public behavior
 def test_calculate_total():
     order = Order()
     order.add_item(Item(price=10))
@@ -445,7 +445,7 @@ def test_calculate_total():
 
 **Bad**:
 ```python
-# ❌ BAD: Duplicated test code
+# BAD: Duplicated test code
 def test_create_user_with_valid_email():
     user = User(name="John", email="john@example.com", age=25)
     user.validate()
@@ -461,7 +461,7 @@ def test_create_user_with_valid_age():
 
 **Good**:
 ```python
-# ✅ GOOD: Extract helper
+# GOOD: Extract helper
 def create_valid_user(**overrides):
     defaults = {'name': 'John', 'email': 'john@example.com', 'age': 25}
     defaults.update(overrides)

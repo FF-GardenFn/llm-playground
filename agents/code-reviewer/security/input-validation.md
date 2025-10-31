@@ -37,13 +37,13 @@ Input validation is the first line of defense against injection attacks, data co
 
 **Example**:
 ```python
-# ❌ BAD: Blacklist approach (incomplete)
+# BAD: Blacklist approach (incomplete)
 def validate_username(username):
     if '<' in username or '>' in username or ';' in username:
         raise ValueError("Invalid username")
     return username
 
-# ✅ GOOD: Whitelist approach (comprehensive)
+# GOOD: Whitelist approach (comprehensive)
 import re
 
 def validate_username(username):
@@ -66,12 +66,12 @@ def validate_username(username):
 
 **Example**:
 ```python
-# ❌ BAD: String-based validation
+# BAD: String-based validation
 def validate_age(age_str):
     if age_str.isdigit() and 0 < int(age_str) < 150:
         return int(age_str)
 
-# ✅ GOOD: Type-safe validation
+# GOOD: Type-safe validation
 from pydantic import BaseModel, Field
 
 class User(BaseModel):
@@ -93,7 +93,7 @@ user = User(age=25)  # Validated automatically
 
 **Example - Vulnerable**:
 ```python
-# ❌ CRITICAL: SQL Injection vulnerability
+#  CRITICAL: SQL Injection vulnerability
 def get_user(user_id):
     query = f"SELECT * FROM users WHERE id = {user_id}"
     return db.execute(query)
@@ -103,7 +103,7 @@ def get_user(user_id):
 
 **Fix**:
 ```python
-# ✅ SECURE: Parameterized query
+#  SECURE: Parameterized query
 def get_user(user_id):
     query = "SELECT * FROM users WHERE id = %s"
     return db.execute(query, (user_id,))
@@ -129,7 +129,7 @@ def get_user(user_id):
 
 **Example - Vulnerable**:
 ```python
-# ❌ CRITICAL: XSS vulnerability
+#  CRITICAL: XSS vulnerability
 @app.route('/profile')
 def profile():
     name = request.args.get('name')
@@ -140,7 +140,7 @@ def profile():
 
 **Fix**:
 ```python
-# ✅ SECURE: Auto-escaping template
+#  SECURE: Auto-escaping template
 from flask import render_template_string, escape
 
 @app.route('/profile')
@@ -171,7 +171,7 @@ def profile():
 
 **Example - Vulnerable**:
 ```python
-# ❌ CRITICAL: Command injection
+#  CRITICAL: Command injection
 import os
 
 def backup_file(filename):
@@ -182,7 +182,7 @@ def backup_file(filename):
 
 **Fix**:
 ```python
-# ✅ SECURE: Use subprocess with argument list
+#  SECURE: Use subprocess with argument list
 import subprocess
 import os
 
@@ -216,7 +216,7 @@ def is_valid_filename(filename):
 
 **Example - Vulnerable**:
 ```python
-# ❌ CRITICAL: Path traversal
+#  CRITICAL: Path traversal
 @app.route('/download/<filename>')
 def download(filename):
     return send_file(f"/uploads/{filename}")
@@ -226,7 +226,7 @@ def download(filename):
 
 **Fix**:
 ```python
-# ✅ SECURE: Validate and canonicalize path
+#  SECURE: Validate and canonicalize path
 import os
 from pathlib import Path
 
@@ -263,7 +263,7 @@ def download(filename):
 
 **Example - Vulnerable**:
 ```python
-# ❌ CRITICAL: XXE vulnerability
+#  CRITICAL: XXE vulnerability
 import xml.etree.ElementTree as ET
 
 def parse_xml(xml_string):
@@ -274,7 +274,7 @@ def parse_xml(xml_string):
 
 **Fix**:
 ```python
-# ✅ SECURE: Disable external entities
+#  SECURE: Disable external entities
 import defusedxml.ElementTree as ET
 
 def parse_xml(xml_string):
@@ -301,7 +301,7 @@ def parse_xml_safe(xml_string):
 ### Email Validation
 
 ```python
-# ✅ GOOD: Email validation
+# GOOD: Email validation
 import re
 from email_validator import validate_email, EmailNotValidError
 
@@ -317,7 +317,7 @@ def validate_email_address(email):
 ### URL Validation
 
 ```python
-# ✅ GOOD: URL validation
+# GOOD: URL validation
 from urllib.parse import urlparse
 import re
 
@@ -341,7 +341,7 @@ def validate_url(url):
 ### Integer/Numeric Validation
 
 ```python
-# ✅ GOOD: Numeric validation
+# GOOD: Numeric validation
 def validate_port(port_str):
     try:
         port = int(port_str)
@@ -355,7 +355,7 @@ def validate_port(port_str):
 ### Enum Validation
 
 ```python
-# ✅ GOOD: Enum validation
+# GOOD: Enum validation
 from enum import Enum
 
 class UserRole(Enum):
@@ -377,7 +377,7 @@ def validate_role(role_str):
 ### HTML Output Sanitization
 
 ```python
-# ✅ GOOD: HTML sanitization
+# GOOD: HTML sanitization
 from markupsafe import escape
 import bleach
 
@@ -396,7 +396,7 @@ def sanitize_html_rich(html):
 ### SQL Identifier Sanitization
 
 ```python
-# ✅ GOOD: SQL identifier sanitization
+# GOOD: SQL identifier sanitization
 import re
 
 def sanitize_table_name(table_name):
@@ -415,7 +415,7 @@ def sanitize_table_name(table_name):
 ### File Upload Sanitization
 
 ```python
-# ✅ GOOD: File upload validation
+# GOOD: File upload validation
 import os
 from werkzeug.utils import secure_filename
 
@@ -506,7 +506,7 @@ Use automated tools to scan for:
 **Issue**: Client-side validation can be bypassed.
 
 ```javascript
-// ❌ BAD: Client-side only
+//  BAD: Client-side only
 <form onsubmit="return validateForm()">
   <input name="email" />
 </form>
@@ -525,7 +525,7 @@ function validateForm() {
 **Issue**: Validating one input but not others.
 
 ```python
-# ❌ BAD: Only validates username, not email
+# BAD: Only validates username, not email
 def create_user(username, email):
     if not is_valid_username(username):
         raise ValueError("Invalid username")
@@ -540,7 +540,7 @@ def create_user(username, email):
 **Issue**: Encoding same data multiple times.
 
 ```python
-# ❌ BAD: Double encoding
+# BAD: Double encoding
 from urllib.parse import quote
 
 def build_url(param):

@@ -27,7 +27,7 @@ Test doubles isolate code under test from external dependencies. Code-reviewer a
 
 **Good - Verify Behavior**:
 ```python
-# ✅ GOOD: Mock verifies interaction
+# GOOD: Mock verifies interaction
 from unittest.mock import Mock
 
 def test_user_service_sends_welcome_email():
@@ -58,7 +58,7 @@ def test_user_service_sends_welcome_email():
 
 **Good - Stub Returns Fixed Data**:
 ```python
-# ✅ GOOD: Stub returns fixed response
+# GOOD: Stub returns fixed response
 from unittest.mock import Mock
 
 def test_order_total_with_discount():
@@ -87,7 +87,7 @@ def test_order_total_with_discount():
 
 **Good - In-Memory Database**:
 ```python
-# ✅ GOOD: Fake repository (in-memory)
+# GOOD: Fake repository (in-memory)
 class FakeUserRepository:
     def __init__(self):
         self.users = {}
@@ -127,7 +127,7 @@ def test_user_service():
 
 **Good - Spy Records Calls**:
 ```python
-# ✅ GOOD: Spy wraps real object
+# GOOD: Spy wraps real object
 from unittest.mock import Mock, wraps
 
 def test_user_service_calls_repository():
@@ -159,7 +159,7 @@ def test_user_service_calls_repository():
 
 **Good - Dummy as Parameter**:
 ```python
-# ✅ GOOD: Dummy logger (not used in test)
+# GOOD: Dummy logger (not used in test)
 def test_calculate_discount():
     dummy_logger = Mock()  # Never called
 
@@ -182,7 +182,7 @@ def test_calculate_discount():
 
 **Good - Mock External API**:
 ```python
-# ✅ GOOD: Mock external payment gateway
+# GOOD: Mock external payment gateway
 from unittest.mock import patch
 
 def test_process_payment():
@@ -209,7 +209,7 @@ def test_process_payment():
 
 **Bad - Mocking Simple Objects**:
 ```python
-# ❌ BAD: Mocking value object (unnecessary)
+# BAD: Mocking value object (unnecessary)
 from unittest.mock import Mock
 
 def test_order_total():
@@ -227,7 +227,7 @@ def test_order_total():
 
 **Good - Use Real Objects**:
 ```python
-# ✅ GOOD: Use real value objects
+# GOOD: Use real value objects
 def test_order_total():
     # Real Item objects (fast, simple)
     item1 = Item(price=10)
@@ -251,7 +251,7 @@ def test_order_total():
 
 **Bad - Mocking Everything**:
 ```python
-# ❌ BAD: Over-mocking (testing nothing real)
+# BAD: Over-mocking (testing nothing real)
 def test_user_service():
     mock_validator = Mock()
     mock_validator.validate.return_value = True
@@ -277,7 +277,7 @@ def test_user_service():
 
 **Good - Mock Only External Dependencies**:
 ```python
-# ✅ GOOD: Mock only external dependencies
+# GOOD: Mock only external dependencies
 def test_user_service():
     # Real validator (business logic - don't mock!)
     validator = UserValidator()
@@ -311,7 +311,7 @@ def test_user_service():
 
 **Good - Constructor Injection**:
 ```python
-# ✅ GOOD: Dependencies injected (easy to mock)
+# GOOD: Dependencies injected (easy to mock)
 class UserService:
     def __init__(self, repo, email_service):
         self.repo = repo
@@ -333,7 +333,7 @@ def test_user_service():
 
 **Bad - Hard-Coded Dependencies**:
 ```python
-# ❌ BAD: Hard-coded dependencies (hard to test)
+# BAD: Hard-coded dependencies (hard to test)
 class UserService:
     def __init__(self):
         self.repo = UserRepository()  # Hard-coded!
@@ -353,7 +353,7 @@ class UserService:
 
 **Good - Patch at Call Site**:
 ```python
-# ✅ GOOD: Patch external dependency
+# GOOD: Patch external dependency
 from unittest.mock import patch
 
 def test_fetch_data():
@@ -368,10 +368,10 @@ def test_fetch_data():
 
 **Where to Patch**: Patch where it's used, not where it's defined
 ```python
-# ❌ BAD: Patching where defined
+# BAD: Patching where defined
 @patch('requests.get')  # Wrong location!
 
-# ✅ GOOD: Patching where used
+# GOOD: Patching where used
 @patch('my_module.requests.get')  # Correct location!
 ```
 
@@ -381,7 +381,7 @@ def test_fetch_data():
 
 **Good - Specific Return Values**:
 ```python
-# ✅ GOOD: Specific return values for different calls
+# GOOD: Specific return values for different calls
 from unittest.mock import Mock
 
 def test_multiple_api_calls():
@@ -413,7 +413,7 @@ def test_multiple_api_calls():
 
 **Good - Mock Failure Scenarios**:
 ```python
-# ✅ GOOD: Mock exceptions
+# GOOD: Mock exceptions
 from unittest.mock import Mock
 
 def test_payment_gateway_failure():
@@ -434,7 +434,7 @@ def test_payment_gateway_failure():
 ### Verify Calls
 
 ```python
-# ✅ GOOD: Verify method calls
+# GOOD: Verify method calls
 mock_service.send_email.assert_called_once()
 mock_service.send_email.assert_called_with(email="john@example.com")
 mock_service.send_email.assert_called_once_with(email="john@example.com")
@@ -447,7 +447,7 @@ assert mock_service.send_email.call_count == 3
 ### Verify Call Order
 
 ```python
-# ✅ GOOD: Verify call order
+# GOOD: Verify call order
 from unittest.mock import call
 
 mock_service.step1()
@@ -469,7 +469,7 @@ mock_service.assert_has_calls([
 ### Mistake 1: Mocking What You're Testing
 
 ```python
-# ❌ BAD: Mocking the unit under test
+# BAD: Mocking the unit under test
 from unittest.mock import Mock
 
 def test_calculate_discount():
@@ -480,7 +480,7 @@ def test_calculate_discount():
 
     assert result == 90  # Testing the mock, not real code!
 
-# ✅ GOOD: Test real code
+# GOOD: Test real code
 def test_calculate_discount():
     result = calculate_discount(100, 0.1)  # Real function
     assert result == 90
@@ -491,7 +491,7 @@ def test_calculate_discount():
 ### Mistake 2: Brittle Mocks (Implementation Details)
 
 ```python
-# ❌ BAD: Mock internal implementation
+# BAD: Mock internal implementation
 def test_user_service():
     mock_repo = Mock()
 
@@ -502,7 +502,7 @@ def test_user_service():
     mock_repo._internal_save.assert_called()  # Testing private method!
     mock_repo._validate.assert_called()  # Testing private method!
 
-# ✅ GOOD: Mock public interface
+# GOOD: Mock public interface
 def test_user_service():
     mock_repo = Mock()
 
@@ -518,7 +518,7 @@ def test_user_service():
 ### Mistake 3: Not Verifying Mocks
 
 ```python
-# ❌ BAD: Creating mock but not verifying
+# BAD: Creating mock but not verifying
 def test_send_welcome_email():
     mock_email = Mock()
 
@@ -527,7 +527,7 @@ def test_send_welcome_email():
 
     # No verification! Did it actually send email?
 
-# ✅ GOOD: Verify mock was called
+# GOOD: Verify mock was called
 def test_send_welcome_email():
     mock_email = Mock()
 

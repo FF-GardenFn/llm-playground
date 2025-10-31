@@ -392,7 +392,7 @@ Would you like me to invoke refactoring-engineer to perform this refactoring aut
 ## Example: Positive Highlight
 
 ```markdown
-## ✅ Positive: Excellent Test Coverage
+##  Positive: Excellent Test Coverage
 
 **Category**: Testing
 **Location**: tests/test_user_service.py
@@ -458,12 +458,12 @@ Continue this level of testing discipline for new features.
 ```markdown
 ## [Severity]: [Short, Descriptive Title]
 
-# ✅ GOOD
+#  GOOD
 ## Critical: SQL Injection in User Search
 ## Important: N+1 Query in Order Listing
 ## Suggestion: Extract Method for Readability
 
-# ❌ BAD
+#  BAD
 ## Problem in user_service.py
 ## Issue #1
 ## Fix this
@@ -486,15 +486,15 @@ Always include:
 Always include:
 - **Current Code**: What exists now
 - **Recommended Code**: What it should be
-- **Clear diff markers**: Use ❌ for bad, ✅ for good
+- **Clear diff markers**: Use  for bad,  for good
 
 ```markdown
-### Current Code (❌)
+### Current Code ()
 ```python
 # Bad code here
 ```
 
-### Recommended Code (✅)
+### Recommended Code ()
 ```python
 # Good code here
 ```
@@ -602,16 +602,16 @@ Always include:
 ║                    CODE REVIEW REPORT                          ║
 ╚════════════════════════════════════════════════════════════════╝
 
-📊 SUMMARY
+Metrics: SUMMARY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Issues Found:  15 total
-  🔴 Critical:      3 (address immediately)
-  🟡 Important:     5 (address soon)
-  🔵 Suggestions:   7 (nice to have)
+   Critical:      3 (address immediately)
+   Important:     5 (address soon)
+   Suggestions:   7 (nice to have)
 
 Refactorable:  4 automated refactoring opportunities
 
-🔴 CRITICAL ISSUES
+ CRITICAL ISSUES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 1. SQL Injection in User Search
    📁 src/services/user_service.py:45

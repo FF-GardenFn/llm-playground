@@ -494,19 +494,19 @@ def apply_discount(order):
 
 ## Positive Framing for Suggestions
 
-### ❌ Avoid Negative Framing
+###  Avoid Negative Framing
 
 ```markdown
-# ❌ BAD: Sounds like a requirement
+# BAD: Sounds like a requirement
 You must rename this variable.
 This is wrong, fix it.
 Don't use this pattern.
 ```
 
-### ✅ Use Positive Framing
+###  Use Positive Framing
 
 ```markdown
-# ✅ GOOD: Sounds like a suggestion
+# GOOD: Sounds like a suggestion
 Consider renaming this variable for clarity:
 
 Current:
@@ -566,14 +566,14 @@ Would you like me to invoke refactoring-engineer to rename all 5 variables autom
 ### Don't Overwhelm with Suggestions
 
 ```markdown
-# ❌ BAD: Too many minor suggestions (overwhelming)
+# BAD: Too many minor suggestions (overwhelming)
 Issue 1: Variable 'x' should be 'user_count'
 Issue 2: Variable 'y' should be 'order_total'
 Issue 3: Variable 'z' should be 'item_price'
 [... 50 more naming suggestions ...]
 Issue 53: Add space after comma on line 234
 
-# ✅ GOOD: Group and prioritize
+# GOOD: Group and prioritize
 ## Suggestions: Code Style Improvements
 
 **Summary**: 15 minor code style improvements identified

@@ -58,15 +58,15 @@ if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
 
 ## Language Patterns
 
-### ❌ Avoid Harsh Language
+###  Avoid Harsh Language
 
 ```markdown
-# ❌ BAD: Harsh, blaming tone
+# BAD: Harsh, blaming tone
 This code is terrible and shows you don't understand SQL injection.
 You should never write code like this.
 This is a serious security hole that could get the company hacked.
 
-# ✅ GOOD: Constructive, educational tone
+# GOOD: Constructive, educational tone
 This code is vulnerable to SQL injection. Let me show you how to fix it:
 
 Current approach uses string concatenation, which allows attackers to inject malicious SQL:
@@ -87,15 +87,15 @@ This prevents SQL injection by treating user input as data, not executable code.
 
 ---
 
-### ✅ Use Positive Framing
+###  Use Positive Framing
 
 ```markdown
-# ❌ BAD: Negative framing
+# BAD: Negative framing
 You forgot to add tests.
 There are no tests for this critical code.
 How can you deploy without tests?
 
-# ✅ GOOD: Positive framing
+# GOOD: Positive framing
 Adding tests for this payment processing logic would provide:
 - Confidence that the code works correctly
 - Safety net for future refactoring
@@ -117,17 +117,17 @@ def test_process_payment_insufficient_funds():
 
 ---
 
-### ✅ Explain the "Why"
+###  Explain the "Why"
 
 ```markdown
-# ❌ BAD: No explanation
+# BAD: No explanation
 Don't use mutable default arguments.
 
-# ✅ GOOD: Explains the why
+# GOOD: Explains the why
 Avoid mutable default arguments because they're created once when the function is defined, not each time it's called. This can lead to unexpected behavior:
 
 ```python
-# ❌ Problem: Default list shared across calls
+#  Problem: Default list shared across calls
 def add_item(item, items=[]):
     items.append(item)
     return items
@@ -135,7 +135,7 @@ def add_item(item, items=[]):
 add_item(1)  # Returns [1]
 add_item(2)  # Returns [1, 2] - UNEXPECTED! Same list!
 
-# ✅ Solution: Use None and create new list
+#  Solution: Use None and create new list
 def add_item(item, items=None):
     if items is None:
         items = []
@@ -158,11 +158,11 @@ add_item(2)  # Returns [2] - Expected behavior
 ### 1. Assume Competence
 
 ```markdown
-# ❌ BAD: Condescending tone
+# BAD: Condescending tone
 Even a beginner knows you shouldn't do this.
 This is Programming 101.
 
-# ✅ GOOD: Respectful tone
+# GOOD: Respectful tone
 This pattern can lead to memory leaks. Here's a more memory-efficient approach:
 
 Current:
@@ -192,11 +192,11 @@ def get_user(user_id):
 ### 2. Use "We" Instead of "You"
 
 ```markdown
-# ❌ BAD: Accusatory "you"
+# BAD: Accusatory "you"
 You didn't handle errors properly.
 You need to fix this.
 
-# ✅ GOOD: Collaborative "we"
+# GOOD: Collaborative "we"
 We could improve error handling here to make debugging easier:
 
 Current:
@@ -224,12 +224,12 @@ This helps us track payment failures in logs and provides better error messages 
 ### 3. Suggest, Don't Command
 
 ```markdown
-# ❌ BAD: Commanding tone
+# BAD: Commanding tone
 Fix this immediately.
 You must change this.
 Do this instead.
 
-# ✅ GOOD: Suggesting tone
+# GOOD: Suggesting tone
 Consider using a context manager to ensure files are properly closed:
 
 Current:
@@ -254,11 +254,11 @@ This pattern ensures proper resource cleanup even when errors occur.
 ### 4. Focus on Code, Not Person
 
 ```markdown
-# ❌ BAD: Personal criticism
+# BAD: Personal criticism
 You're not following best practices.
 You don't understand async programming.
 
-# ✅ GOOD: Code-focused feedback
+# GOOD: Code-focused feedback
 This async function contains blocking I/O, which can degrade performance:
 
 Current:
@@ -457,7 +457,7 @@ def test_[scenario_2]():
 ### Pattern 1: Acknowledge Good Work
 
 ```markdown
-## ✅ Positive: Excellent Error Handling
+##  Positive: Excellent Error Handling
 
 **What's Done Well**:
 Your error handling demonstrates several best practices:
@@ -503,7 +503,7 @@ except GatewayError as e:
 ### Pattern 2: Reinforce Good Patterns
 
 ```markdown
-## ✅ Positive: Clean API Design
+##  Positive: Clean API Design
 
 **What's Done Well**:
 The REST API follows best practices consistently:
@@ -552,11 +552,11 @@ def get_user(id):
 ### Mistake 1: Vague Feedback
 
 ```markdown
-# ❌ BAD: Vague
+# BAD: Vague
 This code needs improvement.
 Fix the security issues.
 
-# ✅ GOOD: Specific
+# GOOD: Specific
 This code is vulnerable to SQL injection on line 45. Replace string concatenation with parameterized queries:
 
 Before:
@@ -576,14 +576,14 @@ cursor.execute(query, (user_id,))
 ### Mistake 2: Only Negative Feedback
 
 ```markdown
-# ❌ BAD: All negative
+# BAD: All negative
 Issue 1: SQL injection vulnerability
 Issue 2: N+1 query problem
 Issue 3: No tests
 Issue 4: Poor variable names
 [15 more issues...]
 
-# ✅ GOOD: Balanced feedback
+# GOOD: Balanced feedback
 **Positive Highlights**:
 - Excellent test coverage (95%)
 - Clean separation of concerns
@@ -603,11 +603,11 @@ Important Issues (3):
 ### Mistake 3: No Actionable Steps
 
 ```markdown
-# ❌ BAD: No guidance
+# BAD: No guidance
 Performance is poor.
 Tests are inadequate.
 
-# ✅ GOOD: Clear action steps
+# GOOD: Clear action steps
 **Performance Issue**: N+1 query detected in order listing
 
 **Action Steps**:
@@ -634,10 +634,10 @@ orders = Order.objects.prefetch_related('items').all()
 ### Mistake 4: Overwhelming Detail
 
 ```markdown
-# ❌ BAD: Too much detail
+# BAD: Too much detail
 This violates the Liskov Substitution Principle which is the L in SOLID which states that objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program. In your case, the Square class inherits from Rectangle but violates LSP because when you set the width and height independently, the Square class overrides both setters to maintain the square invariant but this breaks code that expects a Rectangle to allow independent width and height changes. To fix this you could use composition instead of inheritance or redesign the hierarchy to have a Shape interface with separate Rectangle and Square implementations or use a factory pattern to create the appropriate shape type or consider making Square and Rectangle siblings under a common Quadrilateral interface...
 
-# ✅ GOOD: Concise with link
+# GOOD: Concise with link
 This code violates the Liskov Substitution Principle - `Square` shouldn't inherit from `Rectangle` because it can't maintain Rectangle's behavior:
 
 ```python

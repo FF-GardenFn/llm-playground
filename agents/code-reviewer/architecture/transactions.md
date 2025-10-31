@@ -6,7 +6,7 @@
 
 **Priority**: Critical (affects data integrity)
 
-**Refactorable**: ❌ NO (requires transaction design, not code structure changes)
+**Refactorable**:  NO (requires transaction design, not code structure changes)
 
 ---
 
@@ -28,7 +28,7 @@ Transactions ensure data consistency in multi-step operations. Code-reviewer mus
 
 **Good - Transaction Wraps Multiple Operations**:
 ```python
-# ✅ GOOD: Atomic transaction
+# GOOD: Atomic transaction
 from django.db import transaction
 
 @transaction.atomic
@@ -45,7 +45,7 @@ def transfer_money(from_account, to_account, amount):
 
 **Bad - No Transaction**:
 ```python
-# ❌ BAD: Non-atomic operations
+# BAD: Non-atomic operations
 def transfer_money(from_account, to_account, amount):
     from_account.balance -= amount
     from_account.save()  # Committed!
@@ -73,7 +73,7 @@ def transfer_money(from_account, to_account, amount):
 
 **Good - Minimal Scope**:
 ```python
-# ✅ GOOD: Narrow transaction scope
+# GOOD: Narrow transaction scope
 def create_order(order_data):
     # Non-transactional operations first
     validate_order(order_data)
@@ -88,7 +88,7 @@ def create_order(order_data):
 
 **Bad - Large Scope**:
 ```python
-# ❌ BAD: Transaction holds lock too long
+# BAD: Transaction holds lock too long
 @transaction.atomic
 def create_order(order_data):
     # Long-running validation in transaction!
@@ -133,7 +133,7 @@ def create_order(order_data):
 
 **Example - Read Committed (Default)**:
 ```python
-# ✅ GOOD: Explicit isolation level
+# GOOD: Explicit isolation level
 from django.db import transaction
 
 with transaction.atomic(isolation_level=transaction.ISOLATION_LEVEL_READ_COMMITTED):
@@ -145,7 +145,7 @@ with transaction.atomic(isolation_level=transaction.ISOLATION_LEVEL_READ_COMMITT
 
 **Example - Serializable (Strongest)**:
 ```python
-# ✅ GOOD: Serializable for critical operations
+# GOOD: Serializable for critical operations
 with transaction.atomic(isolation_level=transaction.ISOLATION_LEVEL_SERIALIZABLE):
     # Complete isolation - no concurrent modifications
     account = Account.objects.get(id=account_id)
@@ -171,7 +171,7 @@ with transaction.atomic(isolation_level=transaction.ISOLATION_LEVEL_SERIALIZABLE
 
 **Optimistic Locking (Version Field)**:
 ```python
-# ✅ GOOD: Optimistic locking with version field
+# GOOD: Optimistic locking with version field
 class Account(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2)
     version = models.IntegerField(default=0)  # Version field
@@ -198,7 +198,7 @@ def withdraw(account_id, amount):
 
 **Pessimistic Locking (SELECT FOR UPDATE)**:
 ```python
-# ✅ GOOD: Pessimistic locking
+# GOOD: Pessimistic locking
 def withdraw(account_id, amount):
     with transaction.atomic():
         # Locks row until transaction commits
@@ -232,7 +232,7 @@ def withdraw(account_id, amount):
 
 **Good - Idempotent Operation**:
 ```python
-# ✅ GOOD: Idempotent charge
+# GOOD: Idempotent charge
 def charge_order(order_id):
     order = Order.objects.get(id=order_id)
 
@@ -253,7 +253,7 @@ def charge_order(order_id):
 
 **Bad - Non-Idempotent**:
 ```python
-# ❌ BAD: Charges card multiple times on retry
+# BAD: Charges card multiple times on retry
 def charge_order(order_id):
     order = Order.objects.get(id=order_id)
 
@@ -282,7 +282,7 @@ def charge_order(order_id):
 
 **Good - Savepoints**:
 ```python
-# ✅ GOOD: Savepoints allow partial rollback
+# GOOD: Savepoints allow partial rollback
 from django.db import transaction
 
 def process_batch(items):
@@ -304,7 +304,7 @@ def process_batch(items):
 
 **Bad - All-or-Nothing**:
 ```python
-# ❌ BAD: One failure rolls back entire batch
+# BAD: One failure rolls back entire batch
 @transaction.atomic
 def process_batch(items):
     for item in items:
@@ -328,7 +328,7 @@ def process_batch(items):
 
 **Good - Two-Phase Commit (if supported)**:
 ```python
-# ✅ GOOD: Two-phase commit (if database supports)
+# GOOD: Two-phase commit (if database supports)
 from django.db import transaction
 
 @transaction.atomic
@@ -349,7 +349,7 @@ def transfer_across_databases():
 
 **Alternative - Saga Pattern**:
 ```python
-# ✅ GOOD: Saga pattern for microservices
+# GOOD: Saga pattern for microservices
 def transfer_across_services(from_account_id, to_account_id, amount):
     try:
         # Step 1: Debit from account
@@ -383,7 +383,7 @@ def transfer_across_services(from_account_id, to_account_id, amount):
 
 **Good - Retry with Backoff**:
 ```python
-# ✅ GOOD: Retry deadlocks
+# GOOD: Retry deadlocks
 from django.db import transaction
 import time
 
@@ -429,7 +429,7 @@ def transfer_with_retry(from_account_id, to_account_id, amount, max_retries=3):
 
 **Good - Constraints Enforce Invariants**:
 ```python
-# ✅ GOOD: Database constraints
+# GOOD: Database constraints
 class Account(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -447,7 +447,7 @@ class Account(models.Model):
 
 **Bad - Application-Only Validation**:
 ```python
-# ❌ BAD: Only application validates
+# BAD: Only application validates
 class Account(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -475,14 +475,14 @@ def withdraw(account, amount):
 
 **Good - Atomic Read-Modify-Write**:
 ```python
-# ✅ GOOD: Atomic F() expression
+# GOOD: Atomic F() expression
 from django.db.models import F
 
 def increment_view_count(post_id):
     # Atomic update (no race condition)
     Post.objects.filter(id=post_id).update(view_count=F('view_count') + 1)
 
-# ✅ GOOD: SELECT FOR UPDATE
+# GOOD: SELECT FOR UPDATE
 def increment_view_count(post_id):
     with transaction.atomic():
         post = Post.objects.select_for_update().get(id=post_id)
@@ -492,7 +492,7 @@ def increment_view_count(post_id):
 
 **Bad - Non-Atomic Read-Modify-Write**:
 ```python
-# ❌ BAD: Race condition
+# BAD: Race condition
 def increment_view_count(post_id):
     post = Post.objects.get(id=post_id)  # Read
     post.view_count += 1                 # Modify
@@ -573,6 +573,6 @@ def increment_view_count(post_id):
 - Look for multi-step operations without transactions
 - Check critical paths (financial, inventory)
 
-**Refactorable**: ❌ NO (requires transaction design)
+**Refactorable**:  NO (requires transaction design)
 
 **Priority**: **Critical** (affects data integrity, consistency)

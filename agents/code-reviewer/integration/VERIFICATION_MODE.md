@@ -49,11 +49,11 @@ sequenceDiagram
     deactivate CR
 
     alt Status: SAFE
-        RE->>User: ✅ Refactoring safe to merge
+        RE->>User:  Refactoring safe to merge
     else Status: UNSAFE
-        RE->>User: ❌ Refactoring unsafe, reverted
+        RE->>User:  Refactoring unsafe, reverted
     else Status: MANUAL_REVIEW
-        RE->>User: ⚠️ Manual review required
+        RE->>User: Warning: Manual review required
     end
 ```
 
@@ -107,12 +107,12 @@ cursor.execute(query, (user_id,))
 query = "SELECT * FROM users WHERE id = %s"
 cursor.execute(query, (user_id,))
 
-# ✅ Security preserved: Still using parameterized queries
+#  Security preserved: Still using parameterized queries
 ```
 
 **Output**:
 ```markdown
-## Security Verification: ✅ PASSED
+## Security Verification:  PASSED
 
 - No new SQL injection risks
 - No new XSS vulnerabilities
@@ -150,12 +150,12 @@ def get_user_orders(user_id):
     orders = self._get_orders_for_user(user_id)  # Query 2
     # Query 3 in template when accessing order.user
 
-# ✅ Performance preserved: Same query count
+#  Performance preserved: Same query count
 ```
 
 **Output**:
 ```markdown
-## Performance Verification: ✅ PASSED
+## Performance Verification:  PASSED
 
 - Database queries: 3 → 3 (unchanged)
 - Algorithmic complexity: O(n) → O(n) (unchanged)
@@ -187,12 +187,12 @@ for i in range(1000):
     refactored_result = refactored_function(input_data)
 
     assert original_result == refactored_result
-    # ✅ 1000/1000 test cases passed
+    #  1000/1000 test cases passed
 ```
 
 **Output**:
 ```markdown
-## Functional Verification: ✅ PASSED
+## Functional Verification:  PASSED
 
 - All tests pass: 25/25 (100%)
 - Test coverage maintained: 88% → 88%
@@ -216,22 +216,22 @@ for i in range(1000):
 
 **Example**:
 ```markdown
-## Code Quality Verification: ✅ PASSED
+## Code Quality Verification:  PASSED
 
 **Complexity**:
 - Before: Cyclomatic complexity = 12
 - After: Cyclomatic complexity = 8
-- Improvement: 33% reduction ✅
+- Improvement: 33% reduction 
 
 **Readability**:
 - Before: 60-line method
 - After: 4 focused methods (15, 10, 8, 12 lines)
-- Improvement: Clear separation of concerns ✅
+- Improvement: Clear separation of concerns 
 
 **SRP**:
 - Before: 4 responsibilities in one method
 - After: 1 responsibility per method
-- Improvement: SRP compliance ✅
+- Improvement: SRP compliance 
 ```
 
 ---
@@ -248,7 +248,7 @@ for i in range(1000):
 
 **Example**:
 ```markdown
-## Diff Analysis: ✅ LOW RISK
+## Diff Analysis:  LOW RISK
 
 **Files Changed**: 2
 - src/services/user_service.py (refactored)
@@ -270,7 +270,7 @@ for i in range(1000):
 
 ## Verification Outcomes
 
-### Outcome 1: ✅ SAFE TO MERGE
+### Outcome 1:  SAFE TO MERGE
 
 **Criteria**:
 - All security checks passed
@@ -283,14 +283,14 @@ for i in range(1000):
 ```markdown
 # VERIFICATION_RESULT.md
 
-**Status**: ✅ SAFE TO MERGE
+**Status**:  SAFE TO MERGE
 **Timestamp**: 2024-01-15T10:30:00Z
 
 ## Summary
-✅ Security: No new vulnerabilities
-✅ Performance: No regressions
-✅ Functionality: Behavior preserved
-✅ Quality: Complexity reduced 33%
+ Security: No new vulnerabilities
+ Performance: No regressions
+ Functionality: Behavior preserved
+ Quality: Complexity reduced 33%
 
 ## Recommendation
 Safe to merge. Refactoring successfully improved code quality without introducing issues.
@@ -303,7 +303,7 @@ Safe to merge. Refactoring successfully improved code quality without introducin
 
 ---
 
-### Outcome 2: ❌ UNSAFE - REVERT RECOMMENDED
+### Outcome 2:  UNSAFE - REVERT RECOMMENDED
 
 **Criteria**:
 - Security vulnerability introduced
@@ -315,7 +315,7 @@ Safe to merge. Refactoring successfully improved code quality without introducin
 ```markdown
 # VERIFICATION_RESULT.md
 
-**Status**: ❌ UNSAFE - REVERT RECOMMENDED
+**Status**:  UNSAFE - REVERT RECOMMENDED
 **Timestamp**: 2024-01-15T10:30:00Z
 
 ## Critical Issues
@@ -350,7 +350,7 @@ REVERT immediately. Security regression is unacceptable.
 
 ---
 
-### Outcome 3: ⚠️ MANUAL REVIEW REQUIRED
+### Outcome 3: Warning: MANUAL REVIEW REQUIRED
 
 **Criteria**:
 - Ambiguous results
@@ -362,7 +362,7 @@ REVERT immediately. Security regression is unacceptable.
 ```markdown
 # VERIFICATION_RESULT.md
 
-**Status**: ⚠️ MANUAL REVIEW REQUIRED
+**Status**: Warning: MANUAL REVIEW REQUIRED
 **Timestamp**: 2024-01-15T10:30:00Z
 
 ## Ambiguous Results
@@ -460,8 +460,8 @@ def new_function():
     query = f"SELECT * FROM users WHERE id = {user_id}"  # Still vulnerable
 
 # Verification Mode behavior:
-# ✅ Don't report as new issue (pre-existing)
-# ✅ Only report if refactoring INTRODUCED new vulnerability
+#  Don't report as new issue (pre-existing)
+#  Only report if refactoring INTRODUCED new vulnerability
 ```
 
 ---

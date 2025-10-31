@@ -33,7 +33,7 @@ This document provides templates for these recommendations.
 **Category**: Code Quality
 **Severity**: Suggestion
 **Location**: [file:line]
-**Refactorable**: ✅ Yes ([refactoring_type])
+**Refactorable**:  Yes ([refactoring_type])
 
 ### Description
 [Clear explanation of the smell]
@@ -94,7 +94,7 @@ Would you like me to invoke `refactoring-engineer` to perform this refactoring a
 **Category**: Code Quality
 **Severity**: Suggestion
 **Location**: src/services/user_service.py:10-70
-**Refactorable**: ✅ Yes (Extract Method)
+**Refactorable**:  Yes (Extract Method)
 
 ### Description
 The `create_user()` method is 60 lines long and handles multiple responsibilities: email validation, name normalization, user creation, and welcome email sending.
@@ -237,7 +237,7 @@ Would you like me to invoke `refactoring-engineer` to perform this refactoring a
 **Category**: Code Quality
 **Severity**: Suggestion
 **Location**: src/services/payment_service.py:45, 78, 112
-**Refactorable**: ✅ Yes (Extract Method)
+**Refactorable**:  Yes (Extract Method)
 
 ### Description
 Payment validation logic is duplicated in 3 methods: `process_credit_card()`, `process_paypal()`, and `process_crypto()`. The same 15-line validation block appears in all three.
@@ -367,7 +367,7 @@ Would you like me to invoke `refactoring-engineer` to perform this refactoring a
 **Category**: Code Quality
 **Severity**: Suggestion
 **Location**: src/services/order_service.py:34-56
-**Refactorable**: ✅ Yes (Replace Conditional with Polymorphism or Extract Method)
+**Refactorable**:  Yes (Replace Conditional with Polymorphism or Extract Method)
 
 ### Description
 The `calculate_price()` method has nested conditionals with 8 different pricing rules, making it hard to understand and maintain.

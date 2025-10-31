@@ -30,13 +30,13 @@ The OWASP Top 10 represents the most critical security risks to web applications
 - [ ] Are checks bypassed in error handling paths?
 
 ```python
-# ❌ BAD: Missing authorization
+# BAD: Missing authorization
 @app.route('/admin/delete_user/<user_id>')
 def delete_user(user_id):
     User.objects.get(id=user_id).delete()  # Anyone can delete!
     return "Deleted"
 
-# ✅ GOOD: Authorization check
+# GOOD: Authorization check
 @app.route('/admin/delete_user/<user_id>')
 @require_admin  # Decorator checks admin role
 def delete_user(user_id):
@@ -50,13 +50,13 @@ def delete_user(user_id):
 - [ ] Are UUIDs used instead of sequential IDs?
 
 ```python
-# ❌ BAD: IDOR vulnerability
+# BAD: IDOR vulnerability
 @app.route('/invoice/<invoice_id>')
 def view_invoice(invoice_id):
     # No check if current_user owns this invoice!
     return Invoice.objects.get(id=invoice_id)
 
-# ✅ GOOD: Ownership check
+# GOOD: Ownership check
 @app.route('/invoice/<invoice_id>')
 @login_required
 def view_invoice(invoice_id):
@@ -72,14 +72,14 @@ def view_invoice(invoice_id):
 - [ ] Is mass assignment prevented?
 
 ```python
-# ❌ BAD: Mass assignment vulnerability
+# BAD: Mass assignment vulnerability
 @app.route('/profile/update', methods=['POST'])
 def update_profile():
     # User can set is_admin=True in POST!
     user = current_user
     user.update(**request.form)
 
-# ✅ GOOD: Whitelist allowed fields
+# GOOD: Whitelist allowed fields
 @app.route('/profile/update', methods=['POST'])
 def update_profile():
     ALLOWED_FIELDS = ['name', 'email', 'bio']
@@ -103,10 +103,10 @@ def update_profile():
 - [ ] Are API keys stored in environment variables (not code)?
 
 ```python
-# ❌ BAD: Plaintext password
+# BAD: Plaintext password
 user.password = request.form['password']
 
-# ✅ GOOD: Hashed password
+# GOOD: Hashed password
 from werkzeug.security import generate_password_hash
 user.password_hash = generate_password_hash(request.form['password'])
 ```
@@ -117,10 +117,10 @@ user.password_hash = generate_password_hash(request.form['password'])
 - [ ] Are secure cookies used (`Secure`, `HttpOnly` flags)?
 
 ```python
-# ❌ BAD: Cookie without security flags
+# BAD: Cookie without security flags
 response.set_cookie('session_id', session_id)
 
-# ✅ GOOD: Secure cookie
+# GOOD: Secure cookie
 response.set_cookie('session_id', session_id, secure=True, httponly=True, samesite='Strict')
 ```
 
@@ -130,11 +130,11 @@ response.set_cookie('session_id', session_id, secure=True, httponly=True, samesi
 - [ ] Are keys rotated regularly?
 
 ```python
-# ❌ BAD: Weak random generation
+# BAD: Weak random generation
 import random
 token = random.randint(1000, 9999)  # Predictable!
 
-# ✅ GOOD: Cryptographically secure random
+# GOOD: Cryptographically secure random
 import secrets
 token = secrets.token_urlsafe(32)
 ```
@@ -159,10 +159,10 @@ token = secrets.token_urlsafe(32)
 - [ ] Is user input sanitized before use in queries?
 
 ```python
-# ❌ BAD: NoSQL injection
+# BAD: NoSQL injection
 db.users.find({"username": request.form['username']})  # Can inject {"$ne": null}
 
-# ✅ GOOD: Type validation
+# GOOD: Type validation
 username = str(request.form['username'])  # Ensure string
 db.users.find({"username": username})
 ```
@@ -191,7 +191,7 @@ db.users.find({"username": username})
 - [ ] Are session timeouts configured?
 
 ```python
-# ✅ GOOD: Rate limiting
+# GOOD: Rate limiting
 from flask_limiter import Limiter
 
 limiter = Limiter(app, key_func=lambda: request.remote_addr)
@@ -228,10 +228,10 @@ def login():
 - [ ] Are default credentials changed?
 
 ```python
-# ❌ BAD: Debug enabled
+# BAD: Debug enabled
 app.run(debug=True)
 
-# ✅ GOOD: Debug disabled
+# GOOD: Debug disabled
 app.run(debug=False)
 ```
 
@@ -246,7 +246,7 @@ app.run(debug=False)
 - [ ] Is X-Content-Type-Options set to nosniff?
 
 ```python
-# ✅ GOOD: Security headers
+# GOOD: Security headers
 @app.after_request
 def set_security_headers(response):
     response.headers['Content-Security-Policy'] = "default-src 'self'"
@@ -272,7 +272,7 @@ def set_security_headers(response):
 - [ ] Are vulnerability scans automated (CI/CD)?
 
 ```bash
-# ✅ GOOD: Dependency scanning
+# GOOD: Dependency scanning
 pip install safety
 safety check  # Checks for known vulnerabilities
 
@@ -313,7 +313,7 @@ pip-audit  # Audit dependencies
 - [ ] Are session timeouts configured?
 
 ```python
-# ✅ GOOD: Session regeneration
+# GOOD: Session regeneration
 @app.route('/login', methods=['POST'])
 def login():
     user = authenticate(request.form['username'], request.form['password'])
@@ -346,11 +346,11 @@ def login():
 - [ ] Are deserialization safeguards in place?
 
 ```python
-# ❌ BAD: Unsafe deserialization
+# BAD: Unsafe deserialization
 import pickle
 data = pickle.loads(request.data)  # Arbitrary code execution!
 
-# ✅ GOOD: Safe deserialization
+# GOOD: Safe deserialization
 import json
 data = json.loads(request.data)  # Only data, no code
 ```
@@ -376,7 +376,7 @@ data = json.loads(request.data)  # Only data, no code
 - [ ] Are suspicious activities logged (failed login attempts)?
 
 ```python
-# ✅ GOOD: Security logging
+# GOOD: Security logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -396,10 +396,10 @@ def login():
 - [ ] Are logs structured (JSON) to prevent injection?
 
 ```python
-# ❌ BAD: Log injection
+# BAD: Log injection
 logger.info(f"User input: {request.form['data']}")  # Can inject newlines
 
-# ✅ GOOD: Structured logging
+# GOOD: Structured logging
 logger.info("User input received", extra={"data": request.form['data']})
 ```
 
@@ -424,7 +424,7 @@ logger.info("User input received", extra={"data": request.form['data']})
 - [ ] Is URL scheme whitelisted (http/https only)?
 
 ```python
-# ❌ BAD: SSRF vulnerability
+# BAD: SSRF vulnerability
 import requests
 
 @app.route('/fetch')
@@ -433,7 +433,7 @@ def fetch():
     response = requests.get(url)  # Can access internal services!
     return response.text
 
-# ✅ GOOD: URL validation
+# GOOD: URL validation
 import requests
 from urllib.parse import urlparse
 
@@ -465,7 +465,7 @@ def fetch():
 - [ ] Are redirect targets validated?
 
 ```python
-# ✅ GOOD: Disable redirects
+# GOOD: Disable redirects
 response = requests.get(url, allow_redirects=False, timeout=5)
 ```
 

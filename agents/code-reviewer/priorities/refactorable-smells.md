@@ -22,7 +22,7 @@ These smells reference the refactoring-engineer catalog and CAN be automated:
 
 #### 1. Long Method
 **Source**: `refactoring-engineer/smells/method/long-method.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Extract Method, Decompose Conditional
 **Automation**: High - extract_method is well-defined transformation
 
@@ -43,7 +43,7 @@ def process_user_data(user_id, name, email, ...):
 
 #### 2. Long Parameter List
 **Source**: `refactoring-engineer/smells/method/long-parameter-list.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Introduce Parameter Object, Preserve Whole Object
 **Automation**: Medium - requires creating new class
 
@@ -66,7 +66,7 @@ def create_user(user_data: UserData):
 
 #### 3. Duplicate Code
 **Source**: `refactoring-engineer/smells/method/duplicate-code.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Extract Method, Pull Up Method, Form Template Method
 **Automation**: High - well-defined transformation
 
@@ -97,7 +97,7 @@ def validate_person(person):
 
 #### 4. Complex Conditional
 **Source**: `refactoring-engineer/smells/method/complex-conditional.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Decompose Conditional, Replace Conditional with Polymorphism
 **Automation**: Medium - decompose_conditional is straightforward
 
@@ -127,7 +127,7 @@ def is_subscription_active(user):
 
 #### 5. Large Class
 **Source**: `refactoring-engineer/smells/class/large-class.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Extract Class, Extract Subclass, Extract Interface
 **Automation**: Medium - requires identifying cohesive groups
 
@@ -158,7 +158,7 @@ class UserService:
 
 #### 6. Feature Envy
 **Source**: `refactoring-engineer/smells/class/feature-envy.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Move Method, Move Field
 **Automation**: High - clear when method belongs elsewhere
 
@@ -187,7 +187,7 @@ class Invoice:
 
 #### 7. Data Clumps
 **Source**: `refactoring-engineer/smells/class/data-clumps.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Extract Class, Introduce Parameter Object
 **Automation**: Medium - requires identifying clumps
 
@@ -219,7 +219,7 @@ class User:
 
 #### 8. Primitive Obsession
 **Source**: `refactoring-engineer/smells/class/primitive-obsession.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Replace Data Value with Object, Extract Class
 **Automation**: Medium - requires creating value objects
 
@@ -253,7 +253,7 @@ class Order:
 
 #### 9. Divergent Change
 **Source**: `refactoring-engineer/smells/system/divergent-change.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Extract Class, Move Method
 **Automation**: Medium - requires identifying change reasons
 
@@ -284,7 +284,7 @@ class Logger:  # Logging
 
 #### 10. Shotgun Surgery
 **Source**: `refactoring-engineer/smells/system/shotgun-surgery.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Move Method, Move Field, Inline Class
 **Automation**: Medium - requires consolidating scattered changes
 
@@ -292,7 +292,7 @@ class Logger:  # Logging
 
 #### 11. Inappropriate Intimacy
 **Source**: `refactoring-engineer/smells/system/inappropriate-intimacy.md`
-**Refactorable**: ✅ YES
+**Refactorable**:  YES
 **Pattern**: Move Method, Extract Class, Hide Delegate
 **Automation**: Medium - requires reducing coupling
 
@@ -307,7 +307,7 @@ These issues require manual fixes (security knowledge, performance optimization,
 **Source**: `code-reviewer/security/performance-smells.md`
 
 #### 1. SQL Injection
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires security knowledge, context-dependent
 **Manual Fix**: Use parameterized queries, ORM
 
@@ -326,21 +326,21 @@ cursor.execute(query, (user_id,))
 ---
 
 #### 2. Cross-Site Scripting (XSS)
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires security knowledge, output context matters
 **Manual Fix**: Escape output, use templating engine
 
 ---
 
 #### 3. Hardcoded Secrets
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires configuration management, environment setup
 **Manual Fix**: Use environment variables, secrets manager
 
 ---
 
 #### 4. Insecure Deserialization
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires security redesign
 **Manual Fix**: Validate input, use safe serialization
 
@@ -349,7 +349,7 @@ cursor.execute(query, (user_id,))
 ### Performance Smells (4 smells)
 
 #### 1. N+1 Query Problem
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires database/ORM knowledge
 **Manual Fix**: Use eager loading, join queries
 
@@ -368,21 +368,21 @@ users = User.objects.prefetch_related('orders')  # 1 query
 ---
 
 #### 2. Memory Leak
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires memory management knowledge
 **Manual Fix**: Release resources, use weak references
 
 ---
 
 #### 3. Blocking I/O
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires async/concurrency redesign
 **Manual Fix**: Use async/await, non-blocking I/O
 
 ---
 
 #### 4. Inefficient Algorithm
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires algorithmic knowledge
 **Manual Fix**: Use better data structure, optimize algorithm
 
@@ -391,16 +391,16 @@ users = User.objects.prefetch_related('orders')  # 1 query
 ### Architectural Smells (not code smells)
 
 #### 1. Tight Coupling
-**Refactorable**: ⚠️ PARTIALLY
+**Refactorable**: Warning: PARTIALLY
 **Reason**: Some coupling can be reduced via Extract Class, some requires architecture redesign
 **Decision**: Case-by-case
 
 #### 2. Missing Abstraction
-**Refactorable**: ⚠️ PARTIALLY
+**Refactorable**: Warning: PARTIALLY
 **Reason**: Extract Interface is refactorable, but choosing right abstraction requires judgment
 
 #### 3. Over-Engineering
-**Refactorable**: ❌ NO
+**Refactorable**:  NO
 **Reason**: Requires removing code, simplifying design (not behavior-preserving)
 
 ---
@@ -482,22 +482,22 @@ Detected 2 non-refactorable issues (manual fixes required):
 
 | Category | Smell | Refactorable? | Automation Level | Pattern |
 |----------|-------|---------------|-----------------|---------|
-| **Method** | Long Method | ✅ YES | High | Extract Method |
-| **Method** | Long Parameter List | ✅ YES | Medium | Introduce Parameter Object |
-| **Method** | Duplicate Code | ✅ YES | High | Extract Method |
-| **Method** | Complex Conditional | ✅ YES | Medium | Decompose Conditional |
-| **Class** | Large Class | ✅ YES | Medium | Extract Class |
-| **Class** | Feature Envy | ✅ YES | High | Move Method |
-| **Class** | Data Clumps | ✅ YES | Medium | Extract Class |
-| **Class** | Primitive Obsession | ✅ YES | Medium | Replace with Object |
-| **System** | Divergent Change | ✅ YES | Medium | Extract Class |
-| **System** | Shotgun Surgery | ✅ YES | Medium | Move Method/Field |
-| **System** | Inappropriate Intimacy | ✅ YES | Medium | Extract Class |
-| **Security** | SQL Injection | ❌ NO | N/A | Manual fix |
-| **Security** | XSS | ❌ NO | N/A | Manual fix |
-| **Security** | Hardcoded Secrets | ❌ NO | N/A | Manual fix |
-| **Performance** | N+1 Query | ❌ NO | N/A | Manual fix |
-| **Performance** | Memory Leak | ❌ NO | N/A | Manual fix |
-| **Performance** | Blocking I/O | ❌ NO | N/A | Manual fix |
+| **Method** | Long Method |  YES | High | Extract Method |
+| **Method** | Long Parameter List |  YES | Medium | Introduce Parameter Object |
+| **Method** | Duplicate Code |  YES | High | Extract Method |
+| **Method** | Complex Conditional |  YES | Medium | Decompose Conditional |
+| **Class** | Large Class |  YES | Medium | Extract Class |
+| **Class** | Feature Envy |  YES | High | Move Method |
+| **Class** | Data Clumps |  YES | Medium | Extract Class |
+| **Class** | Primitive Obsession |  YES | Medium | Replace with Object |
+| **System** | Divergent Change |  YES | Medium | Extract Class |
+| **System** | Shotgun Surgery |  YES | Medium | Move Method/Field |
+| **System** | Inappropriate Intimacy |  YES | Medium | Extract Class |
+| **Security** | SQL Injection |  NO | N/A | Manual fix |
+| **Security** | XSS |  NO | N/A | Manual fix |
+| **Security** | Hardcoded Secrets |  NO | N/A | Manual fix |
+| **Performance** | N+1 Query |  NO | N/A | Manual fix |
+| **Performance** | Memory Leak |  NO | N/A | Manual fix |
+| **Performance** | Blocking I/O |  NO | N/A | Manual fix |
 
 **Key Principle**: Refactorable = behavior-preserving code structure transformation. Non-refactorable = requires domain knowledge (security, performance, architecture).

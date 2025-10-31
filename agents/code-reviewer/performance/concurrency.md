@@ -6,7 +6,7 @@
 
 **Priority**: Important (causes race conditions, deadlocks, performance issues)
 
-**Refactorable**: ❌ NO (requires async/concurrency redesign, not code structure changes)
+**Refactorable**:  NO (requires async/concurrency redesign, not code structure changes)
 
 ---
 
@@ -36,7 +36,7 @@ These require **manual fixes**, not behavior-preserving refactoring.
 
 **Example - Blocking**:
 ```python
-# ❌ BAD: Blocking I/O in async function
+# BAD: Blocking I/O in async function
 import asyncio
 import requests
 
@@ -50,7 +50,7 @@ async def fetch_data():
 
 **Fix - Async I/O**:
 ```python
-# ✅ GOOD: Async I/O
+# GOOD: Async I/O
 import asyncio
 import aiohttp
 
@@ -78,14 +78,14 @@ async def fetch_data():
 
 **Example - Missing await**:
 ```python
-# ❌ BAD: Missing await (coroutine never runs!)
+# BAD: Missing await (coroutine never runs!)
 async def save_user(user):
     user.save()  # Missing await!
     return True
 
 # Function returns immediately without saving
 
-# ✅ GOOD: Await coroutine
+# GOOD: Await coroutine
 async def save_user(user):
     await user.save()  # Properly awaited
     return True
@@ -106,7 +106,7 @@ async def save_user(user):
 
 **Example - Race Condition**:
 ```python
-# ❌ BAD: Race condition (shared counter)
+# BAD: Race condition (shared counter)
 counter = 0
 
 async def increment():
@@ -125,7 +125,7 @@ async def main():
 
 **Fix - Lock for Synchronization**:
 ```python
-# ✅ GOOD: Lock protects shared state
+# GOOD: Lock protects shared state
 import asyncio
 
 counter = 0
@@ -146,7 +146,7 @@ async def main():
 
 **Alternative - Thread-Safe Data Structure**:
 ```python
-# ✅ GOOD: Use atomic operations
+# GOOD: Use atomic operations
 import asyncio
 from collections import deque
 
@@ -172,7 +172,7 @@ async def log_event(event):
 
 **Example - Deadlock**:
 ```python
-# ❌ BAD: Deadlock risk (inconsistent lock order)
+# BAD: Deadlock risk (inconsistent lock order)
 import asyncio
 
 lock_a = asyncio.Lock()
@@ -198,7 +198,7 @@ async def transfer_b_to_a():
 
 **Fix - Consistent Lock Ordering**:
 ```python
-# ✅ GOOD: Always acquire locks in same order
+# GOOD: Always acquire locks in same order
 import asyncio
 
 lock_a = asyncio.Lock()
@@ -221,7 +221,7 @@ async def transfer_b_to_a():
 
 **Alternative - Single Lock**:
 ```python
-# ✅ GOOD: Use single lock for related resources
+# GOOD: Use single lock for related resources
 transfer_lock = asyncio.Lock()
 
 async def transfer_a_to_b():
@@ -250,7 +250,7 @@ async def transfer_b_to_a():
 
 **Example - Sequential**:
 ```python
-# ❌ BAD: Sequential execution (slow)
+# BAD: Sequential execution (slow)
 async def fetch_all_data():
     users = await fetch_users()      # Wait 1s
     orders = await fetch_orders()    # Wait 1s
@@ -262,7 +262,7 @@ async def fetch_all_data():
 
 **Fix - Concurrent Execution**:
 ```python
-# ✅ GOOD: Concurrent execution (fast)
+# GOOD: Concurrent execution (fast)
 async def fetch_all_data():
     users, orders, products = await asyncio.gather(
         fetch_users(),
@@ -289,7 +289,7 @@ async def fetch_all_data():
 
 **Example - Resource Exhaustion**:
 ```python
-# ❌ BAD: 10,000 concurrent HTTP requests
+# BAD: 10,000 concurrent HTTP requests
 async def fetch_all_urls(urls):
     tasks = [fetch_url(url) for url in urls]  # 10,000 tasks!
     return await asyncio.gather(*tasks)
@@ -299,7 +299,7 @@ async def fetch_all_urls(urls):
 
 **Fix - Semaphore Limits Concurrency**:
 ```python
-# ✅ GOOD: Limit concurrent requests
+# GOOD: Limit concurrent requests
 import asyncio
 
 async def fetch_with_semaphore(semaphore, url):
@@ -317,7 +317,7 @@ async def fetch_all_urls(urls):
 
 **Alternative - Batch Processing**:
 ```python
-# ✅ GOOD: Process in batches
+# GOOD: Process in batches
 async def fetch_all_urls(urls, batch_size=100):
     results = []
     for i in range(0, len(urls), batch_size):
@@ -342,7 +342,7 @@ async def fetch_all_urls(urls, batch_size=100):
 
 **Example - Lost Updates**:
 ```python
-# ❌ BAD: Non-atomic update
+# BAD: Non-atomic update
 async def withdraw(account, amount):
     balance = account.balance  # Read
     await asyncio.sleep(0.1)   # Simulates I/O
@@ -358,7 +358,7 @@ async def withdraw(account, amount):
 
 **Fix - Atomic Update with Lock**:
 ```python
-# ✅ GOOD: Atomic update with lock
+# GOOD: Atomic update with lock
 account_lock = asyncio.Lock()
 
 async def withdraw(account, amount):
@@ -384,12 +384,12 @@ async def withdraw(account, amount):
 ### 1. Always Use Async Libraries in Async Code
 
 ```python
-# ❌ BAD: Mixing sync and async
+# BAD: Mixing sync and async
 import requests
 async def fetch():
     return requests.get(url)  # Blocks!
 
-# ✅ GOOD: Use async library
+# GOOD: Use async library
 import aiohttp
 async def fetch():
     async with aiohttp.ClientSession() as session:
@@ -400,18 +400,18 @@ async def fetch():
 ### 2. Use asyncio.gather() for Concurrent Tasks
 
 ```python
-# ❌ BAD: Sequential
+# BAD: Sequential
 result1 = await task1()
 result2 = await task2()
 
-# ✅ GOOD: Concurrent
+# GOOD: Concurrent
 result1, result2 = await asyncio.gather(task1(), task2())
 ```
 
 ### 3. Use Semaphores for Rate Limiting
 
 ```python
-# ✅ GOOD: Limit concurrent operations
+# GOOD: Limit concurrent operations
 semaphore = asyncio.Semaphore(10)  # Max 10 concurrent
 
 async def limited_operation():
@@ -422,7 +422,7 @@ async def limited_operation():
 ### 4. Proper Error Handling in Async
 
 ```python
-# ✅ GOOD: Handle errors in concurrent tasks
+# GOOD: Handle errors in concurrent tasks
 results = await asyncio.gather(
     task1(),
     task2(),
@@ -441,7 +441,7 @@ for result in results:
 ### Race Condition with Threads
 
 ```python
-# ❌ BAD: Thread race condition
+# BAD: Thread race condition
 import threading
 
 counter = 0
@@ -463,7 +463,7 @@ print(counter)  # Expected: 1,000,000, Actual: ~500,000
 ### Fix with Lock
 
 ```python
-# ✅ GOOD: Lock protects shared state
+# GOOD: Lock protects shared state
 import threading
 
 counter = 0

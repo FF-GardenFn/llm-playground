@@ -6,7 +6,7 @@
 
 **Priority**: Important (affects API usability and maintainability)
 
-**Refactorable**: ❌ NO (requires API redesign, not code structure changes)
+**Refactorable**:  NO (requires API redesign, not code structure changes)
 
 ---
 
@@ -42,12 +42,12 @@ GET    /orders?user_id=123 ← Query parameter
 
 **Bad - Action Names**:
 ```
-❌ POST /createUser
-❌ POST /getUser
-❌ POST /updateUser
-❌ POST /deleteUser
+ POST /createUser
+ POST /getUser
+ POST /updateUser
+ POST /deleteUser
 
-✅ Use HTTP methods (POST, GET, PUT, DELETE) instead
+ Use HTTP methods (POST, GET, PUT, DELETE) instead
 ```
 
 **Detection Heuristics**:
@@ -73,7 +73,7 @@ GET    /orders?user_id=123 ← Query parameter
 
 **Good - Correct Methods**:
 ```python
-# ✅ GOOD: Correct HTTP methods
+# GOOD: Correct HTTP methods
 @app.route('/users', methods=['GET'])
 def list_users():
     return jsonify(User.objects.all())
@@ -97,7 +97,7 @@ def delete_user(id):
 
 **Bad - Wrong Methods**:
 ```python
-# ❌ BAD: Using POST for everything
+# BAD: Using POST for everything
 @app.route('/getUsers', methods=['POST'])  # Should be GET!
 def get_users():
     return jsonify(User.objects.all())
@@ -141,7 +141,7 @@ def delete_user():
 
 **Good - Correct Status Codes**:
 ```python
-# ✅ GOOD: Appropriate status codes
+# GOOD: Appropriate status codes
 @app.route('/users', methods=['POST'])
 def create_user():
     try:
@@ -163,7 +163,7 @@ def get_user(id):
 
 **Bad - Wrong Status Codes**:
 ```python
-# ❌ BAD: Always returns 200
+# BAD: Always returns 200
 @app.route('/users', methods=['POST'])
 def create_user():
     try:
@@ -190,7 +190,7 @@ def create_user():
 
 **Good - Consistent Format**:
 ```json
-// ✅ GOOD: Consistent response structure
+//  GOOD: Consistent response structure
 
 // Success
 {
@@ -229,7 +229,7 @@ def create_user():
 
 **Bad - Inconsistent Format**:
 ```json
-// ❌ BAD: Inconsistent structure
+//  BAD: Inconsistent structure
 
 // Success (raw object)
 {"id": 123, "name": "John Doe"}
@@ -256,7 +256,7 @@ def create_user():
 
 **Good - Pagination**:
 ```python
-# ✅ GOOD: Paginated response
+# GOOD: Paginated response
 @app.route('/users')
 def list_users():
     page = request.args.get('page', 1, type=int)
@@ -283,7 +283,7 @@ def list_users():
 
 **Bad - No Pagination**:
 ```python
-# ❌ BAD: Returns all records
+# BAD: Returns all records
 @app.route('/users')
 def list_users():
     users = User.objects.all()  # Could be 1 million users!
@@ -303,7 +303,7 @@ def list_users():
 
 **Good - Query Parameters**:
 ```python
-# ✅ GOOD: Support filtering, sorting, searching
+# GOOD: Support filtering, sorting, searching
 @app.route('/users')
 def list_users():
     # Filtering
@@ -352,7 +352,7 @@ def list_users():
 
 **Good - Versioned API**:
 ```python
-# ✅ GOOD: URL versioning
+# GOOD: URL versioning
 @app.route('/api/v1/users')
 def list_users_v1():
     return jsonify(User.objects.all())
@@ -373,7 +373,7 @@ def list_users():
 
 **Bad - No Versioning**:
 ```python
-# ❌ BAD: Breaking changes without versioning
+# BAD: Breaking changes without versioning
 @app.route('/users')
 def list_users():
     # Changed response format - breaks existing clients!
@@ -395,7 +395,7 @@ def list_users():
 
 **Good - Helpful Errors**:
 ```python
-# ✅ GOOD: Detailed error response
+# GOOD: Detailed error response
 @app.route('/users', methods=['POST'])
 def create_user():
     try:
@@ -427,7 +427,7 @@ def create_user():
 
 **Bad - Vague Errors**:
 ```python
-# ❌ BAD: Vague error
+# BAD: Vague error
 @app.route('/users', methods=['POST'])
 def create_user():
     try:
@@ -454,7 +454,7 @@ def create_user():
 
 **Good - Authentication**:
 ```python
-# ✅ GOOD: Token-based authentication
+# GOOD: Token-based authentication
 from functools import wraps
 
 def require_auth(f):
@@ -492,7 +492,7 @@ def create_user():
 
 **Good - Rate Limiting**:
 ```python
-# ✅ GOOD: Rate limiting
+# GOOD: Rate limiting
 from flask_limiter import Limiter
 
 limiter = Limiter(app, key_func=lambda: request.remote_addr)
@@ -588,6 +588,6 @@ def create_user():
 - Phase 2: Manual API design review
 - Check conventions, consistency, security
 
-**Refactorable**: ❌ NO (requires API redesign)
+**Refactorable**:  NO (requires API redesign)
 
 **Priority**: **Important** (affects API usability and maintainability)

@@ -53,13 +53,13 @@ Different test types serve different purposes. Code-reviewer assesses:
 
 **Example - Unit Test**:
 ```python
-# ✅ GOOD: Unit test (pure logic, no dependencies)
+# GOOD: Unit test (pure logic, no dependencies)
 def test_calculate_discount():
     # Tests calculate_discount() in isolation
     result = calculate_discount(price=100, rate=0.1)
     assert result == 90
 
-# ✅ GOOD: Unit test with mocks
+# GOOD: Unit test with mocks
 from unittest.mock import Mock
 
 def test_user_service_create_user():
@@ -105,7 +105,7 @@ def test_user_service_create_user():
 
 **Example - Integration Test**:
 ```python
-# ✅ GOOD: Integration test (database interaction)
+# GOOD: Integration test (database interaction)
 import pytest
 from django.test import TestCase
 
@@ -121,7 +121,7 @@ def test_user_repository_save():
     assert user.id is not None
     assert User.objects.filter(id=user.id).exists()
 
-# ✅ GOOD: Integration test (service + repository)
+# GOOD: Integration test (service + repository)
 @pytest.mark.django_db
 def test_user_service_create_user():
     # Tests service + repository + database
@@ -162,7 +162,7 @@ def test_user_service_create_user():
 
 **Example - E2E Test (API)**:
 ```python
-# ✅ GOOD: E2E test (full HTTP request/response)
+# GOOD: E2E test (full HTTP request/response)
 def test_create_order_e2e(client):
     # Step 1: Create user
     response = client.post('/users', json={'name': 'John', 'email': 'john@example.com'})
@@ -184,7 +184,7 @@ def test_create_order_e2e(client):
 
 **Example - E2E Test (UI)**:
 ```python
-# ✅ GOOD: E2E test (browser automation)
+# GOOD: E2E test (browser automation)
 from selenium import webdriver
 
 def test_user_signup_flow():
@@ -230,7 +230,7 @@ def test_user_signup_flow():
 
 **Example - Consumer-Driven Contract**:
 ```python
-# ✅ GOOD: Contract test
+# GOOD: Contract test
 import requests_mock
 
 def test_user_service_contract():
@@ -275,7 +275,7 @@ def test_user_service_contract():
 
 **Example - Load Test**:
 ```python
-# ✅ GOOD: Performance test
+# GOOD: Performance test
 import time
 
 def test_search_performance():
@@ -290,7 +290,7 @@ def test_search_performance():
 
 **Example - Scalability Test**:
 ```python
-# ✅ GOOD: Scalability test
+# GOOD: Scalability test
 def test_handle_1000_concurrent_requests():
     from concurrent.futures import ThreadPoolExecutor
 
@@ -321,7 +321,7 @@ def test_handle_1000_concurrent_requests():
 
 **Example - Authentication Test**:
 ```python
-# ✅ GOOD: Security test
+# GOOD: Security test
 def test_authenticated_endpoint_requires_auth():
     # Without authentication
     response = client.get('/api/orders')
@@ -334,7 +334,7 @@ def test_authenticated_endpoint_requires_auth():
 
 **Example - Input Validation Test**:
 ```python
-# ✅ GOOD: Security test (SQL injection)
+# GOOD: Security test (SQL injection)
 def test_user_search_prevents_sql_injection():
     # Attempt SQL injection
     malicious_input = "'; DROP TABLE users;--"
@@ -384,7 +384,7 @@ def test_user_search_prevents_sql_injection():
 ### Poor Distribution
 
 ```python
-# ❌ BAD: Inverted pyramid (too many E2E tests)
+# BAD: Inverted pyramid (too many E2E tests)
 # Total: 1000 tests
 
 # Unit Tests: 100 (10%)  ← Too few!

@@ -6,7 +6,7 @@
 
 **Priority**: Important (causes out-of-memory crashes)
 
-**Refactorable**: ❌ NO (requires memory management knowledge, not code structure changes)
+**Refactorable**:  NO (requires memory management knowledge, not code structure changes)
 
 ---
 
@@ -35,7 +35,7 @@ These require **manual fixes**, not behavior-preserving refactoring.
 
 **Example - Leak**:
 ```python
-# ❌ BAD: Circular reference (memory leak)
+# BAD: Circular reference (memory leak)
 class Node:
     def __init__(self, value):
         self.value = value
@@ -55,7 +55,7 @@ root.add_child(child)
 
 **Fix - Weak References**:
 ```python
-# ✅ GOOD: Use weak reference to break cycle
+# GOOD: Use weak reference to break cycle
 import weakref
 
 class Node:
@@ -96,7 +96,7 @@ class Node:
 
 **Example - Resource Leak**:
 ```python
-# ❌ BAD: File handle not closed
+# BAD: File handle not closed
 def read_config(filename):
     f = open(filename)
     data = f.read()
@@ -108,7 +108,7 @@ def read_config(filename):
 
 **Fix - Context Manager**:
 ```python
-# ✅ GOOD: File automatically closed
+# GOOD: File automatically closed
 def read_config(filename):
     with open(filename) as f:
         data = f.read()
@@ -127,7 +127,7 @@ def read_config(filename):
 
 **Database Connection Example**:
 ```python
-# ❌ BAD: Connection not closed
+# BAD: Connection not closed
 def query_database(query):
     conn = psycopg2.connect(...)
     cursor = conn.cursor()
@@ -136,7 +136,7 @@ def query_database(query):
     return results
     # Connection leaked!
 
-# ✅ GOOD: Connection closed
+# GOOD: Connection closed
 def query_database(query):
     with psycopg2.connect(...) as conn:
         with conn.cursor() as cursor:
@@ -167,7 +167,7 @@ def query_database(query):
 
 **Example - Unbounded Cache**:
 ```python
-# ❌ BAD: Unbounded cache (grows forever)
+# BAD: Unbounded cache (grows forever)
 cache = {}
 
 def expensive_computation(key):
@@ -181,7 +181,7 @@ def expensive_computation(key):
 
 **Fix - LRU Cache with Size Limit**:
 ```python
-# ✅ GOOD: LRU cache with size limit
+# GOOD: LRU cache with size limit
 from functools import lru_cache
 
 @lru_cache(maxsize=1000)  # Max 1000 items
@@ -193,7 +193,7 @@ def expensive_computation(key):
 
 **Alternative - Manual Cache with TTL**:
 ```python
-# ✅ GOOD: Cache with time-to-live
+# GOOD: Cache with time-to-live
 from cachetools import TTLCache
 
 cache = TTLCache(maxsize=1000, ttl=3600)  # 1000 items, 1 hour TTL
@@ -224,7 +224,7 @@ def expensive_computation(key):
 
 **Example - Load All**:
 ```python
-# ❌ BAD: Load entire 10GB file into memory
+# BAD: Load entire 10GB file into memory
 def process_large_file(filename):
     with open(filename) as f:
         data = f.read()  # Loads entire file!
@@ -236,7 +236,7 @@ def process_large_file(filename):
 
 **Fix - Stream Processing**:
 ```python
-# ✅ GOOD: Stream line by line
+# GOOD: Stream line by line
 def process_large_file(filename):
     with open(filename) as f:
         for line in f:  # Streams one line at a time
@@ -247,7 +247,7 @@ def process_large_file(filename):
 
 **Database Example**:
 ```python
-# ❌ BAD: Load 1M rows into memory
+# BAD: Load 1M rows into memory
 def process_all_users():
     users = User.objects.all()  # Loads all 1M users!
     for user in users:
@@ -255,7 +255,7 @@ def process_all_users():
 
 # 1M users * 1KB = 1GB RAM
 
-# ✅ GOOD: Stream with iterator
+# GOOD: Stream with iterator
 def process_all_users():
     for user in User.objects.iterator():  # Streams in batches
         process(user)
@@ -279,7 +279,7 @@ def process_all_users():
 
 **Example - Memory Churn**:
 ```python
-# ❌ BAD: Creates N intermediate strings
+# BAD: Creates N intermediate strings
 def build_html(items):
     html = ""
     for item in items:
@@ -291,7 +291,7 @@ def build_html(items):
 
 **Fix - List Join**:
 ```python
-# ✅ GOOD: Build list, join once
+# GOOD: Build list, join once
 def build_html(items):
     parts = [f"<li>{item}</li>" for item in items]
     return f"<ul>{''.join(parts)}</ul>"
@@ -301,7 +301,7 @@ def build_html(items):
 
 **Alternative - StringIO**:
 ```python
-# ✅ GOOD: Use buffer
+# GOOD: Use buffer
 from io import StringIO
 
 def build_html(items):
@@ -327,7 +327,7 @@ def build_html(items):
 
 **Example - Shared State**:
 ```python
-# ❌ BAD: Mutable default argument (shared state)
+# BAD: Mutable default argument (shared state)
 def add_item(item, items=[]):  # Default list is shared!
     items.append(item)
     return items
@@ -339,7 +339,7 @@ result2 = add_item(2)  # [1, 2] ← Unexpected!
 
 **Fix - None Default**:
 ```python
-# ✅ GOOD: Create new list each call
+# GOOD: Create new list each call
 def add_item(item, items=None):
     if items is None:
         items = []
@@ -364,14 +364,14 @@ result2 = add_item(2)  # [2] ← Correct
 
 **Example - Global Accumulation**:
 ```python
-# ❌ BAD: Global list grows forever
+# BAD: Global list grows forever
 ERRORS = []
 
 def log_error(error):
     ERRORS.append(error)  # Never cleared!
     # After 1M errors: 1M items in ERRORS
 
-# ✅ GOOD: Bounded global or use logging
+# GOOD: Bounded global or use logging
 from collections import deque
 
 ERRORS = deque(maxlen=1000)  # Max 1000 errors
