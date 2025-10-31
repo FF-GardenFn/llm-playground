@@ -601,3 +601,136 @@ def get_user_orders(user_id):
 - Refactoring-Engineer proceeds or reverts based on result
 
 **Priority**: **Critical** (ensures refactorings are safe)
+
+---
+
+## General Review Verification Commands
+
+Commands to include in standard code reviews (non-refactoring mode) to help developers reproduce findings.
+
+### Security Verification
+
+**SQL Injection Detection**:
+```bash
+# Check for string formatting in SQL queries
+grep -r "execute.*f\"" src/
+grep -r "execute.*%" src/
+
+# Check for raw SQL concatenation
+grep -r "SELECT.*+.*" src/
+```
+
+**Hard-coded Secrets Detection**:
+```bash
+# Scan for hard-coded secrets
+git secrets --scan
+
+# Check for common secret patterns
+grep -rE "(password|api_key|secret|token)\s*=\s*['\"]" src/
+
+# Run security scanner
+bandit -r src/ -f json  # Python
+npm audit                # JavaScript
+gosec ./...              # Go
+```
+
+### Quality Verification
+
+**Complexity Analysis**:
+```bash
+# Python
+radon cc src/ --min B
+radon mi src/ --min B
+
+# JavaScript
+eslint --rule 'complexity: ["error", 10]' src/
+
+# Go
+gocyclo -over 10 .
+```
+
+**Duplication Detection**:
+```bash
+# Python
+pylint --disable=all --enable=duplicate-code src/
+
+# JavaScript
+jscpd src/
+
+# Generic
+pmd cpd --minimum-tokens 50 --files src/
+```
+
+**Type Checking**:
+```bash
+# Python
+mypy src/ --strict
+
+# TypeScript
+tsc --noEmit
+
+# Go
+go vet ./...
+```
+
+### Performance Verification
+
+**Memory Profiling**:
+```bash
+# Python
+python -m memory_profiler script.py
+
+# Node.js
+node --inspect script.js
+
+# Go
+go test -memprofile=mem.out
+go tool pprof mem.out
+```
+
+**CPU Profiling**:
+```bash
+# Python
+python -m cProfile -s cumtime script.py
+
+# Node.js
+node --prof script.js
+node --prof-process isolate-*.log
+
+# Go
+go test -cpuprofile=cpu.out
+go tool pprof cpu.out
+```
+
+**N+1 Query Detection**:
+```bash
+# Django
+python manage.py shell_plus --print-sql
+
+# Rails
+QUERY_LOG=true rails console
+```
+
+### Test Verification
+
+**Coverage Analysis**:
+```bash
+# Python
+pytest --cov=src --cov-report=term-missing
+
+# JavaScript
+jest --coverage
+
+# Go
+go test -coverprofile=coverage.out ./...
+go tool cover -html=coverage.out
+```
+
+**Test Execution**:
+```bash
+# Run all tests
+pytest -v           # Python
+npm test            # JavaScript
+go test ./...       # Go
+cargo test          # Rust
+```

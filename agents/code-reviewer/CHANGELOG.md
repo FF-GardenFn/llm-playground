@@ -15,6 +15,14 @@ All notable changes to code-reviewer will be documented in this file.
 - Reframed all commands using structural navigation instead of role-based instructions
 - Commands now use `# Command Name` headers instead of "You are..." introductions
 - Replaced emoji severity markers with text: Critical:, Important:, Suggestion:, OK:, BAD:
+- Files Renamed:
+  1. integration/REFACTORING_TRIGGER.md → integration/refactoring-trigger.md
+  2. integration/VERIFICATION_MODE.md → integration/verification-mode.md
+  3. integration/METRICS_SHARING.md → integration/metrics-sharing.md
+  4. workflows/REVIEW_PROCESS.md → workflows/review-process.md
+  5. workflows/INTEGRATION_MODES.md → workflows/integration-modes.md
+  6. quality/SMELL_INTEGRATION.md → quality/smell-integration.md
+
 
 ### Removed
 - COGNITIVE_MODEL_DESIGN.md (archived as internal doc)

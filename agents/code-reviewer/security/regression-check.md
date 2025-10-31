@@ -525,7 +525,7 @@ Return to Refactoring-Engineer
 ### Phase 1: Security Regression Check
 
 ```markdown
-# code-reviewer/workflows/REVIEW_PROCESS.md
+# code-reviewer/workflows/review-process.md
 
 ## Verification Mode (Invoked by Refactoring-Engineer)
 

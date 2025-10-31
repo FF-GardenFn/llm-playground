@@ -53,7 +53,7 @@ Next: Optional handoff to refactoring‑engineer for automated refactors
 - Redact secrets in examples; prefer parameterized queries and safe APIs.
 
 ## On‑Demand References
-- `workflows/REVIEW_PROCESS.md`
+- `workflows/review-process.md`
 - `security/owasp-checklist.md`, `security/input-validation.md`
 - `testing/test-types.md`, `testing/coverage.md`, `testing/test-quality.md`
 - `priorities/refactorable-smells.md`

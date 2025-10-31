@@ -48,7 +48,7 @@ Code-reviewer and refactoring-engineer share a common smell catalog to ensure:
 │  Code-Reviewer                   │
 │  (Smell Catalog Consumer)        │
 │                                  │
-│  quality/SMELL_INTEGRATION.md    │
+│  quality/smell-integration.md    │
 │   → References refactoring-eng   │
 │                                  │
 │  security/performance-smells.md  │
@@ -335,7 +335,7 @@ Load specific smell documentation:
 ### Method 2: Integration Documentation
 
 ```markdown
-# In code-reviewer/quality/SMELL_INTEGRATION.md (this file)
+# In code-reviewer/quality/smell-integration.md (this file)
 
 Reference canonical source:
   Shared smells: refactoring-engineer/smells/INDEX.md

@@ -513,7 +513,7 @@ Type "refactor" to proceed or "manual" for DIY instructions.
 
 **Invocation**:
 ```markdown
-{{load: ../integration/REFACTORING_TRIGGER.md}}
+{{load: ../integration/refactoring-trigger.md}}
 ```
 
 **Input to Refactoring-Engineer**:
@@ -542,7 +542,7 @@ Type "refactor" to proceed or "manual" for DIY instructions.
 
 **Workflow**:
 ```markdown
-{{load: ../integration/VERIFICATION_MODE.md}}
+{{load: ../integration/verification-mode.md}}
 ```
 
 **Streamlined Process**:
@@ -609,11 +609,11 @@ Type "refactor" to proceed or "manual" for DIY instructions.
 
 ## Quick Navigation
 
-- **Integration Modes**: `workflows/INTEGRATION_MODES.md`
+- **Integration Modes**: `workflows/integration-modes.md`
 - **Priorities**: `priorities/critical.md`, `priorities/important.md`, `priorities/suggestion.md`
 - **Feedback**: `feedback/format.md`, `feedback/constructive-criticism.md`
 - **Security**: `security/vulnerabilities.md`, `security/input-validation.md`
-- **Quality**: `quality/clean-code.md`, `quality/SMELL_INTEGRATION.md`
+- **Quality**: `quality/clean-code.md`, `quality/smell-integration.md`
 - **Architecture**: `architecture/component-boundaries.md`, `architecture/api-design.md`
 - **Testing**: `testing/coverage.md`, `testing/test-quality.md`
-- **Integration**: `integration/REFACTORING_TRIGGER.md`, `integration/VERIFICATION_MODE.md`
+- **Integration**: `integration/refactoring-trigger.md`, `integration/verification-mode.md`

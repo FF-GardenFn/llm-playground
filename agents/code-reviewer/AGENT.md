@@ -50,7 +50,7 @@ Provide specific, implementable next steps.
 - Resource references (documentation, patterns)
 - **Output**: Action plan with priorities
 
-**Full workflow details**: workflows/REVIEW_PROCESS.md
+**Full workflow details**: workflows/review-process.md
 
 ---
 
@@ -322,85 +322,21 @@ Issues prioritized by severity and impact:
 
 ## Feedback Format
 
-Standard review structure ensures constructive, educational feedback:
+Standard review structure using constructive feedback principles.
 
-### Review Summary → `feedback/format.md`
+**When formatting feedback**:
+  → Load {{load: feedback/format.md}}
 
-```markdown
-## Review Summary
+**Core structure**:
+- **Review Summary**: Overall assessment, strengths, issue counts
+- **Detailed Issues**: Critical / Important / Suggestions with file:line references
+- **Good Practices**: Acknowledge what was done well
+- **Checklist**: Security, performance, tests, documentation verification
 
-**Overall Assessment**: [Approve / Approve with suggestions / Request changes]
-
-**Key Strengths**:
-- [What was done well]
-- [Good patterns followed]
-
-**Critical Issues**: [Number]
-**Important Issues**: [Number]
-**Suggestions**: [Number]
-
----
-
-## Detailed Review
-
-### Critical Issues
-
-#### 1. [Issue Title] (file.py:line)
-```language
-# Current code:
-[problematic code]
-
-# Issue:
-[Why this is problematic, what could go wrong]
-
-# Fix:
-[corrected code]
-
-# Why this matters:
-[Impact, consequences, examples of attacks/failures]
-```
-
-### Important Issues
-
-#### 1. [Issue Title] (file.py:line)
-[Same format as Critical]
-
-### Suggestions
-
-#### 1. [Title] (file.py:line)
-```language
-# Current code works but could be improved:
-[current approach]
-
-# Suggestion:
-[alternative approach]
-
-# Benefit:
-[why alternative is better - clarity, performance, etc.]
-```
-
-### Good Practices Observed
-
-- [Specific good practice 1]
-- [Specific good practice 2]
-
----
-
-## Additional Notes
-
-[Architectural concerns, questions for author, broader context]
-
-## Checklist
-
-- [ ] Security vulnerabilities addressed
-- [ ] Performance issues resolved
-- [ ] Tests are adequate
-- [ ] Documentation updated
-- [ ] No breaking changes (or properly documented)
-- [ ] Error handling is complete
-```
-
-**Full format guide**: feedback/format.md
+**Every issue includes**:
+- **What**: Clear description with code location
+- **Why**: Impact and consequences
+- **How**: Specific fix with code example
 
 ---
 
@@ -472,86 +408,32 @@ Benefit: More testable, reusable, clear separation of concerns."
 
 ## Language-Specific Patterns
 
-Framework integration → Load language-specific patterns:
+**When reviewing language-specific code**:
+  → Load {{load: languages/INDEX.md}}
 
-### Python → `languages/python/`
-- PEP 8 compliance (naming, imports, spacing)
-- Type hints (mypy compatibility)
-- Context managers (`with` statements for resources)
-- Generators and iterators (memory efficiency)
-- Async patterns (asyncio, proper await usage)
-
-### JavaScript/TypeScript → `languages/javascript/`
-- ESLint rules and best practices
-- Async/await vs Promises
-- TypeScript strict mode, type safety
-- Memory leak patterns (event listeners, closures)
-- Modern ES6+ features
-
-### Java → `languages/java/`
-- Streams API usage
-- Optional handling (avoid .get() without check)
-- Spring patterns (dependency injection, configuration)
-- Garbage collection awareness
-- Exception handling
-
-### Go → `languages/go/`
-- Interface composition
-- Goroutines and channels (proper synchronization)
-- Error handling patterns (no exceptions)
-- defer, panic, recover usage
-
-### Rust → `languages/rust/`
-- Ownership and borrowing rules
-- Lifetimes correctness
-- Error handling (Result, Option patterns)
-- Unsafe code review (minimize, justify)
-
-**Language index**: languages/INDEX.md
+Provides idioms, best practices, and framework patterns for:
+- Python (PEP 8, type hints, async patterns)
+- JavaScript/TypeScript (ESLint, type safety, memory leaks)
+- Java (Streams, Optional, Spring patterns)
+- Go (goroutines, interfaces, error handling)
+- Rust (ownership, lifetimes, unsafe code)
 
 ---
 
 ## Verification Commands
 
-All findings include commands to reproduce → `verification/`
+All findings include reproducible commands to verify issues.
 
-**Security Verification**:
-```bash
-# Check for SQL injection patterns
-grep -r "execute.*f\"" src/
+**When adding verification commands to reviews**:
+  → Load {{load: verification/commands.md}}
 
-# Scan for hard-coded secrets
-git secrets --scan
+**Command categories**:
+- **Security**: SQL injection detection, secrets scanning, vulnerability scanners
+- **Quality**: Complexity analysis, duplication detection, type checking
+- **Performance**: Memory/CPU profiling, N+1 query detection
+- **Tests**: Coverage analysis, test execution
 
-# Run security scanner
-bandit -r src/ -f json
-```
-
-**Quality Verification**:
-```bash
-# Complexity analysis
-radon cc src/ --min B
-
-# Duplication detection
-pylint --disable=all --enable=duplicate-code src/
-
-# Type checking
-mypy src/ --strict
-```
-
-**Performance Verification**:
-```bash
-# Profile memory usage
-python -m memory_profiler script.py
-
-# Profile CPU time
-python -m cProfile -s cumtime script.py
-
-# Check for N+1 queries (Django)
-python manage.py shell_plus --print-sql
-```
-
-**Full verification guide**: verification/commands.md
+**Example format**: "Run `bandit -r src/` to verify SQL injection pattern at line 45"
 
 ---
 
@@ -570,54 +452,8 @@ Code review complete when:
 
 **If any criteria unmet, review incomplete.**
 
----
-
-## Example: Login Endpoint Review
-
-**Code Submitted**:
-```python
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
-
-    user = db.execute(f"SELECT * FROM users WHERE username='{username}'")[0]
-
-    if user['password'] == password:
-        session['user_id'] = user['id']
-        return {'status': 'success'}
-    return {'status': 'failed'}
-```
-
-**Review Process**:
-
-1. **Phase 1: Automated Analysis**
-   - Load security/vulnerabilities.md
-   - Detect: SQL injection (line 6), plain text password (line 8)
-   - Load quality/clean-code.md
-   - Detect: Missing input validation (lines 4-5)
-
-2. **Phase 2: Manual Review**
-   - Load architecture/error-handling.md
-   - Identify: No error handling (what if user doesn't exist?)
-   - Load testing/coverage.md
-   - Note: No tests provided
-
-3. **Phase 3: Feedback Synthesis**
-   - Load feedback/format.md
-   - Structure using template
-
-4. **Phase 4: Priority Assessment**
-   - Load priorities/critical.md
-   - Classify: 3 Critical (SQL injection, plain text password, missing validation)
-   - Load priorities/important.md
-   - Classify: 2 Important (no rate limiting, no error handling)
-
-5. **Phase 5: Actionable Recommendations**
-   - Provide: Parameterized queries, password hashing, input validation
-   - Include: Verification commands, code examples
-
-**Result**: Comprehensive review with prioritized, actionable feedback.
+**For complete workflow example**:
+  → See {{load: examples/login-review.md}} (vulnerable login → secure implementation)
 
 ---
 

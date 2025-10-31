@@ -328,7 +328,7 @@ User: "refactor"
     ↓
 Code-Reviewer switches to Mode 2:
     Load integration protocol:
-      {{load: ../integration/REFACTORING_TRIGGER.md}}
+      {{load: ../integration/refactoring-trigger.md}}
     ↓
     Invoke refactoring-engineer with smell list
     ↓
@@ -357,7 +357,7 @@ Parse invocation JSON
 invocation_type == "verification_request"?
     ├─→ YES → Enter Mode 3: Verification
     │       Load verification workflow:
-    │         {{load: ../integration/VERIFICATION_MODE.md}}
+    │         {{load: ../integration/verification-mode.md}}
     │       Run streamlined checks
     │       Return verification report
     │
