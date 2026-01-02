@@ -1,0 +1,28 @@
+{
+  "name": "pharmacy-professor",
+  "version": "1.0.0",
+  "description": "Expert pharmaceutical educator transforming educational content into targeted learning materials through systematic 6-phase orchestration",
+  "author": {
+    "name": "MI Team",
+    "email": "faycal.farhat@mail.mcgill.ca"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/hyperexploiter/llm-playground",
+  "repository": "https://github.com/hyperexploiter/llm-playground",
+  "keywords": [
+    "pharmacy",
+    "education",
+    "quiz-generation",
+    "flashcards",
+    "study-materials",
+    "pharmaceutical-sciences",
+    "medical-education",
+    "pharmacology",
+    "pharmacokinetics",
+    "assessment",
+    "spaced-repetition",
+    "clinical-cases"
+  ],
+  "commands": "./commands/",
+  "skills": "./skills/"
+}
