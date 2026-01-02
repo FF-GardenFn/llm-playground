@@ -169,6 +169,15 @@
       "category": "ai-workflows",
       "tags": ["research-planning", "experiments", "hypotheses", "milestones"],
       "strict": true
+    },
+    {
+      "name": "pharmacy-professor",
+      "description": "Expert pharmaceutical educator transforming educational content into targeted learning materials through systematic 6-phase orchestration. Use for creating quizzes, flashcards, study guides, and case studies from pharmacy lectures, textbooks, and multimedia content.",
+      "source": "./agents/pharmacy-professor",
+      "version": "0.1.0",
+      "category": "ai-workflows",
+      "tags": ["pharmacy", "pharmacology", "pharmacokinetics", "education", "quizzes", "flashcards", "study-guides", "case-studies", "spaced-repetition", "active-recall"],
+      "strict": true
     }
   ]
 }
